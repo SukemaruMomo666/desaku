@@ -1,0 +1,90 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Models\LetterRequest;
+use PhpOffice\PhpWord\TemplateProcessor;
+
+class AdminLetterRequestController extends Controller
+{
+    public function index(Request $request)
+    {
+        $query = LetterRequest::with(['user', 'letterType'])->orderBy('created_at', 'desc');
+
+        // Optional: Filter by status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $requests = $query->paginate(15);
+        return view('dashboard.admin.letter-requests.index', compact('requests'));
+    }
+
+    public function show($id)
+    {
+        $letterRequest = LetterRequest::with(['user', 'letterType'])->findOrFail($id);
+        return view('dashboard.admin.letter-requests.show', compact('letterRequest'));
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'status' => 'required|in:menunggu,diproses,siap_diambil,selesai,ditolak',
+            'admin_notes' => 'nullable|string',
+        ]);
+
+        $letterRequest = LetterRequest::findOrFail($id);
+        $letterRequest->update([
+            'status' => $validated['status'],
+            'admin_notes' => $validated['admin_notes'] ?? $letterRequest->admin_notes,
+        ]);
+
+        return redirect()->back()->with('success', 'Status pengajuan berhasil diperbarui!');
+    }
+
+    public function downloadDocx($id)
+    {
+        $letterRequest = LetterRequest::with(['user', 'letterType'])->findOrFail($id);
+        
+        $templateFile = $letterRequest->letterType->template_file;
+        
+        if (!$templateFile || !Storage::disk('public')->exists($templateFile)) {
+            return back()->with('error', 'Jenis surat ini belum memiliki Template Word (.docx). Silakan unggah template di menu Master Jenis Surat terlebih dahulu.');
+        }
+
+        $templatePath = Storage::disk('public')->path($templateFile);
+        $templateProcessor = new TemplateProcessor($templatePath);
+
+        // 1. Custom form fields from user submission (Prioritas Utama, menimpa auto-fill jika diedit)
+        if ($letterRequest->submitted_data && is_array($letterRequest->submitted_data)) {
+            foreach ($letterRequest->submitted_data as $key => $value) {
+                // Konversi key (misal 'Nama Anak' -> 'nama_anak')
+                $placeholder = str_replace(' ', '_', strtolower($key));
+                $templateProcessor->setValue($placeholder, $value);
+            }
+        }
+
+        // 2. Replace basic placeholders (Fallback jika tidak ada di form submission)
+        $templateProcessor->setValue('nama', $letterRequest->user->name);
+        $templateProcessor->setValue('nik', $letterRequest->user->nik);
+        $templateProcessor->setValue('tanggal_lahir', $letterRequest->user->birth_date ? \Carbon\Carbon::parse($letterRequest->user->birth_date)->format('d-m-Y') : '-');
+        $templateProcessor->setValue('jenis_kelamin', $letterRequest->user->gender === 'L' ? 'Laki-Laki' : 'Perempuan');
+        $templateProcessor->setValue('agama', $letterRequest->user->religion);
+        $templateProcessor->setValue('pekerjaan', $letterRequest->user->job);
+        $templateProcessor->setValue('alamat', $letterRequest->user->address);
+        $templateProcessor->setValue('telepon', $letterRequest->user->phone);
+        $templateProcessor->setValue('tanggal_pengajuan', $letterRequest->created_at->format('d-m-Y'));
+
+        // Generate final filename
+        $filename = 'SURAT_' . $letterRequest->letterType->code . '_' . $letterRequest->user->nik . '.docx';
+        $tempPath = storage_path('app/temp_' . time() . '.docx');
+        
+        // Save to temp file
+        $templateProcessor->saveAs($tempPath);
+
+        // Download and then delete temp file
+        return response()->download($tempPath, $filename)->deleteFileAfterSend(true);
+    }
+}
