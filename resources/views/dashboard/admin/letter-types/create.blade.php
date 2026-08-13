@@ -15,12 +15,12 @@
 
     <!-- Form Card -->
     <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
-        <div class="px-8 py-6 border-b border-gray-100 bg-gray-50/50">
+        <div class="px-6 sm:px-8 py-6 border-b border-gray-100 bg-gray-50/50">
             <h3 class="font-bold text-xl text-gray-900">Form Tambah Jenis Surat</h3>
             <p class="text-sm text-gray-500 mt-1">Lengkapi informasi di bawah ini untuk menambahkan layanan surat baru.</p>
         </div>
         
-        <form action="{{ route('admin.letter-types.store') }}" method="POST" enctype="multipart/form-data" class="p-8 space-y-6" x-data="requirementsForm()">
+        <form action="{{ route('admin.letter-types.store') }}" method="POST" enctype="multipart/form-data" class="p-6 sm:p-8 space-y-6" x-data="requirementsForm()">
             @csrf
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">

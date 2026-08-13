@@ -6,7 +6,7 @@
 <div class="space-y-6">
 
     <!-- Welcome Card -->
-    <div class="bg-gradient-to-br from-primary-600 to-primary-800 rounded-3xl p-8 text-white shadow-xl shadow-primary-500/20 relative overflow-hidden">
+    <div class="bg-gradient-to-br from-primary-600 to-primary-800 rounded-3xl p-6 sm:p-8 text-white shadow-xl shadow-primary-500/20 relative overflow-hidden">
         <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl"></div>
         <div class="absolute bottom-0 left-10 -mb-10 w-40 h-40 bg-black opacity-10 rounded-full blur-2xl"></div>
         
@@ -120,7 +120,7 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <a href="#" class="inline-flex items-center justify-center py-2 px-4 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-xs transition-colors">
+                                <a href="{{ route('admin.letter-requests.show', $req->id) }}" class="inline-flex items-center justify-center py-2 px-4 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-xs transition-colors">
                                     Tinjau
                                 </a>
                             </td>

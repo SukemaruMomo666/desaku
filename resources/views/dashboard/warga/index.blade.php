@@ -6,7 +6,7 @@
 <div class="max-w-6xl mx-auto space-y-8">
     
     <!-- Welcome Banner -->
-    <div class="bg-primary-600 rounded-3xl p-8 sm:p-10 text-white shadow-xl shadow-primary-500/20 relative overflow-hidden">
+    <div class="bg-primary-600 rounded-3xl p-6 sm:p-10 text-white shadow-xl shadow-primary-500/20 relative overflow-hidden">
         <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl"></div>
         <div class="relative z-10">
             <h2 class="text-3xl font-extrabold mb-2 tracking-tight">Halo, {{ explode(' ', auth()->user()->name)[0] }}! 👋</h2>

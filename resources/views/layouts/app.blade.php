@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <title>Dashboard - {{ config('app.name') }}</title>
     
     <!-- Fonts -->
@@ -56,17 +56,17 @@
                     Data Warga
                 </a>
             @else
-                <a href="{{ route('citizen.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary-600/10 text-primary-400 font-semibold border border-primary-500/20 transition-all">
+                <a href="{{ route('citizen.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl {{ request()->routeIs('citizen.dashboard') ? 'bg-primary-600/10 text-primary-400 font-semibold border border-primary-500/20' : 'text-gray-400 hover:bg-white/5 hover:text-white' }} transition-all">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                    Beranda Warga
+                    Beranda / Riwayat
                 </a>
-                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all font-medium">
+                <a href="{{ route('citizen.request.create') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl {{ request()->routeIs('citizen.request.create') ? 'bg-primary-600/10 text-primary-400 font-semibold border border-primary-500/20' : 'text-gray-400 hover:bg-white/5 hover:text-white' }} transition-all font-medium">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                     Ajukan Surat Baru
                 </a>
-                <a href="#" class="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-400 hover:bg-white/5 hover:text-white transition-all font-medium">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    Riwayat Pengajuan
+                <a href="{{ route('citizen.profile') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl {{ request()->routeIs('citizen.profile') ? 'bg-primary-600/10 text-primary-400 font-semibold border border-primary-500/20' : 'text-gray-400 hover:bg-white/5 hover:text-white' }} transition-all font-medium">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    Profil Lengkap
                 </a>
             @endif
         </nav>
@@ -76,13 +76,13 @@
     <div x-show="sidebarOpen" class="fixed inset-0 bg-secondary-950/50 backdrop-blur-sm z-30 md:hidden" @click="sidebarOpen = false" x-transition.opacity></div>
 
     <!-- Main Content Area -->
-    <div class="flex-1 flex flex-col min-w-0 bg-gray-50/50 relative">
+    <div class="flex-1 flex flex-col min-w-0 bg-gray-50/50 relative overflow-x-hidden">
         
         <!-- Abstract Background inside content -->
         <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-100 rounded-full mix-blend-multiply filter blur-[100px] opacity-40 -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
 
         <!-- Top Header -->
-        <header class="h-20 bg-white/70 backdrop-blur-xl border-b border-gray-200/60 sticky top-0 z-20 flex items-center justify-between px-6 lg:px-10">
+        <header class="h-16 md:h-20 bg-white/70 backdrop-blur-xl border-b border-gray-200/60 sticky top-0 z-20 flex items-center justify-between px-4 sm:px-6 lg:px-10">
             <div class="flex items-center gap-4">
                 <button @click="sidebarOpen = !sidebarOpen" class="md:hidden text-gray-500 hover:text-primary-600 focus:outline-none transition-colors">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -120,7 +120,7 @@
         </header>
 
         <!-- Page Content -->
-        <main class="flex-1 overflow-y-auto p-6 lg:p-10 relative z-10">
+        <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-10 relative z-10">
             @yield('content')
         </main>
     </div>

@@ -62,12 +62,12 @@
         <div class="md:col-span-2">
             @if($selectedType)
                 <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
-                    <div class="px-8 py-6 border-b border-gray-100 bg-gray-50/50">
+                    <div class="px-6 sm:px-8 py-6 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="font-bold text-xl text-gray-900">2. Lengkapi Data Pengajuan</h3>
                         <p class="text-sm text-gray-500 mt-1">Isi formulir di bawah ini dengan sebenar-benarnya untuk {{ $selectedType->name }}.</p>
                     </div>
                     
-                    <form action="{{ route('citizen.request.store') }}" method="POST" enctype="multipart/form-data" class="p-8 space-y-6">
+                    <form action="{{ route('citizen.request.store') }}" method="POST" enctype="multipart/form-data" class="p-6 sm:p-8 space-y-6">
                         @csrf
                         <input type="hidden" name="letter_type_id" value="{{ $selectedType->id }}">
                         

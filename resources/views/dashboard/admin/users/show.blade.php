@@ -16,7 +16,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- Profile Card -->
         <div class="lg:col-span-1">
-            <div class="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 text-center relative overflow-hidden">
+            <div class="bg-white rounded-3xl border border-gray-100 shadow-sm p-6 sm:p-8 text-center relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-br from-primary-600 to-primary-800"></div>
                 
                 <div class="relative z-10">

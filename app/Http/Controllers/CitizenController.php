@@ -70,4 +70,30 @@ class CitizenController extends Controller
 
         return redirect()->route('citizen.dashboard')->with('success', 'Pengajuan surat berhasil dikirim! Silakan pantau status pengajuan Anda.');
     }
+
+    public function profile()
+    {
+        $user = Auth::user();
+        return view('dashboard.warga.profile', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'nik' => 'required|numeric|digits:16|unique:users,nik,' . $user->id,
+            'name' => 'required|string|max:255',
+            'phone' => 'required|numeric',
+            'gender' => 'required|in:L,P',
+            'birth_date' => 'required|date',
+            'address' => 'required|string',
+            'religion' => 'required|string',
+            'job' => 'required|string',
+        ]);
+
+        $user->update($validated);
+
+        return redirect()->route('citizen.profile')->with('success', 'Profil Anda berhasil diperbarui! Data ini akan otomatis digunakan untuk pengajuan surat selanjutnya.');
+    }
 }

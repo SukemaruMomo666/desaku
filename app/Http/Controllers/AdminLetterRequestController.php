@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\LetterRequest;
 use PhpOffice\PhpWord\TemplateProcessor;
+use App\Services\FonnteService;
 
 class AdminLetterRequestController extends Controller
 {
@@ -35,11 +36,44 @@ class AdminLetterRequestController extends Controller
             'admin_notes' => 'nullable|string',
         ]);
 
-        $letterRequest = LetterRequest::findOrFail($id);
+        $letterRequest = LetterRequest::with(['user', 'letterType'])->findOrFail($id);
+        $oldStatus = $letterRequest->status;
+
         $letterRequest->update([
             'status' => $validated['status'],
             'admin_notes' => $validated['admin_notes'] ?? $letterRequest->admin_notes,
         ]);
+
+        // Kirim Notifikasi Otomatis jika status berubah ke siap_diambil atau ditolak
+        if ($oldStatus !== $validated['status']) {
+            if ($validated['status'] === 'siap_diambil' || $validated['status'] === 'ditolak') {
+                $user = $letterRequest->user;
+                if ($user && $user->phone) {
+                    $waText = "Halo Bpk/Ibu " . $user->name . ",\n\n";
+                    if ($validated['status'] === 'siap_diambil') {
+                        $waText .= "Permohonan *" . $letterRequest->letterType->name . "* Anda telah selesai diproses dan *SIAP DIAMBIL* di Balai Desa.\n\n";
+                    } else {
+                        $waText .= "Mohon maaf, permohonan *" . $letterRequest->letterType->name . "* Anda *DITOLAK*.\n\n";
+                    }
+
+                    if ($letterRequest->admin_notes) {
+                        $waText .= "Catatan: " . $letterRequest->admin_notes . "\n\n";
+                    }
+
+                    if ($validated['status'] === 'siap_diambil') {
+                        $waText .= "Terima kasih.";
+                    } else {
+                        $waText .= "Silakan cek dashboard atau ajukan ulang permohonan Anda. Terima kasih.";
+                    }
+
+                    try {
+                        FonnteService::sendMessage($user->phone, $waText);
+                    } catch (\Exception $e) {
+                        // Jangan hentikan flow jika gagal kirim WA
+                    }
+                }
+            }
+        }
 
         return redirect()->back()->with('success', 'Status pengajuan berhasil diperbarui!');
     }
