@@ -18,6 +18,13 @@ class CitizenController extends Controller
 
     public function createRequest(Request $request)
     {
+        $user = Auth::user();
+        
+        // Cek apakah data diri sudah lengkap
+        if (empty($user->gender) || empty($user->birth_date) || empty($user->address) || empty($user->religion) || empty($user->job)) {
+            return redirect()->route('citizen.profile')->with('error', 'PENTING: Silakan lengkapi seluruh data diri Anda di bawah ini sebelum mengajukan surat baru.');
+        }
+
         $types = LetterType::where('is_active', true)->get();
         
         // Cek jika user sudah memilih tipe surat
