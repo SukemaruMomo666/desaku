@@ -21,8 +21,14 @@ class CitizenController extends Controller
         $user = Auth::user();
         
         // Cek apakah data diri sudah lengkap
-        if (empty($user->gender) || empty($user->birth_date) || empty($user->address) || empty($user->religion) || empty($user->job)) {
-            return redirect()->route('citizen.profile')->with('error', 'PENTING: Silakan lengkapi seluruh data diri Anda di bawah ini sebelum mengajukan surat baru.');
+        if (
+            empty($user->gender) || empty($user->birth_date) || empty($user->address) || empty($user->religion) || empty($user->job) ||
+            empty($user->place_of_birth) || empty($user->rt) || empty($user->rw) || empty($user->village) || empty($user->district) || 
+            empty($user->city) || empty($user->province) || empty($user->marital_status) || empty($user->nationality)
+        ) {
+            return redirect()->route('citizen.profile')
+                ->with('profile_incomplete_alert', true)
+                ->with('error', 'PENTING: Silakan lengkapi seluruh data diri Anda (sesuai KTP) di bawah ini sebelum mengajukan surat baru.');
         }
 
         $types = LetterType::where('is_active', true)->get();
@@ -40,12 +46,16 @@ class CitizenController extends Controller
     {
         $request->validate([
             'letter_type_id' => 'required|exists:letter_types,id',
-            'form_fields' => 'nullable|array',
-            'files' => 'nullable|array',
-            'files.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048'
         ]);
 
         $letterType = LetterType::findOrFail($request->letter_type_id);
+        $maxSizeKB = ($letterType->max_file_size ?? 2) * 1024;
+
+        $request->validate([
+            'form_fields' => 'nullable|array',
+            'files' => 'nullable|array',
+            'files.*' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:' . $maxSizeKB
+        ]);
 
         // Validasi jika surat punya form_fields wajib
         if ($letterType->form_fields && is_array($letterType->form_fields) && count($letterType->form_fields) > 0) {
@@ -92,11 +102,21 @@ class CitizenController extends Controller
             'nik' => 'required|numeric|digits:16|unique:users,nik,' . $user->id,
             'name' => 'required|string|max:255',
             'phone' => 'required|numeric',
-            'gender' => 'required|in:L,P',
+            'place_of_birth' => 'required|string|max:255',
             'birth_date' => 'required|date',
-            'address' => 'required|string',
+            'gender' => 'required|in:L,P',
+            'blood_type' => 'nullable|in:A,B,AB,O,-',
             'religion' => 'required|string',
+            'marital_status' => 'required|string',
             'job' => 'required|string',
+            'nationality' => 'required|string',
+            'address' => 'required|string',
+            'rt' => 'required|string|max:3',
+            'rw' => 'required|string|max:3',
+            'village' => 'required|string|max:255',
+            'district' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'province' => 'required|string|max:255',
         ]);
 
         $user->update($validated);

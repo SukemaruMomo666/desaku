@@ -14,6 +14,8 @@ class LetterType extends Model
         'form_fields',
         'template_file',
         'is_active',
+        'max_file_size',
+        'statement_letter_file',
     ];
 
     protected $casts = [

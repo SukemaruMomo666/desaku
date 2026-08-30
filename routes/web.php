@@ -7,10 +7,15 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminLetterTypeController;
 use App\Http\Controllers\AdminLetterRequestController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\AdminSettingController;
 
 Route::get('/', function () {
-    return view('welcome');
+    $letterTypes = \App\Models\LetterType::where('is_active', true)->get();
+    return view('welcome', compact('letterTypes'));
 });
+
+// Public letter routes
+Route::get('/letter-types/{id}/download-statement', [AdminLetterTypeController::class, 'downloadStatementLetter'])->name('letter-types.download-statement');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -59,5 +64,12 @@ Route::middleware('auth')->group(function () {
 
         Route::get('admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
         Route::get('admin/users/{id}', [AdminUserController::class, 'show'])->name('admin.users.show');
+        
+        // Admin Settings
+        Route::get('/dashboard/admin/settings', [AdminSettingController::class, 'index'])->name('admin.settings.index');
+        Route::post('/dashboard/admin/settings/signatories', [AdminSettingController::class, 'storeSignatory'])->name('admin.settings.signatories.store');
+        Route::delete('/dashboard/admin/settings/signatories/{id}', [AdminSettingController::class, 'destroySignatory'])->name('admin.settings.signatories.destroy');
+        Route::get('/dashboard/admin/settings/backup', [AdminSettingController::class, 'backupArchive'])->name('admin.settings.backup');
+        Route::post('/dashboard/admin/settings/clean', [AdminSettingController::class, 'cleanArchive'])->name('admin.settings.clean');
     });
 });

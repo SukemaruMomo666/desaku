@@ -55,6 +55,14 @@
                         <label class="block text-sm font-bold text-gray-900 mb-2">Nama Lengkap</label>
                         <input type="text" name="name" value="{{ old('name', $user->name) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" placeholder="Nama Sesuai KTP" required>
                     </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Tempat Lahir</label>
+                        <input type="text" name="place_of_birth" value="{{ old('place_of_birth', $user->place_of_birth) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" placeholder="Kota/Kabupaten Tempat Lahir" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Tanggal Lahir</label>
+                        <input type="date" name="birth_date" value="{{ old('birth_date', $user->birth_date) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" required>
+                    </div>
                 </div>
             </div>
 
@@ -74,8 +82,15 @@
                         </select>
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-gray-900 mb-2">Tanggal Lahir</label>
-                        <input type="date" name="birth_date" value="{{ old('birth_date', $user->birth_date) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" required>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Golongan Darah</label>
+                        <select name="blood_type" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all">
+                            <option value="">Tidak Tahu / Pilih...</option>
+                            <option value="A" {{ old('blood_type', $user->blood_type) == 'A' ? 'selected' : '' }}>A</option>
+                            <option value="B" {{ old('blood_type', $user->blood_type) == 'B' ? 'selected' : '' }}>B</option>
+                            <option value="AB" {{ old('blood_type', $user->blood_type) == 'AB' ? 'selected' : '' }}>AB</option>
+                            <option value="O" {{ old('blood_type', $user->blood_type) == 'O' ? 'selected' : '' }}>O</option>
+                            <option value="-" {{ old('blood_type', $user->blood_type) == '-' ? 'selected' : '' }}>-</option>
+                        </select>
                     </div>
                     <div>
                         <label class="block text-sm font-bold text-gray-900 mb-2">Agama</label>
@@ -87,8 +102,24 @@
                         </select>
                     </div>
                     <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Status Perkawinan</label>
+                        <select name="marital_status" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" required>
+                            <option value="">Pilih Status...</option>
+                            @foreach(['Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati'] as $status)
+                                <option value="{{ $status }}" {{ old('marital_status', $user->marital_status) == $status ? 'selected' : '' }}>{{ $status }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
                         <label class="block text-sm font-bold text-gray-900 mb-2">Pekerjaan</label>
-                        <input type="text" name="job" value="{{ old('job', $user->job) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" placeholder="Misal: Wiraswasta, PNS, Petani" required>
+                        <input type="text" name="job" value="{{ old('job', $user->job) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" placeholder="Sesuai di KTP" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Kewarganegaraan</label>
+                        <select name="nationality" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" required>
+                            <option value="WNI" {{ old('nationality', $user->nationality ?? 'WNI') == 'WNI' ? 'selected' : '' }}>WNI (Warga Negara Indonesia)</option>
+                            <option value="WNA" {{ old('nationality', $user->nationality) == 'WNA' ? 'selected' : '' }}>WNA (Warga Negara Asing)</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -99,15 +130,44 @@
                     <svg class="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                     Kontak & Alamat Lengkap
                 </h3>
-                <div class="grid grid-cols-1 gap-6">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Alamat Domisili (Jalan/Dusun)</label>
+                        <textarea name="address" rows="2" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all resize-none" placeholder="Isi alamat lengkap (contoh: Jl. Merdeka No. 10 atau Dusun Manis)" required>{{ old('address', $user->address) }}</textarea>
+                    </div>
+
                     <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">RT</label>
+                        <input type="text" name="rt" value="{{ old('rt', $user->rt) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" placeholder="Contoh: 001" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">RW</label>
+                        <input type="text" name="rw" value="{{ old('rw', $user->rw) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" placeholder="Contoh: 002" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Kelurahan/Desa</label>
+                        <input type="text" name="village" value="{{ old('village', $user->village) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" placeholder="Sesuai KTP" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Kecamatan</label>
+                        <input type="text" name="district" value="{{ old('district', $user->district) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" placeholder="Sesuai KTP" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Kabupaten/Kota</label>
+                        <input type="text" name="city" value="{{ old('city', $user->city) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" placeholder="Sesuai KTP" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Provinsi</label>
+                        <input type="text" name="province" value="{{ old('province', $user->province) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" placeholder="Sesuai KTP" required>
+                    </div>
+
+                    <div class="md:col-span-2">
                         <label class="block text-sm font-bold text-gray-900 mb-2">Nomor WhatsApp Aktif</label>
                         <input type="text" name="phone" value="{{ old('phone', $user->phone) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all font-mono" placeholder="Misal: 08123456789" required>
                         <p class="text-xs text-gray-500 mt-1">Sangat penting untuk menerima notifikasi status pengajuan surat.</p>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-900 mb-2">Alamat Domisili Sesuai KTP</label>
-                        <textarea name="address" rows="3" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all resize-none" placeholder="Isi alamat lengkap beserta RT, RW, Dusun, dan Kode Pos" required>{{ old('address', $user->address) }}</textarea>
                     </div>
                 </div>
             </div>
@@ -122,3 +182,21 @@
     </form>
 </div>
 @endsection
+
+@push('scripts')
+@if(session('profile_incomplete_alert'))
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Lengkapi Profil Anda',
+            text: 'Untuk membuat pengajuan surat, Anda harus melengkapi seluruh data KTP (termasuk RT/RW, Tempat Lahir, dll) pada form di bawah ini.',
+            confirmButtonText: 'Baik, Mengerti',
+            confirmButtonColor: '#3b82f6',
+            allowOutsideClick: false,
+        });
+    });
+</script>
+@endif
+@endpush

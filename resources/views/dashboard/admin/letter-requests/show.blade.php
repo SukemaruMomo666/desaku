@@ -134,6 +134,24 @@
                     </div>
 
                     <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Nomor Surat (Opsional)</label>
+                        <input type="text" name="letter_number" value="{{ $letterRequest->letter_number }}" placeholder="Misal: 01/NA/I/SKPD/2026" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm transition-all text-gray-700">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Penandatangan Surat (Opsional)</label>
+                        <select name="signatory_id" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm transition-all text-gray-700">
+                            <option value="">-- Pilih Pejabat --</option>
+                            @foreach($signatories as $sig)
+                                <option value="{{ $sig->id }}" {{ $letterRequest->signatory_id == $sig->id ? 'selected' : '' }}>
+                                    {{ $sig->name }} - {{ $sig->position }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <p class="text-xs text-gray-500 mt-2">Nomor dan Penandatangan akan disisipkan otomatis ke dalam template Word jika Anda mengeklik <b>Unduh Surat</b>.</p>
+                    </div>
+
+                    <div>
                         <label class="block text-sm font-bold text-gray-900 mb-2">Catatan Admin (Opsional)</label>
                         <textarea name="admin_notes" rows="4" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm transition-all resize-none" placeholder="Misal: 'Silakan ambil di Balai Desa dengan membawa KTP Asli' atau 'Ditolak karena foto KTP buram'">{{ $letterRequest->admin_notes }}</textarea>
                         <p class="text-xs text-gray-500 mt-2">Catatan ini dapat dibaca oleh warga di dashboard mereka.</p>

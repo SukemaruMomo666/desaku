@@ -24,6 +24,20 @@
             @csrf
             @method('PUT')
 
+            @if($errors->any())
+                <div class="bg-red-50 border border-red-100 text-red-700 p-4 rounded-xl mb-6">
+                    <div class="flex items-center gap-3 font-bold mb-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+                        Gagal menyimpan! Periksa kesalahan berikut:
+                    </div>
+                    <ul class="list-disc list-inside text-sm space-y-1">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <!-- Kode Surat -->
                 <div>
@@ -81,9 +95,42 @@
                     </div>
                 </div>
             </div>
+            <!-- Maksimal Ukuran File Syarat -->
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Maksimal Ukuran File Syarat (MB) <span class="text-red-500">*</span></label>
+                <input type="number" name="file_size_limit" value="{{ old('file_size_limit', $letterType->max_file_size) }}" min="1" max="20" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none" placeholder="Contoh: 2">
+                <p class="text-xs text-gray-500 mt-2">Batas ukuran maksimal per file saat warga mengunggah syarat dokumen.</p>
+                @error('file_size_limit') <p class="text-red-500 text-xs mt-2 font-medium">{{ $message }}</p> @enderror
+            </div>
 
+            <!-- Template Surat Pernyataan -->
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Template Surat Pernyataan (Opsional)</label>
+                
+                @if($letterType->statement_letter_file)
+                    <div class="mb-4 p-4 bg-purple-50 border border-purple-100 rounded-xl flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-8 h-8 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            <div>
+                                <h4 class="font-bold text-purple-900 text-sm">Template Surat Pernyataan Tersimpan</h4>
+                                <a href="{{ route('letter-types.download-statement', $letterType->id) }}" class="text-purple-600 hover:text-purple-800 text-xs underline">Unduh File Saat Ini</a>
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
-
+                <div class="border border-gray-200 border-dashed rounded-xl p-6 text-center bg-gray-50 hover:bg-gray-100 transition-colors">
+                    <input type="file" name="statement_letter_file" accept=".doc,.docx,.pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf" class="block w-full text-sm text-gray-500
+                    file:mr-4 file:py-2.5 file:px-4
+                    file:rounded-full file:border-0
+                    file:text-sm file:font-semibold
+                    file:bg-primary-50 file:text-primary-700
+                    hover:file:bg-primary-100
+                    ">
+                </div>
+                <p class="text-xs text-gray-500 mt-2">Biarkan kosong jika tidak ingin mengubah template surat pernyataan.</p>
+                @error('statement_letter_file') <p class="text-red-500 text-xs mt-2 font-medium">{{ $message }}</p> @enderror
+            </div>
             <!-- Cetak Biru / Template File -->
             <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-2">Template Surat (Word / .docx)</label>

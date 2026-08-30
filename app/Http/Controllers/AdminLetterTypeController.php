@@ -21,15 +21,24 @@ class AdminLetterTypeController extends Controller
 
     public function store(Request $request)
     {
+        $messages = [
+            'statement_letter_file.uploaded' => 'File gagal diunggah. Pastikan ukuran file tidak melebihi batas sistem (maks 10MB) dan berformat .doc/.docx/.pdf.',
+            'statement_letter_file.mimes' => 'Format file tidak diizinkan. Harus berupa .doc, .docx, atau .pdf.',
+            'statement_letter_file.max' => 'Ukuran file terlalu besar. Maksimal 10MB.',
+            'template_file.uploaded' => 'File template gagal diunggah. Pastikan ukuran file tidak terlalu besar.',
+        ];
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'code' => 'required|string|max:50|unique:letter_types,code',
             'description' => 'nullable|string',
             'requirements' => 'nullable|array',
             'requirements.*' => 'string|max:255',
-            'template_file' => 'nullable|file|mimes:doc,docx|max:10240',
+            'template_file' => 'nullable|file|mimes:doc,docx,zip|max:10240',
+            'file_size_limit' => 'required|integer|min:1',
+            'statement_letter_file' => 'nullable|file|mimes:doc,docx,pdf,zip|max:10240',
             'is_active' => 'boolean',
-        ]);
+        ], $messages);
 
         // Hapus elemen kosong dari array
         $requirements = array_values(array_filter($validated['requirements'] ?? []));
@@ -42,6 +51,11 @@ class AdminLetterTypeController extends Controller
             $formFields = $this->extractFormFieldsFromDocx(storage_path('app/public/' . $templateFilePath));
         }
 
+        $statementFilePath = null;
+        if ($request->hasFile('statement_letter_file')) {
+            $statementFilePath = $request->file('statement_letter_file')->store('templates', 'public');
+        }
+
         LetterType::create([
             'name' => $validated['name'],
             'code' => strtoupper($validated['code']),
@@ -49,6 +63,8 @@ class AdminLetterTypeController extends Controller
             'requirements' => $requirements,
             'form_fields' => $formFields,
             'template_file' => $templateFilePath,
+            'max_file_size' => $validated['file_size_limit'],
+            'statement_letter_file' => $statementFilePath,
             'is_active' => $request->has('is_active') ? true : false,
         ]);
 
@@ -62,14 +78,36 @@ class AdminLetterTypeController extends Controller
 
     public function update(Request $request, LetterType $letterType)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'code' => 'required|string|max:50|unique:letter_types,code,'.$letterType->id,
-            'description' => 'nullable|string',
-            'requirements' => 'nullable|array',
-            'requirements.*' => 'string|max:255',
-            'template_file' => 'nullable|file|mimes:doc,docx|max:10240',
-        ]);
+        if ($request->hasFile('statement_letter_file')) {
+            \Log::info('Statement letter upload error code: ' . $request->file('statement_letter_file')->getError());
+        }
+
+        $messages = [
+            'statement_letter_file.uploaded' => 'File gagal diunggah. Pastikan ukuran file tidak melebihi batas sistem (maks 10MB) dan berformat .doc/.docx/.pdf.',
+            'statement_letter_file.mimes' => 'Format file tidak diizinkan. Harus berupa .doc, .docx, atau .pdf.',
+            'statement_letter_file.max' => 'Ukuran file terlalu besar. Maksimal 10MB.',
+            'template_file.uploaded' => 'File template gagal diunggah. Pastikan ukuran file tidak terlalu besar.',
+        ];
+
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'code' => 'required|string|max:50|unique:letter_types,code,'.$letterType->id,
+                'description' => 'nullable|string',
+                'requirements' => 'nullable|array',
+                'requirements.*' => 'string|max:255',
+                'template_file' => 'nullable|file|mimes:doc,docx,zip|max:10240',
+                'file_size_limit' => 'required|integer|min:1',
+                'statement_letter_file' => 'nullable|file|mimes:doc,docx,pdf,zip|max:10240',
+            ], $messages);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            if ($request->hasFile('statement_letter_file')) {
+                \Log::error('Validation failed. statement_letter_file error code: ' . $request->file('statement_letter_file')->getError());
+            } else {
+                \Log::error('Validation failed. statement_letter_file not in request or hasFile returned false. Raw $_FILES: ' . json_encode($_FILES));
+            }
+            throw $e;
+        }
 
         // Hapus elemen kosong dari array
         $requirements = array_values(array_filter($validated['requirements'] ?? []));
@@ -86,6 +124,14 @@ class AdminLetterTypeController extends Controller
             $formFields = $this->extractFormFieldsFromDocx(storage_path('app/public/' . $templateFilePath));
         }
 
+        $statementFilePath = $letterType->statement_letter_file;
+        if ($request->hasFile('statement_letter_file')) {
+            if ($statementFilePath && Storage::disk('public')->exists($statementFilePath)) {
+                Storage::disk('public')->delete($statementFilePath);
+            }
+            $statementFilePath = $request->file('statement_letter_file')->store('templates', 'public');
+        }
+
         $letterType->update([
             'name' => $validated['name'],
             'code' => strtoupper($validated['code']),
@@ -93,6 +139,8 @@ class AdminLetterTypeController extends Controller
             'requirements' => $requirements,
             'form_fields' => $formFields,
             'template_file' => $templateFilePath,
+            'max_file_size' => $validated['file_size_limit'],
+            'statement_letter_file' => $statementFilePath,
             'is_active' => $request->has('is_active') ? true : false,
         ]);
 
@@ -125,6 +173,18 @@ class AdminLetterTypeController extends Controller
         return Storage::disk('public')->download($letterType->template_file, 'Template_' . $letterType->code . '.docx');
     }
 
+    public function downloadStatementLetter($id)
+    {
+        $letterType = LetterType::findOrFail($id);
+        
+        if (!$letterType->statement_letter_file || !Storage::disk('public')->exists($letterType->statement_letter_file)) {
+            return back()->with('error', 'File template surat pernyataan tidak ditemukan.');
+        }
+
+        $extension = pathinfo($letterType->statement_letter_file, PATHINFO_EXTENSION);
+        return Storage::disk('public')->download($letterType->statement_letter_file, 'Surat_Pernyataan_' . $letterType->code . '.' . $extension);
+    }
+
     private function extractFormFieldsFromDocx($filePath)
     {
         $zip = new \ZipArchive;
@@ -137,7 +197,7 @@ class AdminLetterTypeController extends Controller
                 $text = strip_tags($xml);
                 
                 // Cari format ${variabel}
-                preg_match_all('/\$\{([a-zA-Z0-9_]+)\}/', $text, $matches);
+                preg_match_all('/\$\{([^}]+)\}/', $text, $matches);
                 
                 if (isset($matches[1]) && count($matches[1]) > 0) {
                     $variables = array_unique($matches[1]);

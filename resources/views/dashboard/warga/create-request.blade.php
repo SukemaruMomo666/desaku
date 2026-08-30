@@ -99,7 +99,7 @@
                                             elseif ($fieldKey == 'agama') $autoFill = Auth::user()->religion;
                                             elseif ($fieldKey == 'pekerjaan') $autoFill = Auth::user()->job;
                                             elseif ($fieldKey == 'telepon') $autoFill = Auth::user()->phone;
-                                            elseif ($fieldKey == 'tanggal_lahir') $autoFill = Auth::user()->birth_date ? \Carbon\Carbon::parse(Auth::user()->birth_date)->format('d-m-Y') : '';
+                                            elseif ($fieldKey == 'tanggal_lahir' || $fieldKey == 'tanggal_lahir(dd/mm/yy)') $autoFill = Auth::user()->birth_date ? \Carbon\Carbon::parse(Auth::user()->birth_date)->format('d-m-Y') : '';
                                         @endphp
                                         <div class="{{ in_array($fieldKey, ['alamat', 'keperluan']) ? 'sm:col-span-2' : '' }}">
                                             <label class="block text-sm font-semibold text-gray-700 mb-2 capitalize">{{ str_replace('_', ' ', $field) }} <span class="text-red-500">*</span></label>
@@ -115,7 +115,17 @@
                             <div class="space-y-4 pt-4 border-t border-gray-100">
                                 <div class="mb-4">
                                     <h4 class="text-sm font-bold text-gray-900">Persyaratan Dokumen</h4>
-                                    <p class="text-xs text-gray-500 mt-1">Silakan unggah foto/scan dokumen di bawah ini (Format: JPG/PNG/PDF, Maks 2MB). Jika tidak diunggah, Anda wajib membawanya ke Balai Desa.</p>
+                                    <p class="text-xs text-gray-500 mt-1">Silakan unggah foto/scan dokumen di bawah ini (Format: JPG/PNG/PDF, Maks {{ $selectedType->max_file_size }}MB). Jika tidak diunggah, Anda wajib membawanya ke Balai Desa.</p>
+                                    
+                                    @if($selectedType->statement_letter_file)
+                                    <div class="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-100 flex items-center justify-between">
+                                        <div class="flex items-center gap-2">
+                                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                            <span class="text-xs font-semibold text-blue-900">Format Surat Pernyataan tersedia</span>
+                                        </div>
+                                        <a href="{{ route('letter-types.download-statement', $selectedType->id) }}" class="text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-lg shadow-sm transition-colors">Unduh Format</a>
+                                    </div>
+                                    @endif
                                 </div>
                                 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">

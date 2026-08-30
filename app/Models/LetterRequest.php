@@ -9,6 +9,8 @@ class LetterRequest extends Model
     protected $fillable = [
         'user_id',
         'letter_type_id',
+        'signatory_id',
+        'letter_number',
         'submitted_data',
         'uploaded_files',
         'status',
@@ -28,5 +30,10 @@ class LetterRequest extends Model
     public function letterType()
     {
         return $this->belongsTo(LetterType::class);
+    }
+
+    public function signatory()
+    {
+        return $this->belongsTo(Signatory::class);
     }
 }
