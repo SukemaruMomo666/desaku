@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Sistem Persuratan Desa') }}</title>
+    <title>{{ config('app.name', 'Griliya Kelurahan Sukapada') }}</title>
+    <link rel="icon" href="{{ asset('logo-gerilya.png') }}" type="image/png">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -11,24 +12,17 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="font-sans antialiased bg-gray-50 text-gray-800 selection:bg-primary-500 selection:text-white flex flex-col min-h-screen">
 
     <!-- Navbar -->
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 shadow-sm">
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 shadow-sm" x-data="{ mobileMenuOpen: false }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center gap-3">
-                    <div class="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center shadow-lg shadow-primary-500/30">
-                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h1 class="text-xl font-bold text-secondary-900 leading-tight tracking-tight">GERILYA <span class="text-primary-600">SUKAPADA</span></h1>
-                        <p class="text-xs text-gray-500 font-medium tracking-wider uppercase">Kelurahan Sukapada</p>
-                    </div>
+                <div class="flex-shrink-0 flex items-center">
+                    <img src="{{ asset('logo-gerilya.png') }}" alt="Griliya Kelurahan Sukapada" class="h-12 w-auto object-contain">
                 </div>
 
                 <!-- Desktop Navigation -->
@@ -56,12 +50,32 @@
 
                 <!-- Mobile menu button -->
                 <div class="md:hidden flex items-center">
-                    <button type="button" class="text-gray-500 hover:text-gray-900 focus:outline-none">
+                    <button type="button" @click="mobileMenuOpen = !mobileMenuOpen" class="text-gray-500 hover:text-gray-900 focus:outline-none">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
                 </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" class="md:hidden bg-white border-t border-gray-100 py-4 px-4 shadow-lg absolute w-full" style="display: none;">
+            <div class="flex flex-col space-y-4">
+                <a href="#beranda" @click="mobileMenuOpen = false" class="text-base font-semibold text-primary-600">Beranda</a>
+                <a href="#panduan" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Panduan</a>
+                <a href="#kontak" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Kontak</a>
+                <hr class="border-gray-100">
+                @if (Route::has('login'))
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="text-base font-semibold text-gray-700">Dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}" class="text-base font-semibold text-gray-700">Masuk</a>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="text-base font-semibold text-primary-600">Daftar Sekarang</a>
+                        @endif
+                    @endauth
+                @endif
             </div>
         </div>
     </header>
@@ -223,8 +237,8 @@
                     </div>
                     
                     <!-- Map (Right) -->
-                    <div class="lg:w-7/12 relative min-h-[450px] lg:min-h-[600px] p-4 lg:p-6 bg-white">
-                        <div class="w-full h-full rounded-[1.5rem] lg:rounded-[2rem] overflow-hidden relative shadow-inner border border-gray-100">
+                    <div class="lg:w-7/12 relative h-[400px] lg:h-auto lg:min-h-[600px] bg-white">
+                        <div class="absolute inset-0 m-4 lg:m-6 rounded-[1.5rem] lg:rounded-[2rem] overflow-hidden shadow-inner border border-gray-100">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15843.849633383394!2d107.646496!3d-6.895100000000001!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e79816f84349%3A0x6744444afbfdc850!2sSukapada%2C%20Kec.%20Cibeunying%20Kidul%2C%20Kota%20Bandung%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1787925185595!5m2!1sid!2sid" class="absolute inset-0 w-full h-full border-0" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
                         </div>
                     </div>
@@ -240,11 +254,8 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                 <!-- Tentang -->
                 <div>
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-8 h-8 bg-primary-500 rounded flex items-center justify-center">
-                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                        </div>
-                        <h3 class="text-xl font-bold tracking-tight">GERILYA <span class="text-primary-400">SUKAPADA</span></h3>
+                    <div class="flex items-center mb-6">
+                        <img src="{{ asset('logo-gerilya.png') }}" alt="Griliya Kelurahan Sukapada" class="h-10 w-auto">
                     </div>
                     <p class="text-gray-400 text-sm leading-relaxed pr-4">
                         Inovasi digital untuk mempermudah warga dalam mengurus administrasi kependudukan. Cepat, transparan, dan efisien.

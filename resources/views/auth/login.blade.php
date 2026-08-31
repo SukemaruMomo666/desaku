@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <meta name="view-transition" content="same-origin" />
     <title>Login - {{ config('app.name') }}</title>
+    <link rel="icon" href="{{ asset('logo-gerilya.png') }}" type="image/png">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap" rel="stylesheet" />
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -48,7 +49,10 @@
                     Beranda
                 </a>
 
-                <div class="mb-10">
+                <div class="mb-10 text-center lg:text-left">
+                    <div class="lg:hidden flex justify-center mb-6">
+                        <img src="{{ asset('logo-gerilya.png') }}" alt="Griliya Kelurahan Sukapada" class="h-14 w-auto">
+                    </div>
                     <h2 class="text-3xl font-extrabold text-secondary-950 tracking-tight">Selamat Datang!</h2>
                     <p class="text-gray-500 mt-2">Masuk untuk melanjutkan ke dashboard layanan.</p>
                 </div>

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <title>Dashboard - {{ config('app.name') }}</title>
+    <link rel="icon" href="{{ asset('logo-gerilya.png') }}" type="image/png">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -23,16 +24,8 @@
         
         <!-- Logo -->
         <div class="h-20 flex items-center px-6 border-b border-white/10 bg-secondary-950">
-            <a href="/" class="flex items-center gap-3">
-                <div class="w-9 h-9 bg-primary-500 rounded-lg flex items-center justify-center shadow-lg shadow-primary-500/20">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                    </svg>
-                </div>
-                <div>
-                    <h1 class="text-lg font-bold text-white tracking-tight leading-none">Portal <span class="text-primary-400">Desa</span></h1>
-                    <span class="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">{{ auth()->user()->role === 'admin' ? 'Administrator' : 'Layanan Warga' }}</span>
-                </div>
+            <a href="/" class="flex items-center">
+                <img src="{{ asset('logo-gerilya.png') }}" alt="Griliya Kelurahan Sukapada" class="h-10 w-auto">
             </a>
         </div>
 
