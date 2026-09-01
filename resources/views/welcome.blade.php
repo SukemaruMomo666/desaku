@@ -333,9 +333,13 @@
                             <span class="text-xs font-bold text-green-500 tracking-widest uppercase mt-0.5">KELURAHAN SUKAPADA</span>
                         </div>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed pr-4">
+                    <p class="text-gray-400 text-sm leading-relaxed pr-4 mb-6">
                         Inovasi digital untuk mempermudah warga dalam mengurus administrasi kependudukan. Cepat, transparan, dan efisien.
                     </p>
+                    <div class="flex items-center gap-4 mt-6">
+                        <img src="{{ asset('logo_bandung.jpeg') }}" alt="Logo Kota Bandung" class="h-12 w-auto bg-white p-1 rounded-md shadow-sm">
+                        <img src="{{ asset('logo_sukapada.jpeg') }}" alt="Logo Kelurahan Sukapada" class="h-12 w-auto bg-white p-1 rounded-md shadow-sm">
+                    </div>
                 </div>
                 <!-- Kontak -->
                 <div>
