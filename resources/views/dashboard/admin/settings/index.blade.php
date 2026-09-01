@@ -19,12 +19,15 @@
     @endif
 
     <!-- Tabs Header -->
-    <div class="bg-white rounded-2xl p-2 border border-gray-100 flex gap-2 w-max">
+    <div class="bg-white rounded-2xl p-2 border border-gray-100 flex gap-2 w-max flex-wrap">
         <button @click="tab = 'ttd'" :class="tab === 'ttd' ? 'bg-primary-50 text-primary-600 font-bold' : 'text-gray-500 font-medium hover:bg-gray-50'" class="px-6 py-2 rounded-xl transition-all">
             Pejabat Penandatangan
         </button>
         <button @click="tab = 'arsip'" :class="tab === 'arsip' ? 'bg-primary-50 text-primary-600 font-bold' : 'text-gray-500 font-medium hover:bg-gray-50'" class="px-6 py-2 rounded-xl transition-all">
             Backup & Manajemen Arsip
+        </button>
+        <button @click="tab = 'akun'" :class="tab === 'akun' ? 'bg-primary-50 text-primary-600 font-bold' : 'text-gray-500 font-medium hover:bg-gray-50'" class="px-6 py-2 rounded-xl transition-all">
+            Manajemen Akun Admin
         </button>
     </div>
 
@@ -127,6 +130,82 @@
             </div>
         </div>
         
+    </div>
+
+    <!-- Tab Content: Manajemen Akun Admin -->
+    <div x-show="tab === 'akun'" style="display: none;" class="space-y-6" x-transition.opacity>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Form Add -->
+            <div class="col-span-1 bg-white p-6 rounded-3xl border border-gray-100 shadow-sm self-start">
+                <h3 class="font-bold text-gray-900 mb-4">Tambah Akun Admin</h3>
+                <form action="{{ route('admin.settings.accounts.store') }}" method="POST" class="space-y-4">
+                    @csrf
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Nama Pengguna</label>
+                        <input type="text" name="name" required placeholder="Contoh: Admin Pelayanan" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">NIK / Username</label>
+                        <input type="text" name="nik" required placeholder="Gunakan NIK atau kata unik" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Password</label>
+                        <input type="password" name="password" required placeholder="Minimal 6 karakter" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Hak Akses (Role)</label>
+                        <select name="role" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all">
+                            <option value="master_admin">Master Admin (Semua Akses)</option>
+                            <option value="super_admin">Super Admin (Kecuali Pengaturan)</option>
+                            <option value="admin">Admin Biasa (Hanya Data Pengajuan)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="w-full px-4 py-3 bg-primary-600 text-white font-bold rounded-xl hover:bg-primary-700 transition-all shadow-lg shadow-primary-500/30">
+                        Buat Akun Admin
+                    </button>
+                </form>
+            </div>
+
+            <!-- List Admins -->
+            <div class="col-span-1 md:col-span-2 bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden self-start">
+                <div class="px-6 py-5 border-b border-gray-100 bg-gray-50/50">
+                    <h3 class="font-bold text-gray-900">Daftar Akun Admin Terdaftar</h3>
+                </div>
+                <div class="divide-y divide-gray-100">
+                    @foreach($admins as $adminAcc)
+                        <div class="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:bg-gray-50 transition-colors">
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg flex items-center gap-2">
+                                    {{ $adminAcc->name }}
+                                    @if(auth()->id() === $adminAcc->id)
+                                        <span class="bg-primary-100 text-primary-700 text-xs px-2 py-0.5 rounded-full">Anda</span>
+                                    @endif
+                                </h4>
+                                <p class="text-sm text-gray-500 font-medium">Username: {{ $adminAcc->nik }}</p>
+                                <div class="mt-2">
+                                    @if($adminAcc->role === 'master_admin')
+                                        <span class="bg-purple-100 text-purple-700 text-xs px-3 py-1 rounded-full font-bold">Master Admin</span>
+                                    @elseif($adminAcc->role === 'super_admin')
+                                        <span class="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full font-bold">Super Admin</span>
+                                    @else
+                                        <span class="bg-gray-100 text-gray-700 text-xs px-3 py-1 rounded-full font-bold">Admin Biasa</span>
+                                    @endif
+                                </div>
+                            </div>
+                            @if(auth()->id() !== $adminAcc->id)
+                            <form action="{{ route('admin.settings.accounts.destroy', $adminAcc->id) }}" method="POST" onsubmit="return confirm('Hapus akun admin ini? Mereka tidak akan bisa login lagi.');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="px-4 py-2 bg-red-50 text-red-600 font-bold rounded-lg hover:bg-red-100 transition-colors">
+                                    Cabut Akses
+                                </button>
+                            </form>
+                            @endif
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

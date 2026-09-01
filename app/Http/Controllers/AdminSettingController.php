@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Signatory;
 use App\Models\LetterRequest;
+use App\Models\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
 use ZipArchive;
 use File;
 
@@ -24,8 +26,11 @@ class AdminSettingController extends Controller
             }
         }
         $archiveSize = round($size / 1024 / 1024, 2); // dalam MB
+        
+        // Data akun admin
+        $admins = User::whereIn('role', ['master_admin', 'super_admin', 'admin'])->get();
 
-        return view('dashboard.admin.settings.index', compact('signatories', 'archiveSize'));
+        return view('dashboard.admin.settings.index', compact('signatories', 'archiveSize', 'admins'));
     }
 
     public function storeSignatory(Request $request)
@@ -97,5 +102,37 @@ class AdminSettingController extends Controller
         }
 
         return redirect()->back()->with('success', 'Arsip lampiran berhasil dikosongkan. Ruang penyimpanan telah bersih.');
+    }
+
+    public function storeAdmin(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'nik' => 'required|string|max:16|unique:users,nik', // Menggunakan NIK sebagai username untuk login
+            'password' => 'required|string|min:6',
+            'role' => 'required|in:master_admin,super_admin,admin'
+        ]);
+
+        User::create([
+            'name' => $validated['name'],
+            'nik' => $validated['nik'],
+            'password' => Hash::make($validated['password']),
+            'role' => $validated['role']
+        ]);
+
+        return redirect()->back()->with('success', 'Akun admin berhasil ditambahkan.');
+    }
+
+    public function destroyAdmin($id)
+    {
+        $user = User::findOrFail($id);
+        
+        // Mencegah master admin menghapus dirinya sendiri
+        if ($user->id === auth()->id()) {
+            return redirect()->back()->with('error', 'Anda tidak dapat menghapus akun Anda sendiri.');
+        }
+
+        $user->delete();
+        return redirect()->back()->with('success', 'Akun admin berhasil dihapus.');
     }
 }

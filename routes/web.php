@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function () {
     
     // Fallback Dashboard Redirector
     Route::get('/dashboard', function() {
-        if(auth()->user()->role === 'admin') return redirect()->route('admin.dashboard');
+        if(in_array(auth()->user()->role, ['master_admin', 'super_admin', 'admin'])) return redirect()->route('admin.dashboard');
         return redirect()->route('citizen.dashboard');
     });
 
@@ -54,22 +54,29 @@ Route::middleware('auth')->group(function () {
     Route::middleware('can:is-admin')->group(function() {
         Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('admin.dashboard');
         
-        Route::resource('admin/letter-types', AdminLetterTypeController::class)->names('admin.letter-types')->except(['show']);
-        Route::get('admin/letter-types/{id}/download-template', [AdminLetterTypeController::class, 'downloadTemplate'])->name('admin.letter-types.download-template');
-        
         Route::get('admin/letter-requests', [AdminLetterRequestController::class, 'index'])->name('admin.letter-requests.index');
         Route::get('admin/letter-requests/{id}', [AdminLetterRequestController::class, 'show'])->name('admin.letter-requests.show');
         Route::post('admin/letter-requests/{id}/status', [AdminLetterRequestController::class, 'updateStatus'])->name('admin.letter-requests.update-status');
         Route::get('admin/letter-requests/{id}/print', [AdminLetterRequestController::class, 'downloadDocx'])->name('admin.letter-requests.print');
 
-        Route::get('admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
-        Route::get('admin/users/{id}', [AdminUserController::class, 'show'])->name('admin.users.show');
+        Route::middleware('can:is-super-admin')->group(function() {
+            Route::resource('admin/letter-types', AdminLetterTypeController::class)->names('admin.letter-types')->except(['show']);
+            Route::get('admin/letter-types/{id}/download-template', [AdminLetterTypeController::class, 'downloadTemplate'])->name('admin.letter-types.download-template');
+            
+            Route::get('admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
+            Route::get('admin/users/{id}', [AdminUserController::class, 'show'])->name('admin.users.show');
+        });
         
         // Admin Settings
-        Route::get('/dashboard/admin/settings', [AdminSettingController::class, 'index'])->name('admin.settings.index');
-        Route::post('/dashboard/admin/settings/signatories', [AdminSettingController::class, 'storeSignatory'])->name('admin.settings.signatories.store');
-        Route::delete('/dashboard/admin/settings/signatories/{id}', [AdminSettingController::class, 'destroySignatory'])->name('admin.settings.signatories.destroy');
-        Route::get('/dashboard/admin/settings/backup', [AdminSettingController::class, 'backupArchive'])->name('admin.settings.backup');
-        Route::post('/dashboard/admin/settings/clean', [AdminSettingController::class, 'cleanArchive'])->name('admin.settings.clean');
+        Route::middleware('can:is-master-admin')->group(function() {
+            Route::get('/dashboard/admin/settings', [AdminSettingController::class, 'index'])->name('admin.settings.index');
+            Route::post('/dashboard/admin/settings/signatories', [AdminSettingController::class, 'storeSignatory'])->name('admin.settings.signatories.store');
+            Route::delete('/dashboard/admin/settings/signatories/{id}', [AdminSettingController::class, 'destroySignatory'])->name('admin.settings.signatories.destroy');
+            Route::get('/dashboard/admin/settings/backup', [AdminSettingController::class, 'backupArchive'])->name('admin.settings.backup');
+            Route::post('/dashboard/admin/settings/clean', [AdminSettingController::class, 'cleanArchive'])->name('admin.settings.clean');
+            
+            Route::post('/dashboard/admin/settings/accounts', [AdminSettingController::class, 'storeAdmin'])->name('admin.settings.accounts.store');
+            Route::delete('/dashboard/admin/settings/accounts/{id}', [AdminSettingController::class, 'destroyAdmin'])->name('admin.settings.accounts.destroy');
+        });
     });
 });
