@@ -19,10 +19,10 @@ class AdminSeeder extends Seeder
         User::updateOrCreate(
             ['nik' => '1234567890123456'],
             [
-                'name' => 'Admin Desa',
+                'name' => 'Admin Kelurahan',
                 'phone' => '081234567890',
                 'role' => 'admin',
-                'password' => Hash::make('AdminDesa123'),
+                'password' => Hash::make('AdminKelurahan123'),
             ]
         );
 

@@ -10,7 +10,7 @@
         <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl"></div>
         <div class="relative z-10">
             <h2 class="text-3xl font-extrabold mb-2 tracking-tight">Halo, {{ explode(' ', auth()->user()->name)[0] }}! 👋</h2>
-            <p class="text-primary-100 text-lg max-w-2xl">Selamat datang di portal layanan administrasi desa. Apa yang ingin Anda urus hari ini?</p>
+            <p class="text-primary-100 text-lg max-w-2xl">Selamat datang di portal layanan administrasi kelurahan. Apa yang ingin Anda urus hari ini?</p>
             
             <div class="mt-8 flex flex-wrap gap-4">
                 <a href="{{ route('citizen.request.create') }}" class="bg-white text-primary-700 px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-gray-50 transition-colors flex items-center gap-2 hover:-translate-y-0.5 duration-200">

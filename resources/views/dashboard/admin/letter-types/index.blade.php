@@ -8,7 +8,7 @@
     <!-- Header Actions -->
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-            <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Jenis Surat Desa</h2>
+            <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Jenis Surat Kelurahan</h2>
             <p class="text-gray-500 text-sm mt-1">Kelola jenis-jenis surat yang dapat diajukan oleh warga secara online.</p>
         </div>
         <div class="flex gap-2">

@@ -153,7 +153,7 @@
 
                     <div>
                         <label class="block text-sm font-bold text-gray-900 mb-2">Catatan Admin (Opsional)</label>
-                        <textarea name="admin_notes" rows="4" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm transition-all resize-none" placeholder="Misal: 'Silakan ambil di Balai Desa dengan membawa KTP Asli' atau 'Ditolak karena foto KTP buram'">{{ $letterRequest->admin_notes }}</textarea>
+                        <textarea name="admin_notes" rows="4" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none text-sm transition-all resize-none" placeholder="Misal: 'Silakan ambil di Kantor Kelurahan dengan membawa KTP Asli' atau 'Ditolak karena foto KTP buram'">{{ $letterRequest->admin_notes }}</textarea>
                         <p class="text-xs text-gray-500 mt-2">Catatan ini dapat dibaca oleh warga di dashboard mereka.</p>
                     </div>
 

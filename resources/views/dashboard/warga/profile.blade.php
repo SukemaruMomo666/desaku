@@ -151,7 +151,7 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-bold text-gray-900 mb-2">Kelurahan/Desa</label>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Kelurahan</label>
                         <input type="text" name="village" value="{{ old('village', $user->village) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" placeholder="Sesuai KTP" required>
                     </div>
                     <div>

@@ -9,7 +9,7 @@
     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
             <h2 class="text-2xl font-bold text-gray-900 tracking-tight">Data Warga</h2>
-            <p class="text-gray-500 text-sm mt-1">Kelola seluruh warga yang memiliki akses ke Portal Desa.</p>
+            <p class="text-gray-500 text-sm mt-1">Kelola seluruh warga yang memiliki akses ke Portal Kelurahan.</p>
         </div>
         <div class="flex gap-2">
             <div class="relative">

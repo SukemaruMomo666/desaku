@@ -19,7 +19,7 @@
         <div class="hidden lg:flex lg:w-1/2 bg-secondary-950 relative items-center justify-center overflow-hidden order-2" style="view-transition-name: auth-hero;">
             <!-- Gambar Desa dari Unsplash -->
             <img src="https://images.unsplash.com/photo-1596404981149-65b16982e0e4?q=80&w=1500&auto=format&fit=crop" 
-                 alt="Pemandangan Desa" 
+                 alt="Pemandangan Kelurahan" 
                  class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay">
             
             <div class="absolute inset-0 bg-gradient-to-b from-transparent to-secondary-950/90"></div>

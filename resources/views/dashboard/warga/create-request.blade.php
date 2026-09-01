@@ -132,7 +132,7 @@
                             <div class="space-y-4 pt-4 border-t border-gray-100">
                                 <div class="mb-4">
                                     <h4 class="text-sm font-bold text-gray-900">Persyaratan Dokumen</h4>
-                                    <p class="text-xs text-gray-500 mt-1">Silakan unggah foto/scan dokumen di bawah ini (Format: JPG/PNG/PDF, Maks {{ $selectedType->max_file_size }}MB). Jika tidak diunggah, Anda wajib membawanya ke Balai Desa.</p>
+                                    <p class="text-xs text-gray-500 mt-1">Silakan unggah foto/scan dokumen di bawah ini (Format: JPG/PNG/PDF, Maks {{ $selectedType->max_file_size }}MB). Jika tidak diunggah, Anda wajib membawanya ke Kantor Kelurahan.</p>
                                     
                                     @if($selectedType->statement_letter_file)
                                     <div class="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-100 flex items-center justify-between">

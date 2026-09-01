@@ -123,7 +123,7 @@ class LetterTypeSeeder extends Seeder
             [
                 'name' => 'Surat Keterangan Usaha',
                 'code' => 'SKU',
-                'description' => 'Surat Keterangan Usaha (SKU) digunakan sebagai bukti legalitas keberadaan suatu usaha milik warga di desa.',
+                'description' => 'Surat Keterangan Usaha (SKU) digunakan sebagai bukti legalitas keberadaan suatu usaha milik warga di kelurahan.',
                 'requirements' => json_encode([
                     ['name' => 'Fotokopi KTP', 'type' => 'file', 'is_required' => true],
                     ['name' => 'Fotokopi KK', 'type' => 'file', 'is_required' => true],

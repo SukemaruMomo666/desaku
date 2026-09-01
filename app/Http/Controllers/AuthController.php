@@ -59,7 +59,7 @@ class AuthController extends Controller
         $request->session()->put('otp_code', $otp);
 
         // Send WhatsApp OTP via Fonnte
-        $message = "Halo {$validated['name']},\n\nKode OTP pendaftaran Portal Desa Anda adalah: *{$otp}*\n\nJANGAN BERIKAN KODE INI KEPADA SIAPAPUN.";
+        $message = "Halo {$validated['name']},\n\nKode OTP pendaftaran Portal Kelurahan Anda adalah: *{$otp}*\n\nJANGAN BERIKAN KODE INI KEPADA SIAPAPUN.";
         FonnteService::sendMessage($validated['phone'], $message);
 
         return redirect()->route('otp.show');

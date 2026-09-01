@@ -57,7 +57,7 @@ class AdminLetterRequestController extends Controller
                 if ($user && $user->phone) {
                     $waText = "Halo Bpk/Ibu " . $user->name . ",\n\n";
                     if ($validated['status'] === 'siap_diambil') {
-                        $waText .= "Permohonan *" . $letterRequest->letterType->name . "* Anda telah selesai diproses dan *SIAP DIAMBIL* di Balai Desa.\n\n";
+                        $waText .= "Permohonan *" . $letterRequest->letterType->name . "* Anda telah selesai diproses dan *SIAP DIAMBIL* di Kantor Kelurahan.\n\n";
                     } else {
                         $waText .= "Mohon maaf, permohonan *" . $letterRequest->letterType->name . "* Anda *DITOLAK*.\n\n";
                     }

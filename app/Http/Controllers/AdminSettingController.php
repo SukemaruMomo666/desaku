@@ -55,7 +55,7 @@ class AdminSettingController extends Controller
             return redirect()->back()->with('error', 'Tidak ada data arsip untuk di-backup.');
         }
 
-        $zipFileName = 'Backup_Arsip_Desa_' . date('Y_m_d_His') . '.zip';
+        $zipFileName = 'Backup_Arsip_Kelurahan_' . date('Y_m_d_His') . '.zip';
         $zipFilePath = storage_path('app/' . $zipFileName);
 
         $zip = new ZipArchive;

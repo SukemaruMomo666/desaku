@@ -14,8 +14,8 @@ $center = ['alignment' => Jc::CENTER];
 
 $section->addText('PEMERINTAH KABUPATEN CONTOH', $headerStyle, $center);
 $section->addText('KECAMATAN CONTOH', $headerStyle, $center);
-$section->addText('KANTOR KEPALA DESA MAJU JAYA', $headerStyle, $center);
-$section->addText('Jl. Raya Pembangunan No. 123, Desa Maju Jaya, Kode Pos 45678', ['size' => 10], $center);
+$section->addText('KANTOR Lurah Sukapada', $headerStyle, $center);
+$section->addText('Jl. Raya Pembangunan No. 123, Kelurahan Sukapada, Kode Pos 45678', ['size' => 10], $center);
 $section->addText('========================================================================================', [], $center);
 
 $section->addTextBreak(1);
@@ -27,7 +27,7 @@ $section->addText('Nomor: 400 /      / Kades / 2024', [], $center);
 $section->addTextBreak(1);
 
 // ISI SURAT
-$section->addText('Yang bertanda tangan di bawah ini Kepala Desa Maju Jaya, Kecamatan Contoh, menerangkan dengan sebenarnya bahwa:');
+$section->addText('Yang bertanda tangan di bawah ini Lurah Sukapada, Kecamatan Contoh, menerangkan dengan sebenarnya bahwa:');
 
 $section->addTextBreak(1);
 
@@ -81,7 +81,7 @@ $table->addCell(6000)->addText('${keperluan}', ['italic' => true]);
 
 $section->addTextBreak(1);
 
-$section->addText('Orang tersebut di atas adalah benar-benar warga Desa Maju Jaya yang berdomisili di alamat tersebut. Berdasarkan pengamatan kami dan data yang ada, yang bersangkutan termasuk dalam keluarga yang kurang mampu / prasejahtera.', $fontStyle);
+$section->addText('Orang tersebut di atas adalah benar-benar warga Kelurahan Sukapada yang berdomisili di alamat tersebut. Berdasarkan pengamatan kami dan data yang ada, yang bersangkutan termasuk dalam keluarga yang kurang mampu / prasejahtera.', $fontStyle);
 $section->addText('Surat keterangan ini dibuat untuk keperluan: ', $fontStyle);
 $section->addText('${keperluan}', ['bold' => true, 'size' => 11], $center);
 
@@ -97,7 +97,7 @@ $ttdTable->addCell(5000)->addText('', $fontStyle); // Empty left cell
 $ttdTable->addCell(4000)->addText('Maju Jaya, ${tanggal_pengajuan}', $fontStyle, ['alignment' => Jc::CENTER]);
 $ttdTable->addRow();
 $ttdTable->addCell(5000)->addText('', $fontStyle);
-$ttdTable->addCell(4000)->addText('Kepala Desa Maju Jaya,', $fontStyle, ['alignment' => Jc::CENTER]);
+$ttdTable->addCell(4000)->addText('Lurah Sukapada,', $fontStyle, ['alignment' => Jc::CENTER]);
 
 $ttdTable->addRow();
 $ttdTable->addCell(5000)->addTextBreak(3);

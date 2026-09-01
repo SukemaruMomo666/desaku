@@ -19,7 +19,7 @@
         <div class="hidden lg:flex lg:w-5/12 bg-primary-900 relative items-center justify-center overflow-hidden" style="view-transition-name: auth-hero;">
             <!-- Gambar Desa dari Unsplash -->
             <img src="https://images.unsplash.com/photo-1588614959060-4d144f28b207?q=80&w=1500&auto=format&fit=crop" 
-                 alt="Pemandangan Desa" 
+                 alt="Pemandangan Kelurahan" 
                  class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-overlay">
             
             <!-- Overlay Gradient -->
@@ -36,9 +36,9 @@
                     <span class="font-medium">Kembali ke Beranda</span>
                 </a>
                 
-                <h1 class="text-4xl font-extrabold tracking-tight mb-4 leading-tight">Portal Digital<br>Layanan Desa</h1>
+                <h1 class="text-4xl font-extrabold tracking-tight mb-4 leading-tight">Portal Digital<br>Layanan Kelurahan</h1>
                 <p class="text-primary-100 text-lg leading-relaxed">
-                    Sistem persuratan elektronik terpadu. Urus administrasi kependudukan lebih cepat, transparan, dan mudah tanpa harus antre di Balai Desa.
+                    Sistem persuratan elektronik terpadu. Urus administrasi kependudukan lebih cepat, transparan, dan mudah tanpa harus antre di Kantor Kelurahan.
                 </p>
                 
                 <div class="mt-12 flex items-center gap-4">

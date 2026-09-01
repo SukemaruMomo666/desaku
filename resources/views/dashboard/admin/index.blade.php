@@ -13,7 +13,7 @@
         <div class="relative z-10">
             <h2 class="text-3xl font-extrabold tracking-tight mb-2">Selamat Datang, Admin! 👑</h2>
             <p class="text-primary-100 max-w-2xl text-lg">
-                Pantau seluruh permohonan surat warga, kelola master data, dan pastikan pelayanan desa berjalan dengan cepat dan transparan.
+                Pantau seluruh permohonan surat warga, kelola master data, dan pastikan pelayanan kelurahan berjalan dengan cepat dan transparan.
             </p>
         </div>
     </div>

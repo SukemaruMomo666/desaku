@@ -105,7 +105,7 @@
                         Lebih <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-400">Mudah & Cepat</span>
                     </h1>
                     <p class="text-lg md:text-xl text-gray-500 mb-10 leading-relaxed">
-                        Tidak perlu lagi antre panjang. Ajukan permohonan surat keterangan dari rumah, pantau statusnya, dan ambil ke balai desa hanya saat surat sudah siap.
+                        Tidak perlu lagi antre panjang. Ajukan permohonan surat keterangan dari rumah, pantau statusnya, dan ambil ke kantor kelurahan hanya saat surat sudah siap.
                     </p>
                     <div class="flex flex-col sm:flex-row justify-center gap-4">
                         <a href="/login" class="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-secondary-900 transition-all bg-accent hover:bg-accent-hover rounded-full shadow-lg shadow-accent/30 hover:-translate-y-1">
@@ -145,13 +145,13 @@
                     <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-shadow duration-300 relative group border border-gray-100">
                         <div class="w-14 h-14 bg-orange-50 text-orange-600 rounded-xl flex items-center justify-center mb-6 text-xl font-bold group-hover:scale-110 transition-transform">3</div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Proses Verifikasi</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">Perangkat desa akan memverifikasi data Anda. Anda bisa memantau statusnya langsung dari dashboard.</p>
+                        <p class="text-gray-500 text-sm leading-relaxed">Perangkat kelurahan akan memverifikasi data Anda. Anda bisa memantau statusnya langsung dari dashboard.</p>
                     </div>
                     <!-- Step 4 -->
                     <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-shadow duration-300 relative group border border-gray-100">
                         <div class="w-14 h-14 bg-primary-50 text-primary-600 rounded-xl flex items-center justify-center mb-6 text-xl font-bold group-hover:scale-110 transition-transform">4</div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Ambil Surat</h3>
-                        <p class="text-gray-500 text-sm leading-relaxed">Anda akan menerima notifikasi WA jika surat siap. Datang ke balai desa untuk mengambil dokumen aslinya.</p>
+                        <p class="text-gray-500 text-sm leading-relaxed">Anda akan menerima notifikasi WA jika surat siap. Datang ke kantor kelurahan untuk mengambil dokumen aslinya.</p>
                     </div>
                 </div>
             </div>
@@ -234,7 +234,7 @@
                                 </div>
                                 <div class="pt-2">
                                     <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Email</h4>
-                                    <p class="text-gray-900 text-lg font-bold">layanan@desa.go.id</p>
+                                    <p class="text-gray-900 text-lg font-bold">layanan@sukapada.go.id</p>
                                 </div>
                             </div>
                         </div>
@@ -283,7 +283,7 @@
                         </li>
                         <li class="flex items-center">
                             <svg class="w-5 h-5 mr-3 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                            <span>layanan@desa.go.id</span>
+                            <span>layanan@sukapada.go.id</span>
                         </li>
                     </ul>
                 </div>
