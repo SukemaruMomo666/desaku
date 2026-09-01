@@ -100,6 +100,11 @@ class AdminLetterRequestController extends Controller
         // 1. Custom form fields from user submission (Prioritas Utama, menimpa auto-fill jika diedit)
         if ($letterRequest->submitted_data && is_array($letterRequest->submitted_data)) {
             foreach ($letterRequest->submitted_data as $key => $value) {
+                // Konversi tanggal dari format YYYY-MM-DD (input type date) ke d-m-Y agar rapi di surat
+                if (preg_match('/^\d{4}-\d{2}-\d{2}$/', (string)$value)) {
+                    $value = \Carbon\Carbon::parse($value)->format('d-m-Y');
+                }
+                
                 // Jangan konversi huruf kecil agar sesuai persis dengan case-sensitive dari template Word
                 // (misal ${alamat_lengkap_sesuai_KTP} butuh key alamat_lengkap_sesuai_KTP)
                 $templateProcessor->setValue($key, strtoupper($value));
