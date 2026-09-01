@@ -337,8 +337,8 @@
                         Inovasi digital untuk mempermudah warga dalam mengurus administrasi kependudukan. Cepat, transparan, dan efisien.
                     </p>
                     <div class="flex items-center gap-4 mt-6">
-                        <img src="{{ asset('logo_bandung.jpeg') }}" alt="Logo Kota Bandung" class="h-12 w-auto bg-white p-1 rounded-md shadow-sm">
-                        <img src="{{ asset('logo_sukapada.jpeg') }}" alt="Logo Kelurahan Sukapada" class="h-12 w-auto bg-white p-1 rounded-md shadow-sm">
+                        <img src="{{ asset('logo_bandung.jpeg') }}?v=1" alt="Logo Kota Bandung" class="h-12 w-auto bg-white p-1 rounded-md shadow-sm">
+                        <img src="{{ asset('logo_sukapada.jpeg') }}?v=1" alt="Logo Kelurahan Sukapada" class="h-12 w-auto bg-white p-1 rounded-md shadow-sm">
                     </div>
                 </div>
                 <!-- Kontak -->
