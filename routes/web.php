@@ -27,6 +27,16 @@ Route::middleware('guest')->group(function () {
     
     Route::get('/register/otp', [AuthController::class, 'showOtp'])->name('otp.show');
     Route::post('/register/otp', [AuthController::class, 'verifyOtp'])->name('otp.verify');
+
+    // Forgot Password
+    Route::get('/lupa-password', [AuthController::class, 'showForgotPassword'])->name('password.forgot');
+    Route::post('/lupa-password', [AuthController::class, 'sendResetOtp']);
+    
+    Route::get('/lupa-password/otp', [AuthController::class, 'showResetOtp'])->name('password.reset.otp.show');
+    Route::post('/lupa-password/otp', [AuthController::class, 'verifyResetOtp'])->name('password.reset.otp.verify');
+    
+    Route::get('/reset-password', [AuthController::class, 'showResetPassword'])->name('password.reset.show');
+    Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.reset.update');
 });
 
 Route::middleware('auth')->group(function () {
