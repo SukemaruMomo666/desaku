@@ -39,9 +39,10 @@
         </div>
 
         <!-- Bagian Kiri (Form) -->
-        <div class="w-full lg:w-1/2 flex flex-col justify-center py-12 px-6 sm:px-12 lg:px-24 xl:px-32 relative bg-gray-50/50 order-1" style="view-transition-name: auth-panel;">
+        <div class="w-full lg:w-1/2 flex flex-col justify-center py-8 px-4 sm:p-12 lg:px-24 xl:px-32 relative bg-gradient-to-br from-white to-gray-50 order-1" style="view-transition-name: auth-panel;">
             
             <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                <div class="absolute top-0 right-0 -mt-20 -mr-20 w-72 h-72 bg-blue-50 rounded-full mix-blend-multiply filter blur-3xl opacity-50 lg:hidden"></div>
                 <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-primary-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
             </div>
 
@@ -51,15 +52,15 @@
                     Beranda
                 </a>
 
-                <div class="mb-10 text-center lg:text-left">
+                <div class="mb-8 text-center lg:text-left">
                     <div class="lg:hidden flex justify-center mb-6">
-                        <img src="{{ asset('logo-gerilya.png') }}" alt="Griliya Kelurahan Sukapada" class="h-14 w-auto">
+                        <img src="{{ asset('logo-gerilya.png') }}" alt="Griliya Kelurahan Sukapada" class="h-16 w-auto drop-shadow-sm">
                     </div>
                     <h2 class="text-3xl font-extrabold text-secondary-950 tracking-tight">Selamat Datang!</h2>
-                    <p class="text-gray-500 mt-2">Masuk untuk melanjutkan ke dashboard layanan.</p>
+                    <p class="text-gray-500 mt-2 text-sm sm:text-base">Masuk untuk melanjutkan ke dashboard layanan.</p>
                 </div>
 
-                <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100">
+                <div class="bg-white/80 backdrop-blur-xl p-6 sm:p-8 rounded-3xl shadow-2xl shadow-gray-200/50 border border-white">
                     <form method="POST" action="{{ route('login') }}" class="space-y-6">
                         @csrf
 
