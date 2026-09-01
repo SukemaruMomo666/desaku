@@ -684,7 +684,10 @@
     <div id="welcomePopup" class="welcome-popup-overlay">
         <div class="welcome-popup-content">
             <img src="{{ asset('logo-gerilya.png') }}" alt="Gerilya Logo" class="welcome-popup-logo">
-            <h2 class="welcome-popup-title">GERILYA<br>SUKAPADA</h2>
+            <h2 class="welcome-popup-title">
+                <span style="color: #2563eb;">GERILYA</span><br>
+                <span style="color: #10b981;">SUKAPADA</span>
+            </h2>
             <p class="welcome-popup-text">( Gerbang Informasi dan Layanan Administrasi Kelurahan Sukapada )</p>
             <button id="closeWelcomePopup" class="welcome-popup-btn">Mulai Jelajahi</button>
         </div>
