@@ -310,22 +310,23 @@
     </footer>
 
     <!-- Modal Requirements -->
-    <div id="letterModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 hidden">
+    <!-- Modal Requirements -->
+    <div id="letterModal" class="fixed inset-0 z-50 overflow-y-auto hidden py-8 px-4 sm:px-0">
         <!-- Backdrop -->
-        <div class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity" onclick="closeLetterModal()"></div>
+        <div class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm transition-opacity" onclick="closeLetterModal()"></div>
         
-        <!-- Modal Content -->
-        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg flex flex-col max-h-[90vh] overflow-hidden transform transition-all scale-95 opacity-0 duration-300" id="letterModalContent">
-            <!-- Header (Fixed at top) -->
-            <div class="bg-secondary-900 px-6 py-4 flex justify-between items-center text-white shrink-0">
-                <h3 class="text-lg font-bold truncate pr-4" id="modalTitle">Nama Surat</h3>
-                <button onclick="closeLetterModal()" class="text-gray-300 hover:text-white focus:outline-none shrink-0">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-            
-            <!-- Body (Scrollable) -->
-            <div class="p-6 sm:p-8 bg-gray-50/50 overflow-y-auto flex-1 min-h-0">
+        <!-- Modal Content (No flex constraints) -->
+        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-auto text-left transform transition-all scale-95 opacity-0 duration-300 flex flex-col" id="letterModalContent">
+            <!-- Header -->
+                <div class="bg-secondary-900 px-6 py-4 flex justify-between items-center text-white rounded-t-2xl">
+                    <h3 class="text-lg font-bold truncate pr-4" id="modalTitle">Nama Surat</h3>
+                    <button onclick="closeLetterModal()" class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                
+                <!-- Body (No internal scroll) -->
+                <div class="p-6 sm:p-8 bg-gray-50/50">
                 <div class="flex justify-between items-center mb-4 border-b border-gray-200 pb-2">
                     <span class="text-xs font-bold text-secondary-800 uppercase tracking-widest">GERILYA - KELURAHAN SUKAPADA</span>
                     <span class="text-xs text-gray-500">Panduan Resmi</span>
