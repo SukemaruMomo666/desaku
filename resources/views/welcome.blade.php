@@ -598,5 +598,116 @@
         </svg>
         <span class="wa-text">Butuh Bantuan?</span>
     </a>
+    <!-- Welcome Popup -->
+    <style>
+        .welcome-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(15, 23, 42, 0.85); /* backdrop-blur equivalent with dark overlay */
+            backdrop-filter: blur(8px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        
+        .welcome-popup-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .welcome-popup-content {
+            background-color: white;
+            padding: 3rem 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            text-align: center;
+            max-width: 90%;
+            width: 500px;
+            transform: scale(1);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-top: 6px solid #10b981; /* green-500 */
+        }
+        
+        .welcome-popup-overlay.hidden .welcome-popup-content {
+            transform: scale(0.9);
+        }
+        
+        .welcome-popup-logo {
+            height: 100px;
+            margin: 0 auto 1.5rem auto;
+            object-fit: contain;
+        }
+        
+        .welcome-popup-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1e293b; /* slate-800 */
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.025em;
+            line-height: 1.2;
+        }
+        
+        .welcome-popup-text {
+            font-size: 1.1rem;
+            color: #64748b; /* slate-500 */
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            padding: 0 1rem;
+        }
+        
+        .welcome-popup-btn {
+            background-color: #10b981; /* green-500 */
+            color: white;
+            font-weight: 700;
+            padding: 0.875rem 2.5rem;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.3);
+        }
+        
+        .welcome-popup-btn:hover {
+            background-color: #059669; /* green-600 */
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.4);
+        }
+    </style>
+
+    <div id="welcomePopup" class="welcome-popup-overlay">
+        <div class="welcome-popup-content">
+            <img src="{{ asset('logo-gerilya.png') }}" alt="Gerilya Logo" class="welcome-popup-logo">
+            <h2 class="welcome-popup-title">GERILYA<br>SUKAPADA</h2>
+            <p class="welcome-popup-text">( Gerbang Informasi dan Layanan Administrasi Kelurahan Sukapada )</p>
+            <button id="closeWelcomePopup" class="welcome-popup-btn">Mulai Jelajahi</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Cek apakah popup sudah pernah ditutup di sesi ini
+            if (!sessionStorage.getItem('welcomeShown')) {
+                const popup = document.getElementById('welcomePopup');
+                const closeBtn = document.getElementById('closeWelcomePopup');
+                
+                closeBtn.addEventListener('click', function() {
+                    popup.classList.add('hidden');
+                    sessionStorage.setItem('welcomeShown', 'true');
+                    setTimeout(() => popup.remove(), 500); // Remove from DOM after transition
+                });
+            } else {
+                // Jika sudah pernah muncul, hapus elemen dari DOM
+                const popup = document.getElementById('welcomePopup');
+                if(popup) popup.remove();
+            }
+        });
+    </script>
 </body>
 </html>
