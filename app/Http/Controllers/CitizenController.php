@@ -64,7 +64,16 @@ class CitizenController extends Controller
 
         // Validasi jika surat punya form_fields wajib
         if ($letterType->form_fields && is_array($letterType->form_fields) && count($letterType->form_fields) > 0) {
+            $systemFields = ['tanggal_hari_ini', 'blok_jabatan', 'ttd_nama', 'ttd_nip', 'tanggal_pengajuan'];
+            
             foreach ($letterType->form_fields as $field) {
+                $fieldKey = strtolower($field);
+                
+                // Lewati validasi untuk field sistem rahasia (karena disembunyikan di view)
+                if (in_array($fieldKey, $systemFields)) {
+                    continue;
+                }
+                
                 if (!isset($request->form_fields[$field]) || empty($request->form_fields[$field])) {
                     return back()->withInput()->with('error', "Kolom '$field' wajib diisi!");
                 }
