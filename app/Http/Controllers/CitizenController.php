@@ -13,7 +13,12 @@ class CitizenController extends Controller
     {
         $user = Auth::user();
         $requests = $user->letterRequests()->with('letterType')->orderBy('created_at', 'desc')->get();
-        return view('dashboard.warga.index', compact('requests'));
+        
+        $isProfileIncomplete = empty($user->no_kk) || empty($user->gender) || empty($user->birth_date) || empty($user->address) || empty($user->religion) || empty($user->job) ||
+                               empty($user->place_of_birth) || empty($user->rt) || empty($user->rw) || empty($user->village) || empty($user->district) || 
+                               empty($user->city) || empty($user->province) || empty($user->marital_status) || empty($user->nationality);
+
+        return view('dashboard.warga.index', compact('requests', 'isProfileIncomplete'));
     }
 
     public function createRequest(Request $request)

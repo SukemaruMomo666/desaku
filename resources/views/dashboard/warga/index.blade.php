@@ -108,4 +108,27 @@
         @endif
     </div>
 </div>
+
+@push('scripts')
+@if($isProfileIncomplete)
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        Swal.fire({
+            title: 'Perhatian!',
+            text: 'Halo! Profil biodata Anda belum lengkap. Silakan lengkapi profil Anda terlebih dahulu agar dapat mulai mengajukan surat.',
+            icon: 'warning',
+            confirmButtonText: 'Lengkapi Profil Sekarang',
+            confirmButtonColor: '#3b82f6',
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ route('citizen.profile') }}";
+            }
+        });
+    });
+</script>
+@endif
+@endpush
 @endsection
