@@ -37,9 +37,10 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
         <!-- Step 1: Pilih Jenis Surat -->
-        <div class="md:col-span-1 space-y-4">
+        <div class="md:col-span-1 space-y-4 {{ $selectedType ? 'hidden md:block' : 'block' }}">
             <h3 class="text-lg font-bold text-gray-900">1. Pilih Jenis Surat</h3>
             <p class="text-sm text-gray-500">Pilih layanan surat yang ingin Anda ajukan.</p>
+
             
             <form action="{{ route('citizen.request.create') }}" method="GET" id="letterTypeForm">
                 <div class="space-y-3">
@@ -59,8 +60,14 @@
         </div>
 
         <!-- Step 2: Form Isian -->
-        <div class="md:col-span-2">
+        <div class="md:col-span-2 {{ $selectedType ? 'block' : 'hidden md:block' }}">
             @if($selectedType)
+                <!-- Tombol Kembali Mobile -->
+                <a href="{{ route('citizen.request.create') }}" class="md:hidden inline-flex items-center gap-2 text-primary-600 font-bold mb-4 bg-primary-50 px-4 py-2 rounded-xl hover:bg-primary-100 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    Ganti Jenis Surat
+                </a>
+
                 <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
                     <div class="px-6 sm:px-8 py-6 border-b border-gray-100 bg-gray-50/50">
                         <h3 class="font-bold text-xl text-gray-900">2. Lengkapi Data Pengajuan</h3>
