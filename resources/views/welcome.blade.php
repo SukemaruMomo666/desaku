@@ -243,7 +243,7 @@
                     <!-- Map (Right) -->
                     <div class="lg:w-7/12 relative h-[400px] lg:h-auto lg:min-h-[600px] bg-white">
                         <div class="absolute inset-0 m-4 lg:m-6 rounded-[1.5rem] lg:rounded-[2rem] overflow-hidden shadow-inner border border-gray-100">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15843.849633383394!2d107.646496!3d-6.895100000000001!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e79816f84349%3A0x6744444afbfdc850!2sSukapada%2C%20Kec.%20Cibeunying%20Kidul%2C%20Kota%20Bandung%2C%20Jawa%20Barat!5e0!3m2!1sid!2sid!4v1787925185595!5m2!1sid!2sid" class="absolute inset-0 w-full h-full border-0" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1980.4667705122022!2d107.64373583149913!3d-6.898552221463361!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e7bd64eb0c5d%3A0x7bb5c155998a1f40!2sKantor%20Kelurahan%20Sukapada!5e0!3m2!1sen!2sid!4v1788183841540!5m2!1sen!2sid" class="absolute inset-0 w-full h-full border-0" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
                         </div>
                     </div>
                     
