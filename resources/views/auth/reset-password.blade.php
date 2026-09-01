@@ -94,15 +94,15 @@
                                 
                                 <ul class="mt-2 space-y-1 text-xs text-gray-500">
                                     <li class="flex items-center gap-1.5" :class="{'text-green-600': hasLength}">
-                                        <svg class="w-3.5 h-3.5" :class="hasLength ? 'text-green-500' : 'text-gray-300'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                        <svg class="w-4 h-4" :class="hasLength ? 'text-green-500' : 'text-gray-300'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                                         Minimal 8 karakter
                                     </li>
                                     <li class="flex items-center gap-1.5" :class="{'text-green-600': hasUppercase}">
-                                        <svg class="w-3.5 h-3.5" :class="hasUppercase ? 'text-green-500' : 'text-gray-300'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                        <svg class="w-4 h-4" :class="hasUppercase ? 'text-green-500' : 'text-gray-300'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                                         Mengandung huruf kapital
                                     </li>
                                     <li class="flex items-center gap-1.5" :class="{'text-green-600': hasNumber}">
-                                        <svg class="w-3.5 h-3.5" :class="hasNumber ? 'text-green-500' : 'text-gray-300'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                        <svg class="w-4 h-4" :class="hasNumber ? 'text-green-500' : 'text-gray-300'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                                         Mengandung angka/nomor
                                     </li>
                                 </ul>
