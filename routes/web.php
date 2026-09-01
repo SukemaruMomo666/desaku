@@ -11,7 +11,8 @@ use App\Http\Controllers\AdminSettingController;
 
 Route::get('/', function () {
     $letterTypes = \App\Models\LetterType::where('is_active', true)->get();
-    return view('welcome', compact('letterTypes'));
+    $articles = \App\Models\Article::where('is_active', true)->latest()->take(6)->get();
+    return view('welcome', compact('letterTypes', 'articles'));
 });
 
 // Public letter routes
@@ -64,6 +65,11 @@ Route::middleware('auth')->group(function () {
         Route::middleware('can:manage-letter-types')->group(function() {
             Route::resource('admin/letter-types', AdminLetterTypeController::class)->names('admin.letter-types')->except(['show']);
             Route::get('admin/letter-types/{id}/download-template', [AdminLetterTypeController::class, 'downloadTemplate'])->name('admin.letter-types.download-template');
+        });
+
+        Route::middleware('can:manage-articles')->group(function() {
+            Route::resource('admin/articles', \App\Http\Controllers\ArticleController::class)->names('admin.articles');
+            Route::post('admin/articles/{id}/toggle', [\App\Http\Controllers\ArticleController::class, 'toggleActive'])->name('admin.articles.toggle');
         });
             
         Route::middleware('can:manage-users')->group(function() {

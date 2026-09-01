@@ -195,6 +195,76 @@
             </div>
         </section>
 
+        @if($articles->count() > 0)
+        <!-- Papan Informasi & Kegiatan Section -->
+        <section class="py-24 bg-gray-50 relative overflow-hidden" id="informasi">
+            <!-- Decorative Background Elements -->
+            <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                <div class="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-primary-100/50 blur-[120px]"></div>
+                <div class="absolute -bottom-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-100/50 blur-[120px]"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-16">
+                    <span class="inline-block py-1 px-3 rounded-full bg-primary-50 border border-primary-100 text-primary-600 text-sm font-bold tracking-wide uppercase mb-3">
+                        Berita & Kegiatan
+                    </span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-secondary-900 mb-4">Papan Informasi Kelurahan</h2>
+                    <p class="text-gray-500 max-w-2xl mx-auto text-lg">Ikuti perkembangan terbaru, kegiatan warga, dan pengumuman penting dari Kelurahan Sukapada.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    @foreach($articles as $article)
+                    <div class="group bg-white rounded-3xl border border-gray-100/80 shadow-sm hover:shadow-2xl hover:shadow-primary-500/10 transition-all duration-500 overflow-hidden flex flex-col h-full transform hover:-translate-y-2 relative">
+                        <!-- Glassmorphism Reflection -->
+                        <div class="absolute inset-0 bg-gradient-to-tr from-white/40 to-white/0 pointer-events-none z-10"></div>
+                        
+                        @if($article->image)
+                        <div class="h-56 w-full overflow-hidden relative">
+                            <div class="absolute inset-0 bg-secondary-900/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+                            <img src="{{ Storage::url($article->image) }}" alt="{{ $article->title }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                            
+                            <!-- Type Badge on Image -->
+                            <div class="absolute top-4 left-4 z-20">
+                                <span class="px-3 py-1.5 bg-white/90 backdrop-blur-md text-secondary-900 text-xs font-bold uppercase tracking-wider rounded-xl shadow-sm">
+                                    {{ $article->type }}
+                                </span>
+                            </div>
+                        </div>
+                        @else
+                        <!-- No Image Fallback Gradient -->
+                        <div class="h-40 w-full bg-gradient-to-br from-primary-50 via-white to-blue-50 relative flex items-center justify-center overflow-hidden border-b border-gray-50">
+                            <div class="absolute -right-10 -top-10 w-40 h-40 bg-primary-100/50 rounded-full blur-3xl"></div>
+                            <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-blue-100/50 rounded-full blur-3xl"></div>
+                            <span class="px-4 py-2 bg-white/80 backdrop-blur-sm text-primary-600 text-sm font-bold uppercase tracking-wider rounded-xl shadow-sm z-10 border border-primary-100/50">
+                                {{ $article->type }}
+                            </span>
+                        </div>
+                        @endif
+                        
+                        <div class="p-6 flex-1 flex flex-col relative z-20 bg-white">
+                            <div class="flex items-center text-xs text-gray-400 font-medium mb-3 gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                {{ $article->created_at->locale('id')->translatedFormat('d F Y') }}
+                            </div>
+                            <h3 class="font-bold text-gray-900 text-xl mb-3 line-clamp-2 leading-tight group-hover:text-primary-600 transition-colors">
+                                {{ $article->title }}
+                            </h3>
+                            @if($article->content)
+                            <p class="text-gray-500 text-sm line-clamp-3 mb-4 leading-relaxed">
+                                {{ strip_tags($article->content) }}
+                            </p>
+                            @endif
+                        </div>
+                        <!-- Decorative Bottom Line -->
+                        <div class="h-1 w-full bg-gradient-to-r from-primary-400 to-blue-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+        @endif
+
         <!-- Layanan Surat Section -->
         <section class="py-20 bg-white border-y border-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

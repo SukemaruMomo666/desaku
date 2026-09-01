@@ -241,6 +241,10 @@
                             <input type="checkbox" name="role_super_admin_permissions[]" value="manage_users" class="w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500" {{ in_array('manage_users', $role_super_admin_permissions) ? 'checked' : '' }}>
                             <span class="font-medium text-gray-700">Data Warga</span>
                         </label>
+                        <label class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-xl cursor-pointer hover:border-blue-500 transition-colors">
+                            <input type="checkbox" name="role_super_admin_permissions[]" value="manage_articles" class="w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500" {{ in_array('manage_articles', $role_super_admin_permissions) ? 'checked' : '' }}>
+                            <span class="font-medium text-gray-700">Papan Informasi / Kegiatan</span>
+                        </label>
                     </div>
                 </div>
 
@@ -262,6 +266,10 @@
                         <label class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-xl cursor-pointer hover:border-gray-500 transition-colors">
                             <input type="checkbox" name="role_admin_permissions[]" value="manage_users" class="w-5 h-5 text-gray-600 rounded border-gray-300 focus:ring-gray-500" {{ in_array('manage_users', $role_admin_permissions) ? 'checked' : '' }}>
                             <span class="font-medium text-gray-700">Data Warga</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-xl cursor-pointer hover:border-gray-500 transition-colors">
+                            <input type="checkbox" name="role_admin_permissions[]" value="manage_articles" class="w-5 h-5 text-gray-600 rounded border-gray-300 focus:ring-gray-500" {{ in_array('manage_articles', $role_admin_permissions) ? 'checked' : '' }}>
+                            <span class="font-medium text-gray-700">Papan Informasi / Kegiatan</span>
                         </label>
                     </div>
                 </div>

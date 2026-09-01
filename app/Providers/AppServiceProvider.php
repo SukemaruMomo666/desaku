@@ -59,6 +59,10 @@ class AppServiceProvider extends ServiceProvider
             return $hasPermission($user, 'manage_requests');
         });
 
+        Gate::define('manage-articles', function ($user) use ($hasPermission) {
+            return $hasPermission($user, 'manage_articles');
+        });
+
         Gate::define('is-warga', function ($user) {
             return $user->role === 'warga';
         });
