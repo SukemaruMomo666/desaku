@@ -513,7 +513,7 @@
                                     Portal resmi Dinas Pelayanan Pajak untuk mengecek status dan tagihan Pajak Bumi & Bangunan (PBB) Anda secara online.
                                 </p>
                             </div>
-                            <div class="relative z-10 flex items-center text-blue-600 font-bold text-sm group-hover:text-white transition-colors duration-500">
+                            <div class="relative z-10 flex items-center text-blue-600 font-bold text-sm group-hover:text-blue-800 transition-colors duration-500">
                                 Kunjungi Portal
                                 <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </div>
@@ -536,7 +536,7 @@
                                     Layanan Jaminan Kesehatan Nasional. Akses informasi kepesertaan, tagihan, dan fasilitas kesehatan BPJS Anda.
                                 </p>
                             </div>
-                            <div class="relative z-10 flex items-center text-teal-600 font-bold text-sm group-hover:text-white transition-colors duration-500">
+                            <div class="relative z-10 flex items-center text-teal-600 font-bold text-sm group-hover:text-teal-800 transition-colors duration-500">
                                 Kunjungi Portal
                                 <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </div>
@@ -559,7 +559,7 @@
                                     Layanan pengecekan pajak kendaraan bermotor (PKB) dan pembayaran secara online melalui E-Samsat Jawa Barat.
                                 </p>
                             </div>
-                            <div class="relative z-10 flex items-center text-orange-500 font-bold text-sm group-hover:text-white transition-colors duration-500">
+                            <div class="relative z-10 flex items-center text-orange-500 font-bold text-sm group-hover:text-orange-800 transition-colors duration-500">
                                 Kunjungi Portal
                                 <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </div>
