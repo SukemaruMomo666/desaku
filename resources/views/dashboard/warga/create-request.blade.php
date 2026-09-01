@@ -94,10 +94,16 @@
                                             $fieldKey = strtolower($field);
                                             if ($fieldKey == 'nama') $autoFill = Auth::user()->name;
                                             elseif ($fieldKey == 'nik') $autoFill = Auth::user()->nik;
+                                            elseif ($fieldKey == 'no_kk') $autoFill = Auth::user()->no_kk;
+                                            elseif ($fieldKey == 'tempat_lahir') $autoFill = Auth::user()->place_of_birth;
                                             elseif ($fieldKey == 'alamat') $autoFill = Auth::user()->address;
+                                            elseif ($fieldKey == 'rt') $autoFill = Auth::user()->rt;
+                                            elseif ($fieldKey == 'rw') $autoFill = Auth::user()->rw;
+                                            elseif ($fieldKey == 'alamat_lengkap') $autoFill = Auth::user()->address . ' RT ' . str_pad(Auth::user()->rt, 3, '0', STR_PAD_LEFT) . ' RW ' . str_pad(Auth::user()->rw, 3, '0', STR_PAD_LEFT);
                                             elseif ($fieldKey == 'jenis_kelamin') $autoFill = Auth::user()->gender === 'L' ? 'Laki-Laki' : 'Perempuan';
                                             elseif ($fieldKey == 'agama') $autoFill = Auth::user()->religion;
                                             elseif ($fieldKey == 'pekerjaan') $autoFill = Auth::user()->job;
+                                            elseif ($fieldKey == 'status_perkawinan') $autoFill = Auth::user()->marital_status;
                                             elseif ($fieldKey == 'telepon') $autoFill = Auth::user()->phone;
                                             elseif ($fieldKey == 'tanggal_lahir' || $fieldKey == 'tanggal_lahir(dd/mm/yy)') $autoFill = Auth::user()->birth_date ? \Carbon\Carbon::parse(Auth::user()->birth_date)->format('d-m-Y') : '';
                                         @endphp
