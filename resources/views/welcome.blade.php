@@ -21,8 +21,12 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center">
-                    <img src="{{ asset('logo-gerilya.png') }}" alt="Griliya Kelurahan Sukapada" class="h-12 w-auto object-contain">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <img src="{{ asset('logo-gerilya.png') }}" alt="Gerilya Kelurahan Sukapada" class="h-11 w-auto object-contain drop-shadow-sm">
+                    <div class="flex flex-col hidden sm:flex">
+                        <span class="font-black text-xl text-secondary-900 leading-none tracking-tight">GERILYA</span>
+                        <span class="text-[10px] font-bold text-primary-600 tracking-[0.2em] uppercase mt-0.5">Kelurahan Sukapada</span>
+                    </div>
                 </div>
 
                 <!-- Desktop Navigation -->
@@ -254,8 +258,12 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
                 <!-- Tentang -->
                 <div>
-                    <div class="flex items-center mb-6">
-                        <img src="{{ asset('logo-gerilya.png') }}" alt="Griliya Kelurahan Sukapada" class="h-10 w-auto">
+                    <div class="flex items-center gap-3 mb-6">
+                        <img src="{{ asset('logo-gerilya.png') }}" alt="Gerilya Kelurahan Sukapada" class="h-10 w-auto drop-shadow-sm">
+                        <div class="flex flex-col">
+                            <span class="font-black text-xl text-white leading-none tracking-tight">GERILYA</span>
+                            <span class="text-[10px] font-bold text-primary-400 tracking-[0.2em] uppercase mt-0.5">Kelurahan Sukapada</span>
+                        </div>
                     </div>
                     <p class="text-gray-400 text-sm leading-relaxed pr-4">
                         Inovasi digital untuk mempermudah warga dalam mengurus administrasi kependudukan. Cepat, transparan, dan efisien.
