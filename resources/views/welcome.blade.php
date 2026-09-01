@@ -692,21 +692,13 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Cek apakah popup sudah pernah ditutup di sesi ini
-            if (!sessionStorage.getItem('welcomeShown')) {
-                const popup = document.getElementById('welcomePopup');
-                const closeBtn = document.getElementById('closeWelcomePopup');
-                
-                closeBtn.addEventListener('click', function() {
-                    popup.classList.add('hidden');
-                    sessionStorage.setItem('welcomeShown', 'true');
-                    setTimeout(() => popup.remove(), 500); // Remove from DOM after transition
-                });
-            } else {
-                // Jika sudah pernah muncul, hapus elemen dari DOM
-                const popup = document.getElementById('welcomePopup');
-                if(popup) popup.remove();
-            }
+            const popup = document.getElementById('welcomePopup');
+            const closeBtn = document.getElementById('closeWelcomePopup');
+            
+            closeBtn.addEventListener('click', function() {
+                popup.classList.add('hidden');
+                setTimeout(() => popup.remove(), 500); // Remove from DOM after transition
+            });
         });
     </script>
 </body>
