@@ -26,14 +26,15 @@
     <link rel="icon" href="{{ asset('logo-gerilya.png') }}" type="image/png">
     
     <!-- Structured Data -->
+    @verbatim
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "GovernmentOrganization",
       "name": "Kelurahan Sukapada",
       "alternateName": "GERILYA Kelurahan Sukapada",
-      "url": "{{ url('/') }}",
-      "logo": "{{ asset('logo-gerilya.png') }}",
+      "url": "https://geriliya.com",
+      "logo": "https://geriliya.com/logo-gerilya.png",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Bandung",
@@ -42,6 +43,7 @@
       }
     }
     </script>
+    @endverbatim
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap" rel="stylesheet" />
