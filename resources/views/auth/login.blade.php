@@ -41,16 +41,17 @@
         <!-- Bagian Kiri (Form) -->
         <div class="w-full lg:w-1/2 flex flex-col justify-center py-8 px-4 sm:p-12 lg:px-24 xl:px-32 relative bg-gradient-to-br from-white to-gray-50 order-1" style="view-transition-name: auth-panel;">
             
+            <a href="/" class="absolute top-6 left-6 sm:top-8 sm:left-12 lg:top-12 lg:left-12 inline-flex items-center gap-2 text-sm font-bold text-gray-600 bg-white border border-gray-200 px-4 py-2 rounded-full hover:bg-gray-50 hover:text-primary-600 hover:border-primary-200 transition-all shadow-sm w-max group z-50">
+                <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Beranda
+            </a>
+
             <div class="absolute inset-0 overflow-hidden pointer-events-none">
                 <div class="absolute top-0 right-0 -mt-20 -mr-20 w-72 h-72 bg-blue-50 rounded-full mix-blend-multiply filter blur-3xl opacity-50 lg:hidden"></div>
                 <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-primary-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
             </div>
 
             <div class="w-full max-w-md mx-auto relative z-10">
-                <a href="/" class="inline-flex items-center gap-2 text-sm font-bold text-gray-600 bg-white border border-gray-200 px-4 py-2 rounded-full hover:bg-gray-50 hover:text-primary-600 hover:border-primary-200 transition-all shadow-sm mb-12 w-max group">
-                    <svg class="w-4 h-4 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                    Beranda
-                </a>
 
                 <div class="mb-8 text-center lg:text-left">
                     <div class="lg:hidden flex justify-center mb-6">
