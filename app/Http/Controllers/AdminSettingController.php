@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Signatory;
 use App\Models\LetterRequest;
 use App\Models\User;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use ZipArchive;
@@ -30,7 +31,11 @@ class AdminSettingController extends Controller
         // Data akun admin
         $admins = User::whereIn('role', ['master_admin', 'super_admin', 'admin'])->get();
 
-        return view('dashboard.admin.settings.index', compact('signatories', 'archiveSize', 'admins'));
+        // Data role permissions
+        $role_super_admin_permissions = Setting::where('key', 'role_super_admin_permissions')->first()->value ?? [];
+        $role_admin_permissions = Setting::where('key', 'role_admin_permissions')->first()->value ?? [];
+
+        return view('dashboard.admin.settings.index', compact('signatories', 'archiveSize', 'admins', 'role_super_admin_permissions', 'role_admin_permissions'));
     }
 
     public function storeSignatory(Request $request)
@@ -134,5 +139,29 @@ class AdminSettingController extends Controller
 
         $user->delete();
         return redirect()->back()->with('success', 'Akun admin berhasil dihapus.');
+    }
+
+    public function updateRolePermissions(Request $request)
+    {
+        $request->validate([
+            'role_super_admin_permissions' => 'array',
+            'role_admin_permissions' => 'array',
+        ]);
+
+        Setting::updateOrCreate(
+            ['key' => 'role_super_admin_permissions'],
+            ['value' => $request->role_super_admin_permissions ?? []]
+        );
+
+        Setting::updateOrCreate(
+            ['key' => 'role_admin_permissions'],
+            ['value' => $request->role_admin_permissions ?? []]
+        );
+
+        // Clear cache
+        \Illuminate\Support\Facades\Cache::forget('role_super_admin_permissions');
+        \Illuminate\Support\Facades\Cache::forget('role_admin_permissions');
+
+        return redirect()->back()->with('success', 'Hak akses role berhasil diperbarui.');
     }
 }

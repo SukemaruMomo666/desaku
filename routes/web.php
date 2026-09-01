@@ -54,15 +54,19 @@ Route::middleware('auth')->group(function () {
     Route::middleware('can:is-admin')->group(function() {
         Route::get('/dashboard/admin', [AdminController::class, 'index'])->name('admin.dashboard');
         
-        Route::get('admin/letter-requests', [AdminLetterRequestController::class, 'index'])->name('admin.letter-requests.index');
-        Route::get('admin/letter-requests/{id}', [AdminLetterRequestController::class, 'show'])->name('admin.letter-requests.show');
-        Route::post('admin/letter-requests/{id}/status', [AdminLetterRequestController::class, 'updateStatus'])->name('admin.letter-requests.update-status');
-        Route::get('admin/letter-requests/{id}/print', [AdminLetterRequestController::class, 'downloadDocx'])->name('admin.letter-requests.print');
+        Route::middleware('can:manage-requests')->group(function() {
+            Route::get('admin/letter-requests', [AdminLetterRequestController::class, 'index'])->name('admin.letter-requests.index');
+            Route::get('admin/letter-requests/{id}', [AdminLetterRequestController::class, 'show'])->name('admin.letter-requests.show');
+            Route::post('admin/letter-requests/{id}/status', [AdminLetterRequestController::class, 'updateStatus'])->name('admin.letter-requests.update-status');
+            Route::get('admin/letter-requests/{id}/print', [AdminLetterRequestController::class, 'downloadDocx'])->name('admin.letter-requests.print');
+        });
 
-        Route::middleware('can:is-super-admin')->group(function() {
+        Route::middleware('can:manage-letter-types')->group(function() {
             Route::resource('admin/letter-types', AdminLetterTypeController::class)->names('admin.letter-types')->except(['show']);
             Route::get('admin/letter-types/{id}/download-template', [AdminLetterTypeController::class, 'downloadTemplate'])->name('admin.letter-types.download-template');
+        });
             
+        Route::middleware('can:manage-users')->group(function() {
             Route::get('admin/users', [AdminUserController::class, 'index'])->name('admin.users.index');
             Route::get('admin/users/{id}', [AdminUserController::class, 'show'])->name('admin.users.show');
         });
@@ -77,6 +81,7 @@ Route::middleware('auth')->group(function () {
             
             Route::post('/dashboard/admin/settings/accounts', [AdminSettingController::class, 'storeAdmin'])->name('admin.settings.accounts.store');
             Route::delete('/dashboard/admin/settings/accounts/{id}', [AdminSettingController::class, 'destroyAdmin'])->name('admin.settings.accounts.destroy');
+            Route::post('/dashboard/admin/settings/role-permissions', [AdminSettingController::class, 'updateRolePermissions'])->name('admin.settings.role-permissions.update');
         });
     });
 });

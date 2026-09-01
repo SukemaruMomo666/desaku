@@ -29,6 +29,9 @@
         <button @click="tab = 'akun'" :class="tab === 'akun' ? 'bg-primary-50 text-primary-600 font-bold' : 'text-gray-500 font-medium hover:bg-gray-50'" class="px-6 py-2 rounded-xl transition-all">
             Manajemen Akun Admin
         </button>
+        <button @click="tab = 'role'" :class="tab === 'role' ? 'bg-primary-50 text-primary-600 font-bold' : 'text-gray-500 font-medium hover:bg-gray-50'" class="px-6 py-2 rounded-xl transition-all">
+            Hak Akses Role
+        </button>
     </div>
 
     <!-- Tab Content: Penandatangan -->
@@ -205,6 +208,70 @@
                     @endforeach
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Tab Content: Hak Akses Role -->
+    <div x-show="tab === 'role'" style="display: none;" class="space-y-6" x-transition.opacity>
+        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm max-w-4xl">
+            <div class="mb-6">
+                <h3 class="font-bold text-gray-900 text-xl">Pengaturan Hak Akses Role Dinamis</h3>
+                <p class="text-gray-500 text-sm mt-1">Centang menu apa saja yang boleh diakses oleh masing-masing tingkat admin. Master Admin memiliki akses penuh mutlak yang tidak bisa dibatasi.</p>
+            </div>
+
+            <form action="{{ route('admin.settings.role-permissions.update') }}" method="POST" class="space-y-8">
+                @csrf
+                
+                <!-- Super Admin Permissions -->
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                    <h4 class="font-bold text-blue-700 text-lg mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        Hak Akses: Super Admin
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <label class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-xl cursor-pointer hover:border-blue-500 transition-colors">
+                            <input type="checkbox" name="role_super_admin_permissions[]" value="manage_requests" class="w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500" {{ in_array('manage_requests', $role_super_admin_permissions) ? 'checked' : '' }}>
+                            <span class="font-medium text-gray-700">Data Pengajuan Warga</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-xl cursor-pointer hover:border-blue-500 transition-colors">
+                            <input type="checkbox" name="role_super_admin_permissions[]" value="manage_letter_types" class="w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500" {{ in_array('manage_letter_types', $role_super_admin_permissions) ? 'checked' : '' }}>
+                            <span class="font-medium text-gray-700">Master Jenis Surat</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-xl cursor-pointer hover:border-blue-500 transition-colors">
+                            <input type="checkbox" name="role_super_admin_permissions[]" value="manage_users" class="w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500" {{ in_array('manage_users', $role_super_admin_permissions) ? 'checked' : '' }}>
+                            <span class="font-medium text-gray-700">Data Warga</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Admin Biasa Permissions -->
+                <div class="bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                    <h4 class="font-bold text-gray-700 text-lg mb-4 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        Hak Akses: Admin Biasa
+                    </h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <label class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-xl cursor-pointer hover:border-gray-500 transition-colors">
+                            <input type="checkbox" name="role_admin_permissions[]" value="manage_requests" class="w-5 h-5 text-gray-600 rounded border-gray-300 focus:ring-gray-500" {{ in_array('manage_requests', $role_admin_permissions) ? 'checked' : '' }}>
+                            <span class="font-medium text-gray-700">Data Pengajuan Warga</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-xl cursor-pointer hover:border-gray-500 transition-colors">
+                            <input type="checkbox" name="role_admin_permissions[]" value="manage_letter_types" class="w-5 h-5 text-gray-600 rounded border-gray-300 focus:ring-gray-500" {{ in_array('manage_letter_types', $role_admin_permissions) ? 'checked' : '' }}>
+                            <span class="font-medium text-gray-700">Master Jenis Surat</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-xl cursor-pointer hover:border-gray-500 transition-colors">
+                            <input type="checkbox" name="role_admin_permissions[]" value="manage_users" class="w-5 h-5 text-gray-600 rounded border-gray-300 focus:ring-gray-500" {{ in_array('manage_users', $role_admin_permissions) ? 'checked' : '' }}>
+                            <span class="font-medium text-gray-700">Data Warga</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex justify-end">
+                    <button type="submit" class="px-8 py-3 bg-primary-600 text-white font-bold rounded-xl hover:bg-primary-700 transition-all shadow-lg shadow-primary-500/30">
+                        Simpan Konfigurasi Hak Akses
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
