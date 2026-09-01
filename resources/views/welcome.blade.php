@@ -50,7 +50,21 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
+    <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Trix Display Styles -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+    <style>
+        .trix-content {
+            font-family: inherit;
+        }
+        .trix-content a {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body class="font-sans antialiased bg-gray-50 text-gray-800 selection:bg-primary-500 selection:text-white flex flex-col min-h-screen">
 
@@ -323,8 +337,8 @@
 
                         <!-- Modal Body Content -->
                         @if($article->content)
-                        <div class="p-6 sm:p-8 prose prose-lg prose-primary max-w-none text-gray-700 leading-relaxed">
-                            {!! nl2br(e($article->content)) !!}
+                        <div class="p-6 sm:p-8 trix-content text-gray-700">
+                            {!! $article->content !!}
                         </div>
                         @else
                         <div class="p-8 text-center text-gray-500">

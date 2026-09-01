@@ -46,8 +46,20 @@
             <!-- Konten -->
             <div>
                 <label class="block text-sm font-bold text-gray-700 mb-2">Isi Konten</label>
-                <textarea name="content" rows="6" 
-                    class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all">{{ old('content', $article->content) }}</textarea>
+                
+                <!-- Trix Editor Dependencies -->
+                <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+                <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+                <style>
+                    trix-toolbar [data-trix-button-group="file-tools"] { display: none; }
+                    .trix-content { min-height: 250px; }
+                    /* Fix trix active button background to match our theme */
+                    trix-toolbar .trix-button.trix-active { background: #e0e7ff; }
+                </style>
+
+                <input id="article_content" type="hidden" name="content" value="{{ old('content', $article->content) }}">
+                <trix-editor input="article_content" class="trix-content w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 outline-none transition-all bg-white"></trix-editor>
+                
                 @error('content') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
             </div>
 
