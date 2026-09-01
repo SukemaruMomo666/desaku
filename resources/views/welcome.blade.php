@@ -545,23 +545,23 @@
                         </div>
                     </a>
 
-                    <!-- Samsat Card -->
-                    <a href="https://bapenda.jabarprov.go.id/sipolin-samsat-jabar/" target="_blank" class="group block relative rounded-3xl p-1 bg-gradient-to-b from-gray-50 to-gray-100 hover:from-orange-400 hover:to-red-500 transition-all duration-500 shadow-sm hover:shadow-xl hover:-translate-y-1">
+                    <!-- Bansos Kemensos Card -->
+                    <a href="https://share.google/6i2apuk9rFfXhqYdT" target="_blank" class="group block relative rounded-3xl p-1 bg-gradient-to-b from-gray-50 to-gray-100 hover:from-indigo-500 hover:to-purple-600 transition-all duration-500 shadow-sm hover:shadow-xl hover:-translate-y-1">
                         <div class="h-full bg-white rounded-[1.4rem] p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between">
                             <div class="absolute right-0 top-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
-                                <svg class="w-32 h-32 -mr-8 -mt-8 text-orange-600" fill="currentColor" viewBox="0 0 24 24"><path d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
+                                <svg class="w-32 h-32 -mr-8 -mt-8 text-indigo-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
                             </div>
                             
                             <div class="relative z-10">
-                                <div class="w-14 h-14 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center mb-6 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-500 shadow-sm">
-                                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                <div class="w-14 h-14 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center mb-6 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-500 shadow-sm">
+                                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                                 </div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-500 transition-colors">E-Samsat & Pajak</h3>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">Cek Bansos (Desil)</h3>
                                 <p class="text-gray-500 text-sm leading-relaxed mb-6">
-                                    Layanan pengecekan pajak kendaraan bermotor (PKB) dan pembayaran secara online melalui E-Samsat Jawa Barat.
+                                    Portal resmi Kementerian Sosial (Kemensos) untuk mengecek status DTKS dan penerima Bantuan Sosial (Bansos) Anda secara online.
                                 </p>
                             </div>
-                            <div class="relative z-10 flex items-center text-orange-500 font-bold text-sm group-hover:text-orange-800 transition-colors duration-500">
+                            <div class="relative z-10 flex items-center text-indigo-600 font-bold text-sm group-hover:text-indigo-800 transition-colors duration-500">
                                 Kunjungi Portal
                                 <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </div>
