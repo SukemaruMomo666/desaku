@@ -24,7 +24,7 @@
                 <div class="flex-shrink-0 flex items-center gap-3">
                     <img src="{{ asset('logo-gerilya.png') }}" alt="Gerilya Kelurahan Sukapada" class="h-12 w-auto object-contain">
                     <div class="flex flex-col justify-center">
-                        <span class="font-black text-2xl text-blue-900 leading-none tracking-tight">GERILYA</span>
+                        <span class="font-bold text-2xl text-blue-900 leading-none tracking-tight">GERILYA</span>
                         <span class="text-xs font-bold text-green-600 tracking-widest uppercase mt-0.5">KELURAHAN SUKAPADA</span>
                     </div>
                 </div>
@@ -261,7 +261,7 @@
                     <div class="flex items-center gap-3 mb-6">
                         <img src="{{ asset('logo-gerilya.png') }}" alt="Gerilya Kelurahan Sukapada" class="h-10 w-auto">
                         <div class="flex flex-col justify-center">
-                            <span class="font-black text-2xl text-white leading-none tracking-tight">GERILYA</span>
+                            <span class="font-bold text-2xl text-white leading-none tracking-tight">GERILYA</span>
                             <span class="text-xs font-bold text-green-500 tracking-widest uppercase mt-0.5">KELURAHAN SUKAPADA</span>
                         </div>
                     </div>
