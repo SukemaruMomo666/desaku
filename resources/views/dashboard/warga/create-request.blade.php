@@ -92,6 +92,12 @@
                                         @php
                                             $autoFill = '';
                                             $fieldKey = strtolower($field);
+                                            
+                                            // Jangan tampilkan field sistem rahasia meskipun admin tidak sengaja memasukkannya
+                                            if (in_array($fieldKey, ['tanggal_hari_ini', 'blok_jabatan', 'ttd_nama', 'ttd_nip', 'tanggal_pengajuan'])) {
+                                                continue;
+                                            }
+
                                             if ($fieldKey == 'nama') $autoFill = Auth::user()->name;
                                             elseif ($fieldKey == 'nik') $autoFill = Auth::user()->nik;
                                             elseif ($fieldKey == 'no_kk') $autoFill = Auth::user()->no_kk;
