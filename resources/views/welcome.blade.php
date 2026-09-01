@@ -325,7 +325,7 @@
             </div>
             
             <!-- Body -->
-            <div class="p-6 sm:p-8 bg-gray-50/50 overflow-y-auto">
+            <div class="p-6 sm:p-8 bg-gray-50/50 overflow-y-auto flex-1 min-h-0">
                 <div class="flex justify-between items-center mb-4 border-b border-gray-200 pb-2">
                     <span class="text-xs font-bold text-secondary-800 uppercase tracking-widest">GERILYA - KELURAHAN SUKAPADA</span>
                     <span class="text-xs text-gray-500">Panduan Resmi</span>
@@ -403,6 +403,8 @@
 
             // Show modal
             modal.classList.remove('hidden');
+            // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
             // Trigger animation
             setTimeout(() => {
                 modalContent.classList.remove('scale-95', 'opacity-0');
@@ -414,9 +416,10 @@
             // Animate out
             modalContent.classList.remove('scale-100', 'opacity-100');
             modalContent.classList.add('scale-95', 'opacity-0');
-            // Hide after animation
+            // Hide after animation and restore scroll
             setTimeout(() => {
                 modal.classList.add('hidden');
+                document.body.style.overflow = '';
             }, 300);
         }
 
