@@ -197,7 +197,7 @@
 
         @if($articles->count() > 0)
         <!-- Papan Informasi & Kegiatan Section -->
-        <section class="py-24 bg-gray-50 relative overflow-hidden" id="informasi">
+        <section class="py-24 bg-gray-50 relative overflow-hidden" id="informasi" x-data="{ activeModal: null }">
             <!-- Decorative Background Elements -->
             <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 <div class="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-primary-100/50 blur-[120px]"></div>
@@ -222,7 +222,7 @@
                                     : (($index === 1 && $articles->count() == 2) ? 'md:col-span-2' : 'md:col-span-2 lg:col-span-2');
                     @endphp
 
-                    <div class="group relative rounded-3xl overflow-hidden {{ $gridClass }} shadow-md hover:shadow-2xl transition-all duration-500 cursor-pointer">
+                    <div @click="activeModal = {{ $article->id }}; document.body.style.overflow = 'hidden'" class="group relative rounded-3xl overflow-hidden {{ $gridClass }} shadow-md hover:shadow-2xl transition-all duration-500 cursor-pointer">
                         
                         <!-- Background Image or Gradient -->
                         @if($article->image)
@@ -272,6 +272,70 @@
                     @endforeach
                 </div>
             </div>
+
+            <!-- Modals for Articles -->
+            @foreach($articles as $article)
+            <div x-show="activeModal === {{ $article->id }}" style="display: none;" class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
+                <!-- Backdrop -->
+                <div x-show="activeModal === {{ $article->id }}" x-transition.opacity duration.300ms @click="activeModal = null; document.body.style.overflow = 'auto'" class="absolute inset-0 bg-gray-900/60 backdrop-blur-sm"></div>
+                
+                <!-- Modal Content -->
+                <div x-show="activeModal === {{ $article->id }}" 
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0 translate-y-8 scale-95"
+                     x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+                     x-transition:leave="transition ease-in duration-200"
+                     x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+                     x-transition:leave-end="opacity-0 translate-y-8 scale-95"
+                     class="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+                    
+                    <!-- Close Button -->
+                    <button @click="activeModal = null; document.body.style.overflow = 'auto'" class="absolute top-4 right-4 z-50 p-2 bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full text-white transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+
+                    <div class="overflow-y-auto">
+                        <!-- Modal Header Image -->
+                        <div class="w-full h-64 sm:h-80 relative bg-gradient-to-br from-primary-500 to-blue-600 flex-shrink-0">
+                            @if($article->image)
+                                <img src="{{ Storage::url($article->image) }}" alt="{{ $article->title }}" class="w-full h-full object-cover">
+                            @else
+                                <!-- Abstract shapes for no-image cards -->
+                                <div class="absolute inset-0 overflow-hidden">
+                                    <div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
+                                    <div class="absolute bottom-0 left-0 w-48 h-48 bg-black/10 rounded-full blur-2xl transform -translate-x-1/3 translate-y-1/3"></div>
+                                </div>
+                            @endif
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/30 to-transparent"></div>
+                            
+                            <!-- Title & Meta over image -->
+                            <div class="absolute bottom-0 left-0 w-full p-6 sm:p-8">
+                                <span class="inline-block px-3 py-1 mb-4 bg-white/20 backdrop-blur-md border border-white/30 text-white text-xs font-bold uppercase tracking-wider rounded-full">
+                                    {{ $article->type }}
+                                </span>
+                                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-tight drop-shadow-md mb-2">{{ $article->title }}</h2>
+                                <div class="flex items-center text-gray-300 text-sm font-medium gap-2 drop-shadow-sm">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                    {{ $article->created_at->locale('id')->translatedFormat('d F Y, H:i') }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal Body Content -->
+                        @if($article->content)
+                        <div class="p-6 sm:p-8 prose prose-lg prose-primary max-w-none text-gray-700 leading-relaxed">
+                            {!! nl2br(e($article->content)) !!}
+                        </div>
+                        @else
+                        <div class="p-8 text-center text-gray-500">
+                            Tidak ada detail tambahan untuk konten ini.
+                        </div>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            @endforeach
+
         </section>
         @endif
 
