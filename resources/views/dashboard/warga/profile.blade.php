@@ -52,6 +52,10 @@
                         <input type="text" name="nik" value="{{ old('nik', $user->nik) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all font-mono" placeholder="16 Digit NIK Anda" required>
                     </div>
                     <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Nomor Kartu Keluarga (KK)</label>
+                        <input type="text" name="no_kk" value="{{ old('no_kk', $user->no_kk) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all font-mono" placeholder="16 Digit No. KK Anda" required>
+                    </div>
+                    <div>
                         <label class="block text-sm font-bold text-gray-900 mb-2">Nama Lengkap</label>
                         <input type="text" name="name" value="{{ old('name', $user->name) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" placeholder="Nama Sesuai KTP" required>
                     </div>

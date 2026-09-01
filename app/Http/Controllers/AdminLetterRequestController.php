@@ -110,21 +110,53 @@ class AdminLetterRequestController extends Controller
         $templateProcessor->setValue('nomor_surat', $letterRequest->letter_number ?? '........................');
         $templateProcessor->setValue('nama', strtoupper($letterRequest->user->name));
         $templateProcessor->setValue('nik', $letterRequest->user->nik);
+        $templateProcessor->setValue('no_kk', $letterRequest->user->no_kk ?? '-');
+        $templateProcessor->setValue('tempat_lahir', strtoupper($letterRequest->user->place_of_birth));
         $templateProcessor->setValue('tanggal_lahir', $letterRequest->user->birth_date ? \Carbon\Carbon::parse($letterRequest->user->birth_date)->format('d-m-Y') : '-');
         $templateProcessor->setValue('tanggal_lahir(dd/mm/yy)', $letterRequest->user->birth_date ? \Carbon\Carbon::parse($letterRequest->user->birth_date)->format('d-m-Y') : '-');
         $templateProcessor->setValue('jenis_kelamin', strtoupper($letterRequest->user->gender === 'L' ? 'Laki-Laki' : 'Perempuan'));
         $templateProcessor->setValue('agama', strtoupper($letterRequest->user->religion));
         $templateProcessor->setValue('pekerjaan', strtoupper($letterRequest->user->job));
+        $templateProcessor->setValue('status_perkawinan', strtoupper($letterRequest->user->marital_status));
         $templateProcessor->setValue('alamat', strtoupper($letterRequest->user->address));
+        
+        // Format RT/RW (misal: 005 / 001)
+        $rt = str_pad($letterRequest->user->rt, 3, '0', STR_PAD_LEFT);
+        $rw = str_pad($letterRequest->user->rw, 3, '0', STR_PAD_LEFT);
+        $templateProcessor->setValue('rt', $rt);
+        $templateProcessor->setValue('rw', $rw);
+        $templateProcessor->setValue('alamat_lengkap', strtoupper($letterRequest->user->address . ' RT ' . $rt . ' RW ' . $rw));
+        
         $templateProcessor->setValue('telepon', $letterRequest->user->phone);
         $templateProcessor->setValue('tanggal_pengajuan', $letterRequest->created_at->format('d-m-Y'));
 
+        // Format Tanggal Hari Ini (Format Indonesia)
+        $months = [1 => 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+        $tgl = \Carbon\Carbon::now();
+        $tanggal_hari_ini = $tgl->format('d') . ' ' . $months[(int)$tgl->format('m')] . ' ' . $tgl->format('Y');
+        $templateProcessor->setValue('tanggal_hari_ini', $tanggal_hari_ini);
+
         // 3. Tanda Tangan
         if ($letterRequest->signatory) {
+            $jabatan = trim(strtoupper($letterRequest->signatory->position));
+            
+            // Cek apakah yang tanda tangan adalah Lurah langsung
+            if (str_contains($jabatan, 'LURAH') && !str_contains($jabatan, 'SEKRETARIS')) {
+                $blok_jabatan = 'Lurah Sukapada';
+            } else {
+                // Gunakan XML tag </w:t><w:br/><w:t> untuk membuat baris baru (enter) di dalam tabel Word
+                $blok_jabatan = 'a.n. Lurah Sukapada</w:t><w:br/><w:t>' . ucwords(strtolower($letterRequest->signatory->position));
+            }
+
+            $templateProcessor->setValue('blok_jabatan', $blok_jabatan);
             $templateProcessor->setValue('ttd_nama', $letterRequest->signatory->name);
             $templateProcessor->setValue('ttd_jabatan', $letterRequest->signatory->position);
-            $templateProcessor->setValue('ttd_nip', $letterRequest->signatory->nip ? $letterRequest->signatory->nip : '');
+            
+            // Tambahkan tulisan "NIP. " secara otomatis jika ada
+            $nip_text = $letterRequest->signatory->nip ? 'NIP. ' . $letterRequest->signatory->nip : '';
+            $templateProcessor->setValue('ttd_nip', $nip_text);
         } else {
+            $templateProcessor->setValue('blok_jabatan', '.............................');
             $templateProcessor->setValue('ttd_nama', '.............................');
             $templateProcessor->setValue('ttd_jabatan', '.............................');
             $templateProcessor->setValue('ttd_nip', '');
