@@ -85,17 +85,7 @@
                             <option value="P" {{ old('gender', $user->gender) == 'P' ? 'selected' : '' }}>Perempuan</option>
                         </select>
                     </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-900 mb-2">Golongan Darah</label>
-                        <select name="blood_type" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all">
-                            <option value="">Tidak Tahu / Pilih...</option>
-                            <option value="A" {{ old('blood_type', $user->blood_type) == 'A' ? 'selected' : '' }}>A</option>
-                            <option value="B" {{ old('blood_type', $user->blood_type) == 'B' ? 'selected' : '' }}>B</option>
-                            <option value="AB" {{ old('blood_type', $user->blood_type) == 'AB' ? 'selected' : '' }}>AB</option>
-                            <option value="O" {{ old('blood_type', $user->blood_type) == 'O' ? 'selected' : '' }}>O</option>
-                            <option value="-" {{ old('blood_type', $user->blood_type) == '-' ? 'selected' : '' }}>-</option>
-                        </select>
-                    </div>
+
                     <div>
                         <label class="block text-sm font-bold text-gray-900 mb-2">Agama</label>
                         <select name="religion" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" required>
