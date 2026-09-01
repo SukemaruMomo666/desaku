@@ -122,6 +122,7 @@ class AdminLetterRequestController extends Controller
         $templateProcessor->setValue('jenis_kelamin', strtoupper($letterRequest->user->gender === 'L' ? 'Laki-Laki' : 'Perempuan'));
         $templateProcessor->setValue('suami_istri', $letterRequest->user->gender === 'L' ? 'ISTRI' : 'SUAMI');
         $templateProcessor->setValue('suami_istri_title', $letterRequest->user->gender === 'L' ? 'Istri' : 'Suami');
+        $templateProcessor->setValue('kewarganegaraan', strtoupper($letterRequest->user->nationality));
         $templateProcessor->setValue('agama', strtoupper($letterRequest->user->religion));
         $templateProcessor->setValue('pekerjaan', strtoupper($letterRequest->user->job));
         $templateProcessor->setValue('status_perkawinan', strtoupper($letterRequest->user->marital_status));
