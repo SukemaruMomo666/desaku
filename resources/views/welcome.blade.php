@@ -3,9 +3,45 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Griliya Kelurahan Sukapada') }}</title>
+    <title>{{ config('app.name', 'GERILYA - Layanan Digital Kelurahan Sukapada') }}</title>
+    <meta name="description" content="GERILYA adalah Portal Layanan Digital resmi Kelurahan Sukapada, Kecamatan Cibeunying Kidul, Kota Bandung. Urus administrasi kependudukan dan surat menyurat lebih mudah, cepat, dan transparan.">
+    <meta name="keywords" content="kelurahan sukapada, gerilya sukapada, layanan kelurahan sukapada, surat keterangan sukapada, kelurahan bandung, cibeunying kidul, administrasi kelurahan">
+    <meta name="author" content="Pemerintah Kelurahan Sukapada">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:title" content="GERILYA - Kelurahan Sukapada">
+    <meta property="og:description" content="Portal Layanan Digital resmi Kelurahan Sukapada. Urus administrasi kependudukan lebih mudah dan cepat tanpa antre.">
+    <meta property="og:image" content="{{ asset('logo-gerilya.png') }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url('/') }}">
+    <meta property="twitter:title" content="GERILYA - Kelurahan Sukapada">
+    <meta property="twitter:description" content="Portal Layanan Digital resmi Kelurahan Sukapada. Urus administrasi kependudukan lebih mudah dan cepat tanpa antre.">
+    <meta property="twitter:image" content="{{ asset('logo-gerilya.png') }}">
+
     <link rel="icon" href="{{ asset('logo-gerilya.png') }}" type="image/png">
     
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "GovernmentOrganization",
+      "name": "Kelurahan Sukapada",
+      "alternateName": "GERILYA Kelurahan Sukapada",
+      "url": "{{ url('/') }}",
+      "logo": "{{ asset('logo-gerilya.png') }}",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Bandung",
+        "addressRegion": "Jawa Barat",
+        "addressCountry": "ID"
+      }
+    }
+    </script>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800&display=swap" rel="stylesheet" />
@@ -101,7 +137,7 @@
                         Sistem Layanan Buka 24/7
                     </span>
                     <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-secondary-950 tracking-tight leading-tight mb-8">
-                        Layanan Surat <br class="hidden md:block" />
+                        Layanan Surat Kelurahan Sukapada <br class="hidden md:block" />
                         Lebih <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-600 to-primary-400">Mudah & Cepat</span>
                     </h1>
                     <p class="text-lg md:text-xl text-gray-500 mb-10 leading-relaxed">
@@ -160,7 +196,7 @@
         <!-- Layanan Surat Section -->
         <section class="py-20 bg-white border-y border-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <h2 class="text-3xl font-bold text-secondary-900 mb-2">Layanan Surat Tersedia</h2>
+                <h2 class="text-3xl font-bold text-secondary-900 mb-2">Layanan Surat Kelurahan Sukapada</h2>
                 <p class="text-gray-500 mb-12">Klik nama surat di bawah ini untuk melihat detail panduan dan persyaratan yang dibutuhkan.</p>
                 <div class="flex flex-wrap justify-center gap-4">
                     @forelse($letterTypes as $letter)
