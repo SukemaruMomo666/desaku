@@ -803,7 +803,6 @@
             align-items: center;
             background-color: #22c55e;
             color: white;
-            border: 4px solid black;
             border-radius: 9999px;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
             padding: 0 0.8rem;
