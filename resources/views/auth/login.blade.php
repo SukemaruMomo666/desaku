@@ -39,9 +39,11 @@
         </div>
 
         <!-- Bagian Kiri (Form) -->
-        <div class="w-full lg:w-1/2 flex flex-col justify-center py-12 px-6 sm:px-12 lg:px-24 xl:px-32 relative overflow-y-auto overflow-x-hidden bg-gray-50/50 order-1" style="view-transition-name: auth-panel;">
+        <div class="w-full lg:w-1/2 flex flex-col justify-center py-12 px-6 sm:px-12 lg:px-24 xl:px-32 relative bg-gray-50/50 order-1" style="view-transition-name: auth-panel;">
             
-            <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-primary-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+            <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-96 h-96 bg-primary-100 rounded-full mix-blend-multiply filter blur-3xl opacity-50"></div>
+            </div>
 
             <div class="w-full max-w-md mx-auto relative z-10">
                 <a href="/" class="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-primary-600 transition-colors mb-12">
