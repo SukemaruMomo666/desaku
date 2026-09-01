@@ -476,6 +476,99 @@
                 </div>
             </div>
         </section>
+
+        <!-- Layanan Pemerintahan Terintegrasi -->
+        <section class="py-24 relative overflow-hidden bg-white border-t border-gray-100">
+            <!-- Decorative Elements -->
+            <div class="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-blue-50 rounded-full blur-3xl opacity-60"></div>
+            <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-primary-50 rounded-full blur-3xl opacity-60"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="text-center mb-16">
+                    <span class="inline-block py-1 px-4 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-sm font-bold tracking-wide uppercase mb-3 shadow-sm">
+                        E-Government
+                    </span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-4">Layanan Publik Terintegrasi</h2>
+                    <p class="text-lg text-gray-500 max-w-2xl mx-auto leading-relaxed">
+                        Akses cepat menuju berbagai portal layanan resmi pemerintah untuk memudahkan urusan administrasi, pajak, dan kesehatan Anda.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    
+                    <!-- PBB Card -->
+                    <a href="http://202.154.32.11/disyanjak-sipp/pencarianpbb/cektagihan" target="_blank" class="group block relative rounded-3xl p-1 bg-gradient-to-b from-gray-50 to-gray-100 hover:from-blue-500 hover:to-primary-600 transition-all duration-500 shadow-sm hover:shadow-xl hover:-translate-y-1">
+                        <div class="h-full bg-white rounded-[1.4rem] p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between">
+                            <!-- Background Pattern -->
+                            <div class="absolute right-0 top-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
+                                <svg class="w-32 h-32 -mr-8 -mt-8 text-blue-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            </div>
+                            
+                            <div class="relative z-10">
+                                <div class="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-500 shadow-sm">
+                                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">Cek Tagihan PBB</h3>
+                                <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                                    Portal resmi Dinas Pelayanan Pajak untuk mengecek status dan tagihan Pajak Bumi & Bangunan (PBB) Anda secara online.
+                                </p>
+                            </div>
+                            <div class="relative z-10 flex items-center text-blue-600 font-bold text-sm group-hover:text-white transition-colors duration-500">
+                                Kunjungi Portal
+                                <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- BPJS Card -->
+                    <a href="https://bpjs-kesehatan.go.id/" target="_blank" class="group block relative rounded-3xl p-1 bg-gradient-to-b from-gray-50 to-gray-100 hover:from-teal-500 hover:to-emerald-600 transition-all duration-500 shadow-sm hover:shadow-xl hover:-translate-y-1">
+                        <div class="h-full bg-white rounded-[1.4rem] p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between">
+                            <div class="absolute right-0 top-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
+                                <svg class="w-32 h-32 -mr-8 -mt-8 text-teal-600" fill="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                            </div>
+                            
+                            <div class="relative z-10">
+                                <div class="w-14 h-14 rounded-2xl bg-teal-50 text-teal-600 flex items-center justify-center mb-6 group-hover:bg-teal-600 group-hover:text-white transition-colors duration-500 shadow-sm">
+                                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors">BPJS Kesehatan</h3>
+                                <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                                    Layanan Jaminan Kesehatan Nasional. Akses informasi kepesertaan, tagihan, dan fasilitas kesehatan BPJS Anda.
+                                </p>
+                            </div>
+                            <div class="relative z-10 flex items-center text-teal-600 font-bold text-sm group-hover:text-white transition-colors duration-500">
+                                Kunjungi Portal
+                                <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Samsat Card -->
+                    <a href="https://bapenda.jabarprov.go.id/sipolin-samsat-jabar/" target="_blank" class="group block relative rounded-3xl p-1 bg-gradient-to-b from-gray-50 to-gray-100 hover:from-orange-400 hover:to-red-500 transition-all duration-500 shadow-sm hover:shadow-xl hover:-translate-y-1">
+                        <div class="h-full bg-white rounded-[1.4rem] p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between">
+                            <div class="absolute right-0 top-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
+                                <svg class="w-32 h-32 -mr-8 -mt-8 text-orange-600" fill="currentColor" viewBox="0 0 24 24"><path d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
+                            </div>
+                            
+                            <div class="relative z-10">
+                                <div class="w-14 h-14 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center mb-6 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-500 shadow-sm">
+                                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-500 transition-colors">E-Samsat & Pajak</h3>
+                                <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                                    Layanan pengecekan pajak kendaraan bermotor (PKB) dan pembayaran secara online melalui E-Samsat Jawa Barat.
+                                </p>
+                            </div>
+                            <div class="relative z-10 flex items-center text-orange-500 font-bold text-sm group-hover:text-white transition-colors duration-500">
+                                Kunjungi Portal
+                                <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
