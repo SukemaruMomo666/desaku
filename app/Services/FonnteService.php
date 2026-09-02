@@ -16,7 +16,8 @@ class FonnteService
      */
     public static function sendMessage(string $target, string $message): bool
     {
-        $token = env('FONNTE_TOKEN');
+        $setting = \App\Models\Setting::where('key', 'fonnte_token')->first();
+        $token = $setting ? (is_array($setting->value) ? ($setting->value[0] ?? '') : $setting->value) : env('FONNTE_TOKEN');
         
         if (empty($token)) {
             Log::warning('Fonnte token is missing. WhatsApp message was not sent.');

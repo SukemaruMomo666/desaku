@@ -35,7 +35,9 @@ class AdminSettingController extends Controller
         $role_super_admin_permissions = Setting::where('key', 'role_super_admin_permissions')->first()->value ?? [];
         $role_admin_permissions = Setting::where('key', 'role_admin_permissions')->first()->value ?? [];
 
-        return view('dashboard.admin.settings.index', compact('signatories', 'archiveSize', 'admins', 'role_super_admin_permissions', 'role_admin_permissions'));
+        $fonnte_token = Setting::where('key', 'fonnte_token')->first()->value ?? env('FONNTE_TOKEN');
+
+        return view('dashboard.admin.settings.index', compact('signatories', 'archiveSize', 'admins', 'role_super_admin_permissions', 'role_admin_permissions', 'fonnte_token'));
     }
 
     public function storeSignatory(Request $request)
@@ -163,5 +165,19 @@ class AdminSettingController extends Controller
         \Illuminate\Support\Facades\Cache::forget('role_admin_permissions');
 
         return redirect()->back()->with('success', 'Hak akses role berhasil diperbarui.');
+    }
+
+    public function updateApi(Request $request)
+    {
+        $request->validate([
+            'fonnte_token' => 'required|string',
+        ]);
+
+        Setting::updateOrCreate(
+            ['key' => 'fonnte_token'],
+            ['value' => $request->fonnte_token]
+        );
+
+        return redirect()->back()->with('success', 'Token API Fonnte berhasil diperbarui.');
     }
 }

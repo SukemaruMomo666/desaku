@@ -32,6 +32,11 @@
         <button @click="tab = 'role'" :class="tab === 'role' ? 'bg-primary-50 text-primary-600 font-bold' : 'text-gray-500 font-medium hover:bg-gray-50'" class="px-6 py-2 rounded-xl transition-all">
             Hak Akses Role
         </button>
+        @if(auth()->user()->role === 'master_admin')
+        <button @click="tab = 'api'" :class="tab === 'api' ? 'bg-primary-50 text-primary-600 font-bold' : 'text-gray-500 font-medium hover:bg-gray-50'" class="px-6 py-2 rounded-xl transition-all">
+            API
+        </button>
+        @endif
     </div>
 
     <!-- Tab Content: Penandatangan -->
@@ -292,6 +297,32 @@
             </form>
         </div>
     </div>
+
+    @if(auth()->user()->role === 'master_admin')
+    <!-- Tab Content: API -->
+    <div x-show="tab === 'api'" style="display: none;" class="space-y-6" x-transition.opacity>
+        <div class="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm max-w-2xl">
+            <div class="mb-6">
+                <h3 class="font-bold text-gray-900 text-xl">Pengaturan API Fonnte</h3>
+                <p class="text-gray-500 text-sm mt-1">Atur token API Fonnte untuk keperluan notifikasi WhatsApp.</p>
+            </div>
+
+            <form action="{{ route('admin.settings.api.update') }}" method="POST" class="space-y-6">
+                @csrf
+                <div>
+                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Token API Fonnte</label>
+                    <input type="text" name="fonnte_token" value="{{ old('fonnte_token', is_array($fonnte_token) ? ($fonnte_token[0] ?? '') : $fonnte_token) }}" required placeholder="Masukkan Token API Fonnte" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all">
+                </div>
+
+                <div class="flex justify-start">
+                    <button type="submit" class="px-8 py-3 bg-primary-600 text-white font-bold rounded-xl hover:bg-primary-700 transition-all shadow-lg shadow-primary-500/30">
+                        Simpan Token API
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @endif
 
 </div>
 @endsection

@@ -98,6 +98,7 @@ Route::middleware('auth')->group(function () {
             Route::post('/dashboard/admin/settings/accounts', [AdminSettingController::class, 'storeAdmin'])->name('admin.settings.accounts.store');
             Route::delete('/dashboard/admin/settings/accounts/{id}', [AdminSettingController::class, 'destroyAdmin'])->name('admin.settings.accounts.destroy');
             Route::post('/dashboard/admin/settings/role-permissions', [AdminSettingController::class, 'updateRolePermissions'])->name('admin.settings.role-permissions.update');
+            Route::post('/dashboard/admin/settings/api', [AdminSettingController::class, 'updateApi'])->name('admin.settings.api.update');
         });
     });
 });
