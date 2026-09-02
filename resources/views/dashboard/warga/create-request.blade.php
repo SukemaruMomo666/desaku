@@ -127,10 +127,18 @@
                                             
                                             $labelText = str_replace('_', ' ', $field);
                                             $labelText = ucwords($labelText);
-                                            $labelText = str_replace(['Nik', 'Kk', 'Rt', 'Rw', 'Tgl'], ['NIK', 'KK', 'RT', 'RW', 'Tanggal'], $labelText);
+                                            $labelText = str_replace(
+                                                ['Nik', 'Kk', 'Rt', 'Rw', 'Tgl', 'Nomor Pengantar', 'Tanggal Pengantar', 'Tanggal Pernyataan'], 
+                                                ['NIK', 'KK', 'RT', 'RW', 'Tanggal', 'No Surat Pengantar', 'Tanggal Surat Pengantar', 'Tanggal Surat Pernyataan'], 
+                                                $labelText
+                                            );
                                             
                                             $placeholderText = str_replace('_', ' ', strtolower($field));
-                                            $placeholderText = str_replace(['nik', 'kk', 'rt', 'rw', 'tgl'], ['NIK', 'KK', 'RT', 'RW', 'tanggal'], $placeholderText);
+                                            $placeholderText = str_replace(
+                                                ['nik', 'kk', 'rt', 'rw', 'tgl', 'nomor pengantar', 'tanggal pengantar', 'tanggal pernyataan'], 
+                                                ['NIK', 'KK', 'RT', 'RW', 'tanggal', 'no surat pengantar', 'tanggal surat pengantar', 'tanggal surat pernyataan'], 
+                                                $placeholderText
+                                            );
                                         @endphp
                                         <div class="{{ in_array($fieldKey, ['alamat', 'keperluan']) ? 'sm:col-span-2' : '' }}">
                                             <label class="block text-sm font-semibold text-gray-700 mb-2">{{ $labelText }} <span class="text-red-500">*</span></label>
