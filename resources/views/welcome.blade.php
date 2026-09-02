@@ -544,8 +544,8 @@
                         </div>
                     </a>
 
-                    <!-- Samsat Card -->
-                    <a href="https://bapenda.jabarprov.go.id/sipolin-samsat-jabar/" target="_blank" class="group block relative rounded-3xl p-1 bg-gradient-to-b from-gray-50 to-gray-100 hover:from-orange-400 hover:to-red-500 transition-all duration-500 shadow-sm hover:shadow-xl hover:-translate-y-1">
+                    <!-- PBB Card -->
+                    <a href="http://202.154.32.11/disyanjak-sipp/pencarianpbb/cektagihan" target="_blank" class="group block relative rounded-3xl p-1 bg-gradient-to-b from-gray-50 to-gray-100 hover:from-orange-400 hover:to-red-500 transition-all duration-500 shadow-sm hover:shadow-xl hover:-translate-y-1">
                         <div class="h-full bg-white rounded-[1.4rem] p-6 sm:p-8 relative overflow-hidden flex flex-col justify-between">
                             <div class="absolute right-0 top-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
                                 <svg class="w-32 h-32 -mr-8 -mt-8 text-orange-600" fill="currentColor" viewBox="0 0 24 24"><path d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
@@ -555,9 +555,9 @@
                                 <div class="w-14 h-14 rounded-2xl bg-orange-50 text-orange-600 flex items-center justify-center mb-6 group-hover:bg-orange-500 group-hover:text-white transition-colors duration-500 shadow-sm">
                                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                                 </div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-500 transition-colors">E-Samsat & Pajak</h3>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-500 transition-colors">Cek Tagihan Pajak PBB</h3>
                                 <p class="text-gray-500 text-sm leading-relaxed mb-6">
-                                    Layanan pengecekan pajak kendaraan bermotor (PKB) dan pembayaran secara online melalui E-Samsat Jawa Barat.
+                                    Layanan pengecekan tagihan dan tunggakan Pajak Bumi dan Bangunan (PBB) secara online.
                                 </p>
                             </div>
                             <div class="relative z-10 flex items-center text-orange-500 font-bold text-sm group-hover:text-orange-800 transition-colors duration-500">
