@@ -56,6 +56,10 @@
                         <input type="text" name="no_kk" value="{{ old('no_kk', $user->no_kk) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all font-mono" placeholder="16 Digit No. KK Anda" required>
                     </div>
                     <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Tanggal Dikeluarkan KK</label>
+                        <input type="date" name="kk_issued_date" value="{{ old('kk_issued_date', $user->kk_issued_date ? \Carbon\Carbon::parse($user->kk_issued_date)->format('Y-m-d') : '') }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all font-mono" required>
+                    </div>
+                    <div>
                         <label class="block text-sm font-bold text-gray-900 mb-2">Nama Lengkap</label>
                         <input type="text" name="name" value="{{ old('name', $user->name) }}" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" placeholder="Nama Sesuai KTP" required>
                     </div>
