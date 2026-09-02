@@ -124,20 +124,20 @@
                                             elseif ($fieldKey == 'status_perkawinan') $autoFill = Auth::user()->marital_status;
                                             elseif ($fieldKey == 'telepon') $autoFill = Auth::user()->phone;
                                             elseif ($fieldKey == 'tanggal_lahir' || $fieldKey == 'tanggal_lahir(dd/mm/yy)') $autoFill = Auth::user()->birth_date ? \Carbon\Carbon::parse(Auth::user()->birth_date)->format($inputType == 'date' ? 'Y-m-d' : 'd-m-Y') : '';
-                                            elseif ($fieldKey == 'tanggal_kk' || $fieldKey == 'tanggal_kk(dd/mm/yy)') $autoFill = Auth::user()->kk_issued_date ? \Carbon\Carbon::parse(Auth::user()->kk_issued_date)->format($inputType == 'date' ? 'Y-m-d' : 'd-m-Y') : '';
+                                            elseif ($fieldKey == 'tanggal_kk' || $fieldKey == 'tgl_kk' || $fieldKey == 'tanggal_kk(dd/mm/yy)') $autoFill = Auth::user()->kk_issued_date ? \Carbon\Carbon::parse(Auth::user()->kk_issued_date)->format($inputType == 'date' ? 'Y-m-d' : 'd-m-Y') : '';
                                             
                                             $labelText = str_replace('_', ' ', $field);
                                             $labelText = ucwords($labelText);
                                             $labelText = str_replace(
-                                                ['Nik', 'No Kk', 'Tanggal Kk', 'Kk', 'Rt', 'Rw', 'Tgl', 'Nomor Pengantar', 'Tanggal Pengantar', 'Tanggal Pernyataan'], 
-                                                ['NIK', 'Nomor Kartu Keluarga (KK)', 'Tanggal Dikeluarkan KK', 'KK', 'RT', 'RW', 'Tanggal', 'No Surat Pengantar', 'Tanggal Surat Pengantar', 'Tanggal Surat Pernyataan'], 
+                                                ['Nik', 'No Kk', 'Tanggal Kk', 'Tgl Kk', 'Kk', 'Rt', 'Rw', 'Tgl', 'Nomor Pengantar', 'Tanggal Pengantar', 'Tanggal Pernyataan'], 
+                                                ['NIK', 'Nomor Kartu Keluarga (KK)', 'Tanggal Dikeluarkan KK', 'Tanggal Dikeluarkan KK', 'KK', 'RT', 'RW', 'Tanggal', 'No Surat Pengantar', 'Tanggal Surat Pengantar', 'Tanggal Surat Pernyataan'], 
                                                 $labelText
                                             );
                                             
                                             $placeholderText = str_replace('_', ' ', strtolower($field));
                                             $placeholderText = str_replace(
-                                                ['nik', 'no kk', 'tanggal kk', 'kk', 'rt', 'rw', 'tgl', 'nomor pengantar', 'tanggal pengantar', 'tanggal pernyataan'], 
-                                                ['NIK', 'nomor kartu keluarga (KK)', 'tanggal dikeluarkan KK', 'KK', 'RT', 'RW', 'tanggal', 'no surat pengantar', 'tanggal surat pengantar', 'tanggal surat pernyataan'], 
+                                                ['nik', 'no kk', 'tanggal kk', 'tgl kk', 'kk', 'rt', 'rw', 'tgl', 'nomor pengantar', 'tanggal pengantar', 'tanggal pernyataan'], 
+                                                ['NIK', 'nomor kartu keluarga (KK)', 'tanggal dikeluarkan KK', 'tanggal dikeluarkan KK', 'KK', 'RT', 'RW', 'tanggal', 'no surat pengantar', 'tanggal surat pengantar', 'tanggal surat pernyataan'], 
                                                 $placeholderText
                                             );
                                         @endphp
