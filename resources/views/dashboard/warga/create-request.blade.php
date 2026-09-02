@@ -128,15 +128,15 @@
                                             $labelText = str_replace('_', ' ', $field);
                                             $labelText = ucwords($labelText);
                                             $labelText = str_replace(
-                                                ['Nik', 'Kk', 'Rt', 'Rw', 'Tgl', 'Nomor Pengantar', 'Tanggal Pengantar', 'Tanggal Pernyataan'], 
-                                                ['NIK', 'KK', 'RT', 'RW', 'Tanggal', 'No Surat Pengantar', 'Tanggal Surat Pengantar', 'Tanggal Surat Pernyataan'], 
+                                                ['Nik', 'No Kk', 'Kk', 'Rt', 'Rw', 'Tgl', 'Nomor Pengantar', 'Tanggal Pengantar', 'Tanggal Pernyataan'], 
+                                                ['NIK', 'Nomor Kartu Keluarga (KK)', 'KK', 'RT', 'RW', 'Tanggal', 'No Surat Pengantar', 'Tanggal Surat Pengantar', 'Tanggal Surat Pernyataan'], 
                                                 $labelText
                                             );
                                             
                                             $placeholderText = str_replace('_', ' ', strtolower($field));
                                             $placeholderText = str_replace(
-                                                ['nik', 'kk', 'rt', 'rw', 'tgl', 'nomor pengantar', 'tanggal pengantar', 'tanggal pernyataan'], 
-                                                ['NIK', 'KK', 'RT', 'RW', 'tanggal', 'no surat pengantar', 'tanggal surat pengantar', 'tanggal surat pernyataan'], 
+                                                ['nik', 'no kk', 'kk', 'rt', 'rw', 'tgl', 'nomor pengantar', 'tanggal pengantar', 'tanggal pernyataan'], 
+                                                ['NIK', 'nomor kartu keluarga (KK)', 'KK', 'RT', 'RW', 'tanggal', 'no surat pengantar', 'tanggal surat pengantar', 'tanggal surat pernyataan'], 
                                                 $placeholderText
                                             );
                                         @endphp
