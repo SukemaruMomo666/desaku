@@ -55,62 +55,105 @@
                         
                         <!-- Modal Detail -->
                         <template x-teleport="body">
-                            <div x-show="showModal" style="display: none;" class="fixed inset-0 z-[100] overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                                <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-                                    <div x-show="showModal" x-transition.opacity class="fixed inset-0 bg-gray-900 bg-opacity-50 transition-opacity" @click="showModal = false" aria-hidden="true"></div>
-                                    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-                                    <div x-show="showModal" x-transition class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl w-full">
-                                        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                                            <div class="sm:flex sm:items-start">
-                                                <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
-                                                    <h3 class="text-xl leading-6 font-bold text-gray-900 border-b pb-3" id="modal-title">
-                                                        Detail Pengajuan
-                                                    </h3>
-                                                    <div class="mt-4 space-y-4 text-sm text-gray-700 text-left">
-                                                        <div class="grid grid-cols-3 gap-2">
-                                                            <span class="font-semibold text-gray-500">Jenis Surat</span>
-                                                            <span class="col-span-2 font-medium">{{ $req->letterType->name }}</span>
+                            <div x-show="showModal" style="display: none;" class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                                <!-- Backdrop -->
+                                <div x-show="showModal" x-transition.opacity class="fixed inset-0 bg-secondary-900/60 backdrop-blur-sm transition-opacity" @click="showModal = false" aria-hidden="true"></div>
+                                
+                                <!-- Modal Panel -->
+                                <div x-show="showModal" 
+                                     x-transition:enter="ease-out duration-300"
+                                     x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                     x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                                     x-transition:leave="ease-in duration-200"
+                                     x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                                     x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                                     class="relative z-10 bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:max-w-2xl w-full flex flex-col max-h-full border border-gray-100">
+                                    
+                                    <!-- Modal Header -->
+                                    <div class="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white flex justify-between items-center shrink-0">
+                                        <div class="flex items-center gap-3">
+                                            <div class="w-12 h-12 rounded-2xl bg-primary-50 flex items-center justify-center text-primary-600 shadow-inner">
+                                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                            </div>
+                                            <div>
+                                                <h3 class="text-xl font-extrabold text-gray-900" id="modal-title">Detail Pengajuan Surat</h3>
+                                                <p class="text-sm text-gray-500 font-medium mt-0.5">Lihat informasi lengkap dari permohonan Anda</p>
+                                            </div>
+                                        </div>
+                                        <button @click="showModal = false" class="text-gray-400 hover:text-gray-600 hover:bg-gray-100 p-2 rounded-xl transition-colors focus:outline-none">
+                                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                        </button>
+                                    </div>
+
+                                    <!-- Modal Body (Scrollable) -->
+                                    <div class="px-6 py-6 overflow-y-auto flex-1 bg-white">
+                                        <div class="space-y-6">
+                                            
+                                            <!-- Overview Cards -->
+                                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                                <!-- Jenis Surat -->
+                                                <div class="bg-gray-50/50 p-4 rounded-2xl border border-gray-100">
+                                                    <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Jenis Surat</p>
+                                                    <p class="font-bold text-gray-900">{{ $req->letterType->name }}</p>
+                                                </div>
+                                                <!-- Tanggal & Status -->
+                                                <div class="bg-gray-50/50 p-4 rounded-2xl border border-gray-100 flex flex-col justify-center">
+                                                    <div class="flex justify-between items-center w-full">
+                                                        <div>
+                                                            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Diajukan Pada</p>
+                                                            <p class="font-bold text-gray-900">{{ $req->created_at->format('d M Y, H:i') }}</p>
                                                         </div>
-                                                        <div class="grid grid-cols-3 gap-2">
-                                                            <span class="font-semibold text-gray-500">Tanggal</span>
-                                                            <span class="col-span-2 font-medium">{{ $req->created_at->format('d M Y H:i') }}</span>
-                                                        </div>
-                                                        <div class="grid grid-cols-3 gap-2">
-                                                            <span class="font-semibold text-gray-500">Status</span>
-                                                            <span class="col-span-2">
-                                                                <span class="px-2 py-0.5 rounded-full text-xs font-bold uppercase {{ $color }}">{{ $req->status }}</span>
+                                                        <div class="text-right">
+                                                            <span class="px-3 py-1.5 rounded-xl text-xs font-extrabold uppercase tracking-wider shadow-sm {{ $color }}">
+                                                                {{ $req->status }}
                                                             </span>
                                                         </div>
-                                                        
-                                                        @if($req->admin_notes)
-                                                            <div class="p-3 bg-red-50 text-red-700 rounded-lg border border-red-100 mt-2">
-                                                                <strong>Catatan Penolakan:</strong> {{ $req->admin_notes }}
-                                                            </div>
-                                                        @endif
-
-                                                        @if($req->submitted_data && count($req->submitted_data) > 0)
-                                                        <div class="mt-4">
-                                                            <strong class="block mb-2 text-gray-900">Data Isian Form:</strong>
-                                                            <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 space-y-2">
-                                                                @foreach($req->submitted_data as $key => $value)
-                                                                    <div class="grid grid-cols-3 gap-2">
-                                                                        <span class="font-semibold text-gray-500 capitalize">{{ str_replace('_', ' ', $key) }}</span>
-                                                                        <span class="col-span-2 text-gray-900">{{ $value }}</span>
-                                                                    </div>
-                                                                @endforeach
-                                                            </div>
-                                                        </div>
-                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-gray-100">
-                                            <button type="button" @click="showModal = false" class="w-full inline-flex justify-center rounded-xl border border-transparent shadow-sm px-5 py-2.5 bg-gray-900 text-base font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 sm:ml-3 sm:w-auto sm:text-sm transition-colors">
-                                                Tutup
-                                            </button>
+
+                                            @if($req->admin_notes)
+                                                <!-- Admin Notes -->
+                                                <div class="bg-red-50 p-5 rounded-2xl border border-red-100 flex gap-4 items-start shadow-sm">
+                                                    <div class="bg-red-100 p-2 rounded-full text-red-600 shrink-0">
+                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                                    </div>
+                                                    <div>
+                                                        <h4 class="font-bold text-red-800">Catatan dari Admin</h4>
+                                                        <p class="text-sm text-red-700 mt-1 font-medium">{{ $req->admin_notes }}</p>
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                            @if($req->submitted_data && count($req->submitted_data) > 0)
+                                            <!-- Data Isian Form -->
+                                            <div>
+                                                <h4 class="text-base font-bold text-gray-900 flex items-center gap-2 mb-4">
+                                                    <svg class="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                                    Data Isian Formulir
+                                                </h4>
+                                                <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+                                                    <ul class="divide-y divide-gray-100">
+                                                        @foreach($req->submitted_data as $key => $value)
+                                                            <li class="p-4 flex flex-col sm:flex-row sm:items-center hover:bg-gray-50/50 transition-colors gap-1 sm:gap-4">
+                                                                <span class="text-sm font-semibold text-gray-500 capitalize w-full sm:w-1/3 shrink-0">{{ str_replace('_', ' ', $key) }}</span>
+                                                                <span class="text-sm font-bold text-gray-900 flex-1">{{ $value }}</span>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
+
+                                    <!-- Modal Footer -->
+                                    <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 shrink-0 flex justify-end">
+                                        <button type="button" @click="showModal = false" class="inline-flex items-center gap-2 justify-center rounded-xl border border-transparent px-6 py-2.5 bg-gray-900 text-sm font-bold text-white shadow-lg hover:bg-gray-800 hover:-translate-y-0.5 transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 w-full sm:w-auto">
+                                            Tutup Detail
+                                        </button>
+                                    </div>
+
                                 </div>
                             </div>
                         </template>
