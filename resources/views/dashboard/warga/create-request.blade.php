@@ -124,10 +124,17 @@
                                             elseif ($fieldKey == 'status_perkawinan') $autoFill = Auth::user()->marital_status;
                                             elseif ($fieldKey == 'telepon') $autoFill = Auth::user()->phone;
                                             elseif ($fieldKey == 'tanggal_lahir' || $fieldKey == 'tanggal_lahir(dd/mm/yy)') $autoFill = Auth::user()->birth_date ? \Carbon\Carbon::parse(Auth::user()->birth_date)->format($inputType == 'date' ? 'Y-m-d' : 'd-m-Y') : '';
+                                            
+                                            $labelText = str_replace('_', ' ', $field);
+                                            $labelText = ucwords($labelText);
+                                            $labelText = str_replace(['Nik', 'Kk'], ['NIK', 'KK'], $labelText);
+                                            
+                                            $placeholderText = str_replace('_', ' ', strtolower($field));
+                                            $placeholderText = str_replace(['nik', 'kk'], ['NIK', 'KK'], $placeholderText);
                                         @endphp
                                         <div class="{{ in_array($fieldKey, ['alamat', 'keperluan']) ? 'sm:col-span-2' : '' }}">
-                                            <label class="block text-sm font-semibold text-gray-700 mb-2 capitalize">{{ str_replace('_', ' ', $field) }} <span class="text-red-500">*</span></label>
-                                            <input type="{{ $inputType }}" name="form_fields[{{ $field }}]" value="{{ old('form_fields.'.$field, $autoFill) }}" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none" placeholder="Masukkan {{ str_replace('_', ' ', strtolower($field)) }}...">
+                                            <label class="block text-sm font-semibold text-gray-700 mb-2">{{ $labelText }} <span class="text-red-500">*</span></label>
+                                            <input type="{{ $inputType }}" name="form_fields[{{ $field }}]" value="{{ old('form_fields.'.$field, $autoFill) }}" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none" placeholder="Masukkan {{ $placeholderText }}...">
                                         </div>
                                     @endforeach
                                 </div>
