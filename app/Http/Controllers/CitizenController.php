@@ -149,4 +149,14 @@ class CitizenController extends Controller
 
         return redirect()->route('citizen.profile')->with('success', 'Profil Anda berhasil diperbarui! Data ini akan otomatis digunakan untuk pengajuan surat selanjutnya.');
     }
+
+    public function history()
+    {
+        $requests = LetterRequest::with('letterType')
+            ->where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+            
+        return view('dashboard.warga.history', compact('requests'));
+    }
 }

@@ -1,72 +1,28 @@
 @extends('layouts.app')
 
-@section('header_title', 'Beranda Warga')
+@section('header_title', 'Riwayat Pengajuan Surat')
 
 @section('content')
 <div class="max-w-6xl mx-auto space-y-8">
     
-    <!-- Welcome Banner -->
-    <div class="bg-primary-600 rounded-3xl p-6 sm:p-10 text-white shadow-xl shadow-primary-500/20 relative overflow-hidden">
-        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-white opacity-10 rounded-full blur-3xl"></div>
-        <div class="relative z-10">
-            <h2 class="text-3xl font-extrabold mb-2 tracking-tight">Halo, {{ explode(' ', auth()->user()->name)[0] }}! 👋</h2>
-            <p class="text-primary-100 text-lg max-w-2xl">Selamat datang di portal layanan administrasi kelurahan. Apa yang ingin Anda urus hari ini?</p>
-            
-            <div class="mt-8 flex flex-wrap gap-4">
-                <a href="{{ route('citizen.request.create') }}" class="bg-white text-primary-700 px-6 py-3 rounded-xl font-bold shadow-lg hover:bg-gray-50 transition-colors flex items-center gap-2 hover:-translate-y-0.5 duration-200">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                    Ajukan Surat Baru
-                </a>
-            </div>
+    <!-- Header -->
+    <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div>
+            <h2 class="text-2xl font-extrabold text-gray-900 mb-1">Riwayat Pengajuan Anda</h2>
+            <p class="text-gray-500 text-sm">Lihat semua status dan riwayat surat yang pernah Anda ajukan.</p>
         </div>
-    </div>
-
-    <!-- Stats Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Stat Card 1 -->
-        <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-start gap-4">
-            <div class="w-12 h-12 rounded-xl bg-orange-50 text-orange-500 flex items-center justify-center shrink-0">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            </div>
-            <div>
-                <p class="text-sm font-medium text-gray-500 mb-1">Diproses Admin</p>
-                <h3 class="text-2xl font-bold text-gray-900">{{ $requests->where('status', 'diproses')->count() + $requests->where('status', 'menunggu')->count() }}</h3>
-            </div>
-        </div>
-        
-        <!-- Stat Card 2 -->
-        <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-start gap-4">
-            <div class="w-12 h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center shrink-0">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path></svg>
-            </div>
-            <div>
-                <p class="text-sm font-medium text-gray-500 mb-1">Siap Diambil</p>
-                <h3 class="text-2xl font-bold text-gray-900">{{ $requests->where('status', 'selesai')->count() }}</h3>
-            </div>
-        </div>
-
-        <!-- Stat Card 3 -->
-        <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm flex items-start gap-4">
-            <div class="w-12 h-12 rounded-xl bg-primary-50 text-primary-600 flex items-center justify-center shrink-0">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-            </div>
-            <div>
-                <p class="text-sm font-medium text-gray-500 mb-1">Total Pengajuan Selesai</p>
-                <h3 class="text-2xl font-bold text-gray-900">{{ $requests->where('status', 'selesai')->count() }}</h3>
-            </div>
-        </div>
+        <a href="{{ route('citizen.request.create') }}" class="bg-primary-600 text-white px-5 py-2.5 rounded-xl font-bold shadow-lg shadow-primary-500/30 hover:bg-primary-700 transition-colors flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+            Ajukan Surat
+        </a>
     </div>
 
     <!-- Recent Requests -->
     <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
-        <div class="p-6 border-b border-gray-100 flex justify-between items-center">
-            <h3 class="text-lg font-bold text-gray-900">Pengajuan Terakhir Anda</h3>
-            <a href="{{ route('citizen.history') }}" class="text-sm font-semibold text-primary-600 hover:text-primary-700">Lihat Semua</a>
-        </div>
         
         @if($requests->count() > 0)
             <div class="divide-y divide-gray-100">
-                @foreach($requests->take(5) as $req)
+                @foreach($requests as $req)
                     <div x-data="{ showModal: false }" class="p-6 hover:bg-gray-50 transition-colors flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
                         <div class="flex items-start gap-4">
                             <div class="w-10 h-10 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center shrink-0 mt-1">
@@ -161,39 +117,28 @@
                     </div>
                 @endforeach
             </div>
+            
+            @if($requests->hasPages())
+            <div class="p-6 border-t border-gray-100 bg-gray-50/50">
+                {{ $requests->links() }}
+            </div>
+            @endif
         @else
             <!-- Empty State -->
             <div class="p-12 text-center">
-                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 mb-4">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 mb-4 border border-gray-100">
                     <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                 </div>
-                <h4 class="text-gray-900 font-bold mb-1">Belum ada pengajuan</h4>
-                <p class="text-gray-500 text-sm">Anda belum mengajukan surat apapun. Mulai ajukan sekarang.</p>
+                <h4 class="text-gray-900 font-bold mb-1 text-lg">Belum ada pengajuan</h4>
+                <p class="text-gray-500 text-sm max-w-sm mx-auto">Anda belum pernah mengajukan surat apapun. Silakan buat pengajuan surat baru.</p>
+                <div class="mt-6">
+                    <a href="{{ route('citizen.request.create') }}" class="inline-flex items-center gap-2 bg-primary-600 text-white px-5 py-2.5 rounded-xl font-bold hover:bg-primary-700 transition-colors shadow-lg shadow-primary-500/30">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                        Mulai Ajukan Surat
+                    </a>
+                </div>
             </div>
         @endif
     </div>
 </div>
-
-@push('scripts')
-@if($isProfileIncomplete)
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        Swal.fire({
-            title: 'Perhatian!',
-            text: 'Halo! Profil biodata Anda belum lengkap. Silakan lengkapi profil Anda terlebih dahulu agar dapat mulai mengajukan surat.',
-            icon: 'warning',
-            confirmButtonText: 'Lengkapi Profil Sekarang',
-            confirmButtonColor: '#3b82f6',
-            allowOutsideClick: false,
-            allowEscapeKey: false,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "{{ route('citizen.profile') }}";
-            }
-        });
-    });
-</script>
-@endif
-@endpush
 @endsection

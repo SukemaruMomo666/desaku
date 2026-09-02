@@ -55,6 +55,7 @@ Route::middleware('auth')->group(function () {
         // Pengajuan Surat
         Route::get('/dashboard/warga/request', [CitizenController::class, 'createRequest'])->name('citizen.request.create');
         Route::post('/dashboard/warga/request', [CitizenController::class, 'storeRequest'])->name('citizen.request.store');
+        Route::get('/dashboard/warga/history', [CitizenController::class, 'history'])->name('citizen.history');
 
         // Profil Warga
         Route::get('/dashboard/warga/profile', [CitizenController::class, 'profile'])->name('citizen.profile');
