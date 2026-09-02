@@ -111,7 +111,7 @@
                                      x-transition:leave="ease-in duration-200"
                                      x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
                                      x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-                                     class="relative z-10 bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:max-w-2xl w-full flex flex-col max-h-full border border-gray-100">
+                                     class="relative z-10 bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:max-w-2xl w-full flex flex-col max-h-[90vh] border border-gray-100">
                                     
                                     <!-- Modal Header -->
                                     <div class="px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white flex justify-between items-center shrink-0">
