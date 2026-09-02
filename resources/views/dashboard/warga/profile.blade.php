@@ -91,6 +91,16 @@
                     </div>
 
                     <div>
+                        <label class="block text-sm font-bold text-gray-900 mb-2">Golongan Darah</label>
+                        <select name="blood_type" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" required>
+                            <option value="">Pilih Golongan Darah...</option>
+                            @foreach(['A', 'B', 'AB', 'O', '-'] as $goldar)
+                                <option value="{{ $goldar }}" {{ old('blood_type', $user->blood_type) == $goldar ? 'selected' : '' }}>{{ $goldar }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div>
                         <label class="block text-sm font-bold text-gray-900 mb-2">Agama</label>
                         <select name="religion" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 outline-none transition-all" required>
                             <option value="">Pilih Agama...</option>

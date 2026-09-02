@@ -121,7 +121,7 @@ class CitizenController extends Controller
             'place_of_birth' => 'required|string|max:255',
             'birth_date' => 'required|date',
             'gender' => 'required|in:L,P',
-            'blood_type' => 'nullable|in:A,B,AB,O,-',
+            'blood_type' => 'required|in:A,B,AB,O,-',
             'religion' => 'required|string',
             'marital_status' => 'required|string',
             'job' => 'required|string',
