@@ -127,10 +127,10 @@
                                             
                                             $labelText = str_replace('_', ' ', $field);
                                             $labelText = ucwords($labelText);
-                                            $labelText = str_replace(['Nik', 'Kk'], ['NIK', 'KK'], $labelText);
+                                            $labelText = str_replace(['Nik', 'Kk', 'Rt', 'Rw'], ['NIK', 'KK', 'RT', 'RW'], $labelText);
                                             
                                             $placeholderText = str_replace('_', ' ', strtolower($field));
-                                            $placeholderText = str_replace(['nik', 'kk'], ['NIK', 'KK'], $placeholderText);
+                                            $placeholderText = str_replace(['nik', 'kk', 'rt', 'rw'], ['NIK', 'KK', 'RT', 'RW'], $placeholderText);
                                         @endphp
                                         <div class="{{ in_array($fieldKey, ['alamat', 'keperluan']) ? 'sm:col-span-2' : '' }}">
                                             <label class="block text-sm font-semibold text-gray-700 mb-2">{{ $labelText }} <span class="text-red-500">*</span></label>
