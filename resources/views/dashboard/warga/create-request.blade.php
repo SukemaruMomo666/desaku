@@ -155,7 +155,7 @@
                             <div class="space-y-4 pt-4 border-t border-gray-100">
                                 <div class="mb-4">
                                     <h4 class="text-sm font-bold text-gray-900">Persyaratan Dokumen</h4>
-                                    <p class="text-xs text-gray-500 mt-1">Silakan unggah foto/scan dokumen di bawah ini (Format: JPG/PNG/PDF, Maks {{ $selectedType->max_file_size }}MB). Jika tidak diunggah, Anda wajib membawanya ke Kantor Kelurahan.</p>
+                                    <p class="text-xs text-gray-500 mt-1">Silakan unggah foto/scan dokumen di bawah ini (Format: JPG/PNG/PDF, Maks {{ $selectedType->max_file_size }}MB). Semua dokumen wajib diunggah.</p>
                                     
                                     @if($selectedType->statement_letter_file)
                                     <div class="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-100 flex items-center justify-between">
@@ -172,7 +172,7 @@
                                     @foreach($selectedType->requirements as $index => $req)
                                         <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
                                             <label class="block text-sm font-semibold text-gray-700 mb-2 truncate" title="{{ $req }}">{{ $req }}</label>
-                                            <input type="file" name="files[{{ str_replace(' ', '_', strtolower($req)) }}]" accept=".jpg,.jpeg,.png,.pdf" class="block w-full text-xs text-gray-500
+                                            <input type="file" name="files[{{ str_replace(' ', '_', strtolower($req)) }}]" accept=".jpg,.jpeg,.png,.pdf" required class="block w-full text-xs text-gray-500
                                             file:mr-3 file:py-1.5 file:px-3
                                             file:rounded-lg file:border-0
                                             file:text-xs file:font-semibold

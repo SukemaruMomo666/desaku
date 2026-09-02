@@ -80,6 +80,16 @@ class CitizenController extends Controller
             }
         }
 
+        // Validasi jika surat punya persyaratan dokumen wajib
+        if ($letterType->requirements && is_array($letterType->requirements) && count($letterType->requirements) > 0) {
+            foreach ($letterType->requirements as $req) {
+                $reqKey = str_replace(' ', '_', strtolower($req));
+                if (!isset($request->file('files')[$reqKey])) {
+                    return back()->withInput()->with('error', "Dokumen persyaratan '$req' wajib diunggah!");
+                }
+            }
+        }
+
         // Handle file upload if required by LetterType (requirements)
         $uploadedFiles = [];
         if ($request->hasFile('files')) {
