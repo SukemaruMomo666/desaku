@@ -63,6 +63,8 @@
         .trix-content a {
             color: #2563eb;
             text-decoration: underline;
+            word-break: break-all;
+            overflow-wrap: anywhere;
         }
     </style>
 </head>
