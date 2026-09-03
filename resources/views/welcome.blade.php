@@ -329,15 +329,16 @@
                         </button>
 
                         <!-- Scrollable Container -->
-                        <div class="w-full h-full overflow-auto grid place-items-center pointer-events-auto"
+                        <div class="w-full h-full overflow-auto flex justify-center pointer-events-auto transition-all duration-300"
+                             :class="zoomed ? 'items-start py-10' : 'items-center'"
                              @click.self="activeModal = null; document.body.style.overflow = 'auto'; zoomed = false;">
                              
                              <!-- Image with Zoom capability -->
                              <img src="{{ Storage::url($article->image) }}" 
                                   alt="{{ $article->title }}" 
                                   @click="zoomed = !zoomed"
-                                  :class="zoomed ? 'cursor-zoom-out w-auto h-auto max-w-none max-h-none' : 'max-w-full max-h-[95vh] object-contain cursor-zoom-in rounded-xl shadow-2xl'"
-                                  class="transition-all duration-300">
+                                  :class="zoomed ? 'cursor-zoom-out w-[95vw] sm:w-[85vw] md:max-w-3xl lg:max-w-4xl h-auto rounded-xl shadow-2xl' : 'max-w-full max-h-[95vh] object-contain cursor-zoom-in rounded-xl shadow-2xl'"
+                                  class="transition-all duration-300 bg-white">
                         </div>
                     </div>
                 @else
