@@ -314,32 +314,27 @@
                 @if($isEmptyContent && $article->image)
                     <!-- Image Only Modal -->
                     <div x-show="activeModal === {{ $article->id }}" 
-                         x-data="{ zoomed: false }"
                          x-transition:enter="transition ease-out duration-300"
                          x-transition:enter-start="opacity-0 scale-95"
                          x-transition:enter-end="opacity-100 scale-100"
                          x-transition:leave="transition ease-in duration-200"
                          x-transition:leave-start="opacity-100 scale-100"
                          x-transition:leave-end="opacity-0 scale-95"
-                         class="fixed inset-0 z-[105] pointer-events-none p-0 sm:p-6 flex flex-col">
+                         class="fixed inset-0 z-[105] p-4 flex items-center justify-center pointer-events-none">
                         
                         <!-- Close Button -->
-                        <button @click="activeModal = null; document.body.style.overflow = 'auto'; zoomed = false;" class="absolute top-4 right-4 md:top-6 md:right-6 z-[110] p-3 bg-black/70 hover:bg-black/90 backdrop-blur-md rounded-full text-white shadow-2xl transition-all pointer-events-auto focus:outline-none border border-white/20">
+                        <button @click="activeModal = null; document.body.style.overflow = 'auto';" class="absolute top-4 right-4 md:top-6 md:right-6 z-[110] p-3 bg-black/70 hover:bg-black/90 backdrop-blur-md rounded-full text-white shadow-2xl transition-all pointer-events-auto focus:outline-none border border-white/20">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
                         </button>
 
-                        <!-- Scrollable Container -->
-                        <div class="w-full h-full overflow-auto flex justify-center pointer-events-auto transition-all duration-300"
-                             :class="zoomed ? 'items-start py-4 sm:py-10' : 'items-center'"
-                             @click.self="activeModal = null; document.body.style.overflow = 'auto'; zoomed = false;">
+                        <!-- Centered Image Container -->
+                        <div class="relative max-w-[95vw] max-h-[95vh] flex items-center justify-center pointer-events-auto"
+                             @click.self="activeModal = null; document.body.style.overflow = 'auto';">
                              
-                             <!-- Image with Zoom capability -->
+                             <!-- Image -->
                              <img src="{{ Storage::url($article->image) }}" 
                                   alt="{{ $article->title }}" 
-                                  @click="zoomed = !zoomed"
-                                  :class="zoomed ? 'cursor-zoom-out w-full h-auto rounded-xl shadow-2xl' : 'max-w-full max-h-[95vh] object-contain cursor-zoom-in rounded-xl shadow-2xl'"
-                                  :style="zoomed ? 'max-width: 650px;' : ''"
-                                  class="transition-all duration-300 bg-white">
+                                  class="max-w-full max-h-[95vh] w-auto h-auto object-contain rounded-xl shadow-2xl bg-white">
                         </div>
                     </div>
                 @else
