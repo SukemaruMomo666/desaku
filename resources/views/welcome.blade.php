@@ -444,7 +444,7 @@
                                 </div>
                                 <div class="pt-2">
                                     <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Email</h4>
-                                    <p class="text-gray-900 text-lg font-bold">gerilyasukapada@gmail.com</p>
+                                    <p class="text-gray-900 text-base sm:text-lg font-bold break-all">gerilyasukapada@gmail.com</p>
                                 </div>
                             </div>
                             
