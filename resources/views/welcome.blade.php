@@ -314,21 +314,31 @@
                 @if($isEmptyContent && $article->image)
                     <!-- Image Only Modal -->
                     <div x-show="activeModal === {{ $article->id }}" 
+                         x-data="{ zoomed: false }"
                          x-transition:enter="transition ease-out duration-300"
                          x-transition:enter-start="opacity-0 scale-95"
                          x-transition:enter-end="opacity-100 scale-100"
                          x-transition:leave="transition ease-in duration-200"
                          x-transition:leave-start="opacity-100 scale-100"
                          x-transition:leave-end="opacity-0 scale-95"
-                         class="relative w-full h-full flex items-center justify-center pointer-events-none">
+                         class="fixed inset-0 z-[105] pointer-events-none p-2 sm:p-6">
                         
                         <!-- Close Button -->
-                        <button @click="activeModal = null; document.body.style.overflow = 'auto'" class="absolute top-0 right-0 md:top-4 md:right-4 z-50 p-2 bg-black/50 hover:bg-black/80 backdrop-blur-md rounded-full text-white shadow-xl transition-all pointer-events-auto">
+                        <button @click="activeModal = null; document.body.style.overflow = 'auto'" class="absolute top-4 right-4 md:top-6 md:right-6 z-[110] p-2 bg-black/60 hover:bg-black/90 backdrop-blur-md rounded-full text-white shadow-xl transition-all pointer-events-auto focus:outline-none ring-1 ring-white/20">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                         </button>
 
-                        <!-- Image -->
-                        <img src="{{ Storage::url($article->image) }}" alt="{{ $article->title }}" class="max-w-full max-h-full object-contain rounded-xl shadow-2xl pointer-events-auto">
+                        <!-- Scrollable Container -->
+                        <div class="w-full h-full overflow-auto flex pointer-events-auto"
+                             @click.self="activeModal = null; document.body.style.overflow = 'auto'">
+                             
+                             <!-- Image with Zoom capability -->
+                             <img src="{{ Storage::url($article->image) }}" 
+                                  alt="{{ $article->title }}" 
+                                  @click="zoomed = !zoomed"
+                                  :class="zoomed ? 'w-auto h-auto max-w-none cursor-zoom-out' : 'max-w-full max-h-full object-contain cursor-zoom-in rounded-xl shadow-2xl'"
+                                  class="m-auto transition-all duration-300 ease-in-out">
+                        </div>
                     </div>
                 @else
                     <!-- Modal Content -->
