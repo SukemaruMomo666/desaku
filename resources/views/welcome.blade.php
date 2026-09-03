@@ -321,23 +321,24 @@
                          x-transition:leave="transition ease-in duration-200"
                          x-transition:leave-start="opacity-100 scale-100"
                          x-transition:leave-end="opacity-0 scale-95"
-                         class="fixed inset-0 z-[105] pointer-events-none p-2 sm:p-6">
+                         class="fixed inset-0 z-[105] pointer-events-none p-0 sm:p-6 flex flex-col">
                         
                         <!-- Close Button -->
-                        <button @click="activeModal = null; document.body.style.overflow = 'auto'" class="absolute top-4 right-4 md:top-6 md:right-6 z-[110] p-2 bg-black/60 hover:bg-black/90 backdrop-blur-md rounded-full text-white shadow-xl transition-all pointer-events-auto focus:outline-none ring-1 ring-white/20">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        <button @click="activeModal = null; document.body.style.overflow = 'auto'; zoomed = false;" class="absolute top-4 right-4 md:top-6 md:right-6 z-[110] p-3 bg-black/70 hover:bg-black/90 backdrop-blur-md rounded-full text-white shadow-2xl transition-all pointer-events-auto focus:outline-none border border-white/20">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg>
                         </button>
 
                         <!-- Scrollable Container -->
-                        <div class="w-full h-full overflow-auto flex pointer-events-auto"
-                             @click.self="activeModal = null; document.body.style.overflow = 'auto'">
+                        <div class="w-full h-full overflow-auto grid place-items-center pointer-events-auto"
+                             @click.self="activeModal = null; document.body.style.overflow = 'auto'; zoomed = false;">
                              
                              <!-- Image with Zoom capability -->
                              <img src="{{ Storage::url($article->image) }}" 
                                   alt="{{ $article->title }}" 
                                   @click="zoomed = !zoomed"
-                                  :class="zoomed ? 'w-auto h-auto max-w-none cursor-zoom-out' : 'max-w-full max-h-full object-contain cursor-zoom-in rounded-xl shadow-2xl'"
-                                  class="m-auto transition-all duration-300 ease-in-out">
+                                  :class="zoomed ? 'cursor-zoom-out' : 'max-w-full max-h-[95vh] object-contain cursor-zoom-in rounded-xl shadow-2xl'"
+                                  :style="zoomed ? 'height: 180vh; max-width: none; max-height: none;' : ''"
+                                  class="transition-all duration-300">
                         </div>
                     </div>
                 @else
