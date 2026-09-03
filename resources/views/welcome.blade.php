@@ -337,7 +337,8 @@
                              <img src="{{ Storage::url($article->image) }}" 
                                   alt="{{ $article->title }}" 
                                   @click="zoomed = !zoomed"
-                                  :class="zoomed ? 'cursor-zoom-out w-[95vw] sm:w-[80vw] md:max-w-lg lg:max-w-xl xl:max-w-2xl h-auto rounded-xl shadow-2xl' : 'max-w-full max-h-[95vh] object-contain cursor-zoom-in rounded-xl shadow-2xl'"
+                                  :class="zoomed ? 'cursor-zoom-out w-full h-auto rounded-xl shadow-2xl' : 'max-w-full max-h-[95vh] object-contain cursor-zoom-in rounded-xl shadow-2xl'"
+                                  :style="zoomed ? 'max-width: 650px;' : ''"
                                   class="transition-all duration-300 bg-white">
                         </div>
                     </div>
