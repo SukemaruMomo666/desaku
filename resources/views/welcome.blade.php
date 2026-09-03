@@ -87,7 +87,10 @@
                 <nav class="hidden md:flex space-x-8" id="desktopNav">
                     <a href="#beranda" class="nav-link active text-sm font-semibold text-primary-600 border-b-2 border-primary-600 pb-1 transition-all">Beranda</a>
                     <a href="#panduan" class="nav-link text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-900 transition-all pb-1">Panduan</a>
+                    <a href="#informasi" class="nav-link text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-900 transition-all pb-1">Informasi</a>
+                    <a href="#layanan" class="nav-link text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-900 transition-all pb-1">Layanan</a>
                     <a href="#kontak" class="nav-link text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-900 transition-all pb-1">Kontak</a>
+                    <a href="#tautan" class="nav-link text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-900 transition-all pb-1">Tautan</a>
                 </nav>
 
                 <!-- Auth Buttons -->
@@ -122,7 +125,10 @@
             <div class="flex flex-col space-y-4">
                 <a href="#beranda" @click="mobileMenuOpen = false" class="text-base font-semibold text-primary-600">Beranda</a>
                 <a href="#panduan" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Panduan</a>
+                <a href="#informasi" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Informasi</a>
+                <a href="#layanan" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Layanan</a>
                 <a href="#kontak" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Kontak</a>
+                <a href="#tautan" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Tautan</a>
                 <hr class="border-gray-100">
                 @if (Route::has('login'))
                     @auth
@@ -358,7 +364,7 @@
         @endif
 
         <!-- Layanan Surat Section -->
-        <section class="py-20 bg-white border-y border-gray-100">
+        <section id="layanan" class="py-20 bg-white border-y border-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h2 class="text-3xl font-bold text-secondary-900 mb-2">Layanan Surat Kelurahan Sukapada</h2>
                 <p class="text-gray-500 mb-12">Klik nama surat di bawah ini untuk melihat detail panduan dan persyaratan yang dibutuhkan.</p>
@@ -482,7 +488,7 @@
         </section>
 
         <!-- Layanan Pemerintahan Terintegrasi -->
-        <section class="py-24 relative overflow-hidden bg-white border-t border-gray-100">
+        <section id="tautan" class="py-24 relative overflow-hidden bg-white border-t border-gray-100">
             <!-- Decorative Elements -->
             <div class="absolute top-0 right-0 -mt-20 -mr-20 w-80 h-80 bg-blue-50 rounded-full blur-3xl opacity-60"></div>
             <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-80 h-80 bg-primary-50 rounded-full blur-3xl opacity-60"></div>
