@@ -318,7 +318,7 @@
                      class="relative w-full max-w-3xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
                     
                     <!-- Close Button -->
-                    <button @click="activeModal = null; document.body.style.overflow = 'auto'" class="absolute top-4 right-4 z-50 p-2 bg-black/50 hover:bg-black/70 backdrop-blur-md rounded-full text-white shadow-lg transition-colors">
+                    <button @click="activeModal = null; document.body.style.overflow = 'auto'" class="absolute top-4 right-4 z-50 p-2 bg-gray-900 hover:bg-black rounded-full text-white shadow-xl ring-2 ring-white transition-all">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
 
