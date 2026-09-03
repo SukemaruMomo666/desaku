@@ -83,11 +83,11 @@
                     </div>
                 </div>
 
-                <!-- Desktop Navigation -->
-                <nav class="hidden md:flex space-x-8" id="desktopNav">
-                    <a href="#beranda" class="nav-link active text-sm font-semibold text-primary-600 border-b-2 border-primary-600 pb-1 transition-all">Beranda</a>
+                <!-- Navigation Links -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#beranda" class="nav-link text-sm font-semibold text-primary-600 border-b-2 border-primary-600 pb-1 transition-all">Beranda</a>
                     @guest
-                    <a href="#panduan" class="nav-link text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-900 transition-all pb-1">Panduan</a>
+                        <a href="#panduan" class="nav-link text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-900 transition-all pb-1">Panduan</a>
                     @endguest
                     <a href="#informasi" class="nav-link text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-900 transition-all pb-1">Informasi</a>
                     <a href="#layanan" class="nav-link text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-900 transition-all pb-1">Layanan</a>
@@ -99,23 +99,22 @@
                 <div class="hidden md:flex items-center space-x-4">
                     @if (Route::has('login'))
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="text-sm font-semibold text-gray-700 hover:text-primary-600 transition-colors">Dashboard</a>
+                            <a href="{{ url('/dashboard') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Dashboard</a>
                         @else
-                            <a href="{{ route('login') }}" class="text-sm font-semibold text-gray-700 hover:text-primary-600 transition-colors">Masuk</a>
-                            @if (Route::has('register'))
-                                <a href="{{ route('register') }}" class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white transition-all bg-primary-600 rounded-full shadow-lg shadow-primary-500/30 hover:bg-primary-700 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                                    Daftar Sekarang
-                                </a>
-                            @endif
+                            <a href="{{ route('login') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">Log in</a>
                         @endauth
                     @endif
                 </div>
 
                 <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
-                    <button type="button" @click="mobileMenuOpen = !mobileMenuOpen" class="text-gray-500 hover:text-gray-900 focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="flex items-center md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg x-show="!mobileMenuOpen" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg x-show="mobileMenuOpen" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" style="display: none;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
@@ -123,11 +122,11 @@
         </div>
         
         <!-- Mobile Menu -->
-        <div x-show="mobileMenuOpen" class="md:hidden bg-white border-t border-gray-100 py-4 px-4 shadow-lg absolute w-full" style="display: none;">
-            <div class="flex flex-col space-y-4">
+        <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2" class="md:hidden absolute w-full bg-white/95 backdrop-blur-md shadow-lg border-t border-gray-100" style="display: none;">
+            <div class="px-4 pt-2 pb-6 flex flex-col space-y-4">
                 <a href="#beranda" @click="mobileMenuOpen = false" class="text-base font-semibold text-primary-600">Beranda</a>
                 @guest
-                <a href="#panduan" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Panduan</a>
+                    <a href="#panduan" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Panduan</a>
                 @endguest
                 <a href="#informasi" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Informasi</a>
                 <a href="#layanan" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Layanan</a>
