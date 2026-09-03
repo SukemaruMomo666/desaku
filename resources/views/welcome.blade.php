@@ -86,7 +86,9 @@
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex space-x-8" id="desktopNav">
                     <a href="#beranda" class="nav-link active text-sm font-semibold text-primary-600 border-b-2 border-primary-600 pb-1 transition-all">Beranda</a>
+                    @guest
                     <a href="#panduan" class="nav-link text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-900 transition-all pb-1">Panduan</a>
+                    @endguest
                     <a href="#informasi" class="nav-link text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-900 transition-all pb-1">Informasi</a>
                     <a href="#layanan" class="nav-link text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-900 transition-all pb-1">Layanan</a>
                     <a href="#kontak" class="nav-link text-sm font-medium text-gray-500 border-b-2 border-transparent hover:text-gray-900 transition-all pb-1">Kontak</a>
@@ -124,7 +126,9 @@
         <div x-show="mobileMenuOpen" class="md:hidden bg-white border-t border-gray-100 py-4 px-4 shadow-lg absolute w-full" style="display: none;">
             <div class="flex flex-col space-y-4">
                 <a href="#beranda" @click="mobileMenuOpen = false" class="text-base font-semibold text-primary-600">Beranda</a>
+                @guest
                 <a href="#panduan" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Panduan</a>
+                @endguest
                 <a href="#informasi" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Informasi</a>
                 <a href="#layanan" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Layanan</a>
                 <a href="#kontak" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Kontak</a>
