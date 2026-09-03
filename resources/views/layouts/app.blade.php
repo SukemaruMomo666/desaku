@@ -16,7 +16,7 @@
     <!-- Alpine.js (Optional but great for simple interactions like Dropdowns) -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
-<body class="font-sans antialiased text-gray-800 bg-gray-50 flex h-[100dvh] overflow-hidden selection:bg-primary-500 selection:text-white" x-data="{ sidebarOpen: false }">
+<body class="font-sans antialiased text-gray-800 bg-gray-50 flex overflow-hidden selection:bg-primary-500 selection:text-white" style="height: 100vh; height: 100dvh;" x-data="{ sidebarOpen: false }">
 
     <!-- Sidebar / Navigation -->
     <aside class="flex-shrink-0 w-64 bg-secondary-950 flex flex-col transition-transform duration-300 z-40 fixed inset-y-0 left-0 md:relative md:translate-x-0"
