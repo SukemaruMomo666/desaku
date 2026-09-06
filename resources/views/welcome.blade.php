@@ -324,13 +324,12 @@
                          x-transition:leave="transition ease-in duration-200"
                          x-transition:leave-start="opacity-100 scale-100"
                          x-transition:leave-end="opacity-0 scale-95"
-                         class="relative z-[105] w-full h-full flex items-center justify-center p-4 sm:p-8"
-                         @click.self="activeModal = null; document.body.style.overflow = 'auto';">
+                         class="relative z-[105] w-full h-full flex items-center justify-center pointer-events-none">
                          
                          <!-- Image -->
                          <img src="{{ Storage::url($article->image) }}" 
                               alt="{{ $article->title }}" 
-                              class="max-w-full max-h-full object-contain rounded-xl shadow-2xl">
+                              class="max-w-full max-h-[90vh] object-contain rounded-xl shadow-2xl pointer-events-auto">
                     </div>
                 @else
                     <!-- Modal Content -->
