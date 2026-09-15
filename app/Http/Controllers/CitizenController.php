@@ -64,7 +64,7 @@ class CitizenController extends Controller
 
         // Validasi jika surat punya form_fields wajib
         if ($letterType->form_fields && is_array($letterType->form_fields) && count($letterType->form_fields) > 0) {
-            $systemFields = ['tanggal_hari_ini', 'blok_jabatan', 'ttd_nama', 'ttd_nip', 'tanggal_pengajuan', 'janda_duda', 'janda_duda_upper', 'rt_raw', 'rw_raw'];
+            $systemFields = ['tanggal_hari_ini', 'blok_jabatan', 'ttd_nama', 'ttd_nip', 'tanggal_pengajuan', 'janda_duda', 'janda_duda_upper', 'rt_raw', 'rw_raw', 'status_perkawinan_title'];
             
             foreach ($letterType->form_fields as $field) {
                 $fieldKey = strtolower($field);

@@ -101,7 +101,7 @@
                                             $fieldKey = strtolower($field);
                                             
                                             // Jangan tampilkan field sistem rahasia meskipun admin tidak sengaja memasukkannya
-                                            if (in_array($fieldKey, ['tanggal_hari_ini', 'blok_jabatan', 'ttd_nama', 'ttd_nip', 'tanggal_pengajuan', 'janda_duda', 'janda_duda_upper', 'rt_raw', 'rw_raw'])) {
+                                            if (in_array($fieldKey, ['tanggal_hari_ini', 'blok_jabatan', 'ttd_nama', 'ttd_nip', 'tanggal_pengajuan', 'janda_duda', 'janda_duda_upper', 'rt_raw', 'rw_raw', 'status_perkawinan_title'])) {
                                                 continue;
                                             }
 
