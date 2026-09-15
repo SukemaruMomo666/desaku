@@ -100,8 +100,9 @@
                                             $autoFill = '';
                                             $fieldKey = str_replace(' ', '_', strtolower($field));
                                             
-                                            // Jangan tampilkan field sistem rahasia meskipun admin tidak sengaja memasukkannya
-                                            if (in_array($fieldKey, ['tanggal_hari_ini', 'blok_jabatan', 'ttd_nama', 'ttd_nip', 'tanggal_pengajuan', 'janda_duda', 'janda_duda_upper', 'rt_raw', 'rw_raw', 'status_perkawinan_title', 'status_laki_laki', 'status_perempuan', 'alamat_lengkap'])) {
+                                            // Jangan tampilkan field sistem rahasia & field profil warga (sudah otomatis)
+                                            $hiddenFields = ['tanggal_hari_ini', 'blok_jabatan', 'ttd_nama', 'ttd_nip', 'tanggal_pengajuan', 'janda_duda', 'janda_duda_upper', 'rt_raw', 'rw_raw', 'status_perkawinan_title', 'status_laki_laki', 'status_perempuan', 'alamat_lengkap', 'nama', 'nik', 'no_kk', 'tempat_lahir', 'tanggal_lahir', 'tanggal_lahir(dd/mm/yy)', 'jenis_kelamin', 'suami_istri', 'suami_istri_title', 'kewarganegaraan', 'agama', 'pekerjaan', 'status_perkawinan', 'alamat', 'rt', 'rw', 'telepon'];
+                                            if (in_array($fieldKey, $hiddenFields)) {
                                                 continue;
                                             }
 
