@@ -193,11 +193,10 @@
                                                         <span>Terbaca: <span class="text-primary-800 font-bold" x-text="'Rp ' + new Intl.NumberFormat('id-ID').format(amount)"></span></span>
                                                     </p>
                                                 </template>
-                                            @elseif(in_array($fieldKey, ['janda_duda', 'status_perkawinan', 'agama', 'jenis_kelamin', 'golongan_darah']))
+                                            @elseif(in_array($fieldKey, ['status_perkawinan', 'agama', 'jenis_kelamin', 'golongan_darah']))
                                                 @php
                                                     $options = [];
-                                                    if ($fieldKey == 'janda_duda') $options = ['Janda' => 'Janda', 'Duda' => 'Duda'];
-                                                    elseif ($fieldKey == 'status_perkawinan') $options = ['Belum Kawin' => 'Belum Kawin', 'Kawin' => 'Kawin', 'Cerai Hidup' => 'Cerai Hidup', 'Cerai Mati' => 'Cerai Mati'];
+                                                    if ($fieldKey == 'status_perkawinan') $options = ['Belum Kawin' => 'Belum Kawin', 'Kawin' => 'Kawin', 'Cerai Hidup' => 'Cerai Hidup', 'Cerai Mati' => 'Cerai Mati'];
                                                     elseif ($fieldKey == 'agama') $options = ['Islam' => 'Islam', 'Kristen' => 'Kristen', 'Katolik' => 'Katolik', 'Hindu' => 'Hindu', 'Buddha' => 'Buddha', 'Konghucu' => 'Konghucu'];
                                                     elseif ($fieldKey == 'jenis_kelamin') $options = ['Laki-Laki' => 'Laki-Laki', 'Perempuan' => 'Perempuan'];
                                                     elseif ($fieldKey == 'golongan_darah') $options = ['A' => 'A', 'B' => 'B', 'AB' => 'AB', 'O' => 'O', 'Tidak Tahu' => 'Tidak Tahu'];

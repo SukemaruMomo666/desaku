@@ -235,6 +235,34 @@
         </section>
         @endguest
 
+        <!-- Video Tutorial Section -->
+        <section id="tutorial" class="py-20 bg-white border-b border-gray-100">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <span class="inline-flex items-center gap-1.5 py-1.5 px-4 rounded-full bg-red-50 border border-red-100 text-red-600 text-sm font-bold tracking-wide uppercase mb-4 shadow-sm">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                        Video Tutorial
+                    </span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-secondary-900 mb-4 tracking-tight">Cara Penggunaan GERILYA Sukapada</h2>
+                    <p class="text-gray-500 text-lg max-w-2xl mx-auto leading-relaxed">Masih bingung bagaimana cara kerjanya? Tonton video panduan singkat ini untuk melihat kemudahan mengajukan surat secara online.</p>
+                </div>
+                
+                <div class="relative rounded-[2rem] overflow-hidden shadow-2xl shadow-red-900/10 border-4 border-white bg-gray-100 mx-auto max-w-4xl group">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-red-600/10 to-blue-600/10 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                    <div class="relative z-10 w-full" style="padding-bottom: 56.25%;">
+                        <iframe 
+                            src="https://www.youtube.com/embed/nTbg2x4BYcE?si=z8dUAqgyvu0FN2C-" 
+                            title="Cara Penggunaan Website Gerilya Sukapada" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            allowfullscreen
+                            class="absolute top-0 left-0 w-full h-full rounded-[1.8rem]"
+                        ></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
         @if($articles->count() > 0)
         <!-- Papan Informasi & Kegiatan Section -->
         <section class="py-24 bg-gray-50 relative overflow-hidden" id="informasi" x-data="{ activeModal: null }">
