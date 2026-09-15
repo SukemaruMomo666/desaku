@@ -154,9 +154,16 @@ class AdminLetterRequestController extends Controller
         // Format RT/RW (misal: 005 / 001)
         $rt = str_pad($letterRequest->user->rt, 3, '0', STR_PAD_LEFT);
         $rw = str_pad($letterRequest->user->rw, 3, '0', STR_PAD_LEFT);
-        $templateProcessor->setValue('rt', $rt);
-        $templateProcessor->setValue('rw', $rw);
-        $templateProcessor->setValue('alamat_lengkap', strtoupper($letterRequest->user->address . ' RT ' . $rt . ' RW ' . $rw));
+        $templateProcessor->setValue('rt', 'RT.' . $rt);
+        $templateProcessor->setValue('rw', 'RW.' . $rw);
+        $templateProcessor->setValue('rt_raw', $rt); // Jika hanya butuh angkanya saja
+        $templateProcessor->setValue('rw_raw', $rw);
+        $templateProcessor->setValue('alamat_lengkap', strtoupper($letterRequest->user->address . ' RT.' . $rt . ' RW.' . $rw));
+
+        // Format Janda/Duda
+        $janda_duda = $letterRequest->user->gender === 'L' ? 'Duda' : 'Janda';
+        $templateProcessor->setValue('janda_duda', $janda_duda);
+        $templateProcessor->setValue('janda_duda_upper', strtoupper($janda_duda));
         
         $templateProcessor->setValue('telepon', $letterRequest->user->phone);
         $templateProcessor->setValue('tanggal_pengajuan', $letterRequest->created_at->format('d-m-Y'));

@@ -193,6 +193,26 @@
                                                         <span>Terbaca: <span class="text-primary-800 font-bold" x-text="'Rp ' + new Intl.NumberFormat('id-ID').format(amount)"></span></span>
                                                     </p>
                                                 </template>
+                                            @elseif(in_array($fieldKey, ['janda_duda', 'status_perkawinan', 'agama', 'jenis_kelamin', 'golongan_darah']))
+                                                @php
+                                                    $options = [];
+                                                    if ($fieldKey == 'janda_duda') $options = ['Janda' => 'Janda', 'Duda' => 'Duda'];
+                                                    elseif ($fieldKey == 'status_perkawinan') $options = ['Belum Kawin' => 'Belum Kawin', 'Kawin' => 'Kawin', 'Cerai Hidup' => 'Cerai Hidup', 'Cerai Mati' => 'Cerai Mati'];
+                                                    elseif ($fieldKey == 'agama') $options = ['Islam' => 'Islam', 'Kristen' => 'Kristen', 'Katolik' => 'Katolik', 'Hindu' => 'Hindu', 'Buddha' => 'Buddha', 'Konghucu' => 'Konghucu'];
+                                                    elseif ($fieldKey == 'jenis_kelamin') $options = ['Laki-Laki' => 'Laki-Laki', 'Perempuan' => 'Perempuan'];
+                                                    elseif ($fieldKey == 'golongan_darah') $options = ['A' => 'A', 'B' => 'B', 'AB' => 'AB', 'O' => 'O', 'Tidak Tahu' => 'Tidak Tahu'];
+                                                @endphp
+                                                <select name="form_fields[{{ $field }}]" 
+                                                        required 
+                                                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none appearance-none">
+                                                    <option value="" disabled {{ old('form_fields.'.$field, $autoFill) ? '' : 'selected' }}>-- Pilih {{ $labelText }} --</option>
+                                                    @foreach($options as $val => $label)
+                                                        <option value="{{ $val }}" {{ old('form_fields.'.$field, $autoFill) == $val ? 'selected' : '' }}>{{ $label }}</option>
+                                                    @endforeach
+                                                </select>
+                                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 pt-8 text-gray-500">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                                </div>
                                             @else
                                                 <input type="{{ $inputType }}" 
                                                        @if($inputMode === 'numeric') inputmode="numeric" min="0" @endif
