@@ -149,6 +149,7 @@ class AdminLetterRequestController extends Controller
         $templateProcessor->setValue('agama', strtoupper($letterRequest->user->religion));
         $templateProcessor->setValue('pekerjaan', strtoupper($letterRequest->user->job));
         $templateProcessor->setValue('status_perkawinan', strtoupper($letterRequest->user->marital_status));
+        $templateProcessor->setValue('status_perkawinan_title', ucwords(strtolower($letterRequest->user->marital_status)));
         $templateProcessor->setValue('alamat', strtoupper($letterRequest->user->address));
         
         // Format RT/RW (misal: 005 / 001)
