@@ -95,6 +95,10 @@
                                 <h4 class="text-sm font-bold text-gray-900 border-b border-gray-100 pb-2">Formulir Isian Surat</h4>
                                 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                    @php
+                                        $hasAyahHeader = false;
+                                        $hasIbuHeader = false;
+                                    @endphp
                                     @foreach($selectedType->form_fields as $field)
                                         @php
                                             $autoFill = '';
@@ -131,7 +135,8 @@
                                                 str_contains($fieldKey, 'tanggungan') || 
                                                 str_contains($fieldKey, 'umur') || 
                                                 str_contains($fieldKey, 'usia') || 
-                                                in_array($fieldKey, ['nik', 'no_kk', 'rt', 'rw', 'telepon', 'no_hp', 'wa', 'whatsapp', 'kode_pos'])
+                                                in_array($fieldKey, ['nik', 'no_kk', 'rt', 'rw', 'telepon', 'no_hp', 'wa', 'whatsapp', 'kode_pos']) ||
+                                                str_contains($fieldKey, 'nik_')
                                             ) {
                                                 $inputType = 'number';
                                                 $inputMode = 'numeric';
@@ -147,7 +152,7 @@
                                             elseif ($fieldKey == 'jenis_kelamin') $autoFill = Auth::user()->gender === 'L' ? 'Laki-Laki' : 'Perempuan';
                                             elseif ($fieldKey == 'agama') $autoFill = Auth::user()->religion;
                                             elseif ($fieldKey == 'pekerjaan') $autoFill = Auth::user()->job;
-                                            elseif ($fieldKey == 'kewarganegaraan') $autoFill = Auth::user()->nationality;
+                                            elseif ($fieldKey == 'kewarganegaraan' || $fieldKey == 'kewarganegaraan_ayah' || $fieldKey == 'kewarganegaraan_ibu') $autoFill = Auth::user()->nationality ?? 'WNI';
                                             elseif ($fieldKey == 'status_perkawinan') $autoFill = Auth::user()->marital_status;
                                             elseif ($fieldKey == 'telepon') $autoFill = Auth::user()->phone;
                                             elseif ($fieldKey == 'tanggal_lahir' || $fieldKey == 'tanggal_lahir(dd/mm/yy)') $autoFill = Auth::user()->birth_date ? \Carbon\Carbon::parse(Auth::user()->birth_date)->format($inputType == 'date' ? 'Y-m-d' : 'd-m-Y') : '';
@@ -167,8 +172,42 @@
                                                 ['NIK', 'nomor kartu keluarga (KK)', 'tanggal dikeluarkan KK', 'tanggal dikeluarkan KK', 'KK', 'RT', 'RW', 'tanggal', 'no surat pengantar', 'tanggal surat pengantar', 'tanggal surat pernyataan'], 
                                                 $placeholderText
                                             );
+
+                                            $isDropdown = false;
+                                            $options = [];
+                                            if (str_contains($fieldKey, 'status_perkawinan')) {
+                                                $isDropdown = true;
+                                                $options = ['Belum Kawin' => 'Belum Kawin', 'Kawin' => 'Kawin', 'Cerai Hidup' => 'Cerai Hidup', 'Cerai Mati' => 'Cerai Mati'];
+                                            } elseif (str_contains($fieldKey, 'agama')) {
+                                                $isDropdown = true;
+                                                $options = ['Islam' => 'Islam', 'Kristen' => 'Kristen', 'Katolik' => 'Katolik', 'Hindu' => 'Hindu', 'Buddha' => 'Buddha', 'Konghucu' => 'Konghucu'];
+                                            } elseif (str_contains($fieldKey, 'jenis_kelamin')) {
+                                                $isDropdown = true;
+                                                $options = ['Laki-Laki' => 'Laki-Laki', 'Perempuan' => 'Perempuan'];
+                                            } elseif (str_contains($fieldKey, 'golongan_darah')) {
+                                                $isDropdown = true;
+                                                $options = ['A' => 'A', 'B' => 'B', 'AB' => 'AB', 'O' => 'O', 'Tidak Tahu' => 'Tidak Tahu'];
+                                            } elseif (str_contains($fieldKey, 'kewarganegaraan')) {
+                                                $isDropdown = true;
+                                                $options = ['WNI' => 'WNI', 'WNA' => 'WNA'];
+                                            }
                                         @endphp
-                                        <div class="{{ in_array($fieldKey, ['alamat', 'keperluan']) ? 'sm:col-span-2' : '' }}"
+                                        
+                                        @if(str_contains($fieldKey, 'ayah') && !$hasAyahHeader)
+                                            <div class="sm:col-span-2 mt-4 mb-2">
+                                                <h4 class="text-sm font-bold text-gray-900 border-b border-gray-100 pb-2">Biodata Ayah</h4>
+                                            </div>
+                                            @php $hasAyahHeader = true; @endphp
+                                        @endif
+                                        
+                                        @if(str_contains($fieldKey, 'ibu') && !$hasIbuHeader)
+                                            <div class="sm:col-span-2 mt-4 mb-2">
+                                                <h4 class="text-sm font-bold text-gray-900 border-b border-gray-100 pb-2">Biodata Ibu</h4>
+                                            </div>
+                                            @php $hasIbuHeader = true; @endphp
+                                        @endif
+
+                                        <div class="{{ in_array($fieldKey, ['alamat', 'keperluan']) || str_contains($fieldKey, 'alamat_') ? 'sm:col-span-2' : '' }}"
                                              @if($isCurrency) x-data="{ amount: '{{ old('form_fields.'.$field, $autoFill) }}' }" @endif>
                                             <label class="block text-sm font-semibold text-gray-700 mb-2">{{ $labelText }} <span class="text-red-500">*</span></label>
                                             
@@ -194,14 +233,7 @@
                                                         <span>Terbaca: <span class="text-primary-800 font-bold" x-text="'Rp ' + new Intl.NumberFormat('id-ID').format(amount)"></span></span>
                                                     </p>
                                                 </template>
-                                            @elseif(in_array($fieldKey, ['status_perkawinan', 'agama', 'jenis_kelamin', 'golongan_darah']))
-                                                @php
-                                                    $options = [];
-                                                    if ($fieldKey == 'status_perkawinan') $options = ['Belum Kawin' => 'Belum Kawin', 'Kawin' => 'Kawin', 'Cerai Hidup' => 'Cerai Hidup', 'Cerai Mati' => 'Cerai Mati'];
-                                                    elseif ($fieldKey == 'agama') $options = ['Islam' => 'Islam', 'Kristen' => 'Kristen', 'Katolik' => 'Katolik', 'Hindu' => 'Hindu', 'Buddha' => 'Buddha', 'Konghucu' => 'Konghucu'];
-                                                    elseif ($fieldKey == 'jenis_kelamin') $options = ['Laki-Laki' => 'Laki-Laki', 'Perempuan' => 'Perempuan'];
-                                                    elseif ($fieldKey == 'golongan_darah') $options = ['A' => 'A', 'B' => 'B', 'AB' => 'AB', 'O' => 'O', 'Tidak Tahu' => 'Tidak Tahu'];
-                                                @endphp
+                                            @elseif($isDropdown)
                                                 <select name="form_fields[{{ $field }}]" 
                                                         required 
                                                         class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none appearance-none">
