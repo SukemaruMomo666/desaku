@@ -57,8 +57,18 @@
                         <dl class="space-y-4">
                             @foreach($letterRequest->submitted_data as $key => $value)
                                 <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                                    <dt class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">{{ str_replace('_', ' ', $key) }}</dt>
-                                    <dd class="text-sm font-medium text-gray-900">{{ $value }}</dd>
+                                    @php
+                                        $isCurrencyField = is_numeric($value) && (
+                                            str_contains(strtolower($key), 'penghasilan') || 
+                                            str_contains(strtolower($key), 'gaji') || 
+                                            str_contains(strtolower($key), 'nominal') || 
+                                            str_contains(strtolower($key), 'upah') || 
+                                            str_contains(strtolower($key), 'omset') || 
+                                            str_contains(strtolower($key), 'omzet') || 
+                                            str_contains(strtolower($key), 'biaya')
+                                        );
+                                    @endphp
+                                    <dd class="text-sm font-medium text-gray-900">{{ $isCurrencyField ? 'Rp ' . number_format((float)$value, 0, ',', '.') : $value }}</dd>
                                 </div>
                             @endforeach
                         </dl>

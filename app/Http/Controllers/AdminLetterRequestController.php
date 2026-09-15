@@ -63,13 +63,19 @@ class AdminLetterRequestController extends Controller
                     }
 
                     if ($letterRequest->admin_notes) {
-                        $waText .= "Catatan: " . $letterRequest->admin_notes . "\n\n";
+                        $waText .= "Catatan Petugas: " . $letterRequest->admin_notes . "\n\n";
                     }
 
                     if ($validated['status'] === 'siap_diambil') {
-                        $waText .= "Terima kasih.";
+                        $waText .= "⚠️ *PERHATIAN / PENTING (WAJIB DIBALAS):*\n"
+                            . "Mohon SEGERA balas chat ini dengan mengetik: *OK* atau *SIAP DIAMBIL*\n"
+                            . "Pelayanan pengambilan berkas fisik di kantor kelurahan hanya akan dilayani setelah Anda membalas chat konfirmasi ini.\n\n"
+                            . "Terima kasih.";
                     } else {
-                        $waText .= "Silakan cek dashboard atau ajukan ulang permohonan Anda. Terima kasih.";
+                        $waText .= "⚠️ *PERHATIAN / PENTING (WAJIB DIBALAS):*\n"
+                            . "Mohon SEGERA balas chat ini dengan mengetik: *MENGERTI*\n"
+                            . "Pengajuan permohonan surat berikutnya hanya dapat diproses setelah Anda membalas chat ini sebagai konfirmasi Anda telah membaca catatan di atas.\n\n"
+                            . "Terima kasih.";
                     }
 
                     try {
@@ -105,9 +111,26 @@ class AdminLetterRequestController extends Controller
                     $value = \Carbon\Carbon::parse($value)->format('d-m-Y');
                 }
                 
-                // Jangan konversi huruf kecil agar sesuai persis dengan case-sensitive dari template Word
-                // (misal ${alamat_lengkap_sesuai_KTP} butuh key alamat_lengkap_sesuai_KTP)
-                $templateProcessor->setValue($key, strtoupper($value));
+                $isCurrencyField = is_numeric($value) && (
+                    str_contains(strtolower($key), 'penghasilan') || 
+                    str_contains(strtolower($key), 'gaji') || 
+                    str_contains(strtolower($key), 'nominal') || 
+                    str_contains(strtolower($key), 'upah') || 
+                    str_contains(strtolower($key), 'omset') || 
+                    str_contains(strtolower($key), 'omzet') || 
+                    str_contains(strtolower($key), 'biaya')
+                );
+
+                if ($isCurrencyField) {
+                    $formattedCurrency = number_format((float)$value, 0, ',', '.');
+                    $templateProcessor->setValue($key, $formattedCurrency);
+                    $templateProcessor->setValue($key . '_raw', (string)$value);
+                    $templateProcessor->setValue($key . '_rp', 'Rp ' . $formattedCurrency);
+                } else {
+                    // Jangan konversi huruf kecil agar sesuai persis dengan case-sensitive dari template Word
+                    // (misal ${alamat_lengkap_sesuai_KTP} butuh key alamat_lengkap_sesuai_KTP)
+                    $templateProcessor->setValue($key, strtoupper($value));
+                }
             }
         }
 

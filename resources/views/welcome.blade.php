@@ -57,6 +57,7 @@
     <!-- Trix Display Styles -->
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
     <style>
+        [x-cloak] { display: none !important; }
         .trix-content {
             font-family: inherit;
         }
@@ -71,7 +72,7 @@
 <body class="font-sans antialiased bg-gray-50 text-gray-800 selection:bg-primary-500 selection:text-white flex flex-col min-h-screen">
 
     <!-- Navbar -->
-    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 shadow-sm" x-data="{ mobileMenuOpen: false }">
+    <header class="relative bg-white sticky top-0 z-50 border-b border-gray-100 shadow-sm" style="background-color: #ffffff;" x-data="{ mobileMenuOpen: false }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo -->
@@ -108,12 +109,12 @@
 
                 <!-- Mobile menu button -->
                 <div class="flex items-center md:hidden">
-                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500" aria-expanded="false">
-                        <span class="sr-only">Open main menu</span>
-                        <svg x-show="!mobileMenuOpen" class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="inline-flex items-center justify-center p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500" aria-expanded="false">
+                        <span class="sr-only">Buka menu utama</span>
+                        <svg x-show="!mobileMenuOpen" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
-                        <svg x-show="mobileMenuOpen" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" style="display: none;">
+                        <svg x-show="mobileMenuOpen" x-cloak class="h-6 w-6 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
@@ -122,27 +123,39 @@
         </div>
         
         <!-- Mobile Menu -->
-        <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2" class="md:hidden absolute w-full bg-white/95 backdrop-blur-md shadow-lg border-t border-gray-100" style="display: none;">
-            <div class="px-4 pt-2 pb-6 flex flex-col space-y-4">
-                <a href="#beranda" @click="mobileMenuOpen = false" class="text-base font-semibold text-primary-600">Beranda</a>
+        <div x-show="mobileMenuOpen" 
+             x-cloak
+             @click.away="mobileMenuOpen = false"
+             x-transition:enter="transition ease-out duration-200" 
+             x-transition:enter-start="opacity-0 -translate-y-2" 
+             x-transition:enter-end="opacity-100 translate-y-0" 
+             x-transition:leave="transition ease-in duration-150" 
+             x-transition:leave-start="opacity-100 translate-y-0" 
+             x-transition:leave-end="opacity-0 -translate-y-2" 
+             class="md:hidden absolute top-full left-0 w-full bg-white shadow-2xl border-t border-b border-gray-100 z-50" 
+             style="display: none; background-color: #ffffff !important;">
+            <div class="px-5 pt-3 pb-6 flex flex-col space-y-3 bg-white" style="background-color: #ffffff !important;">
+                <a href="#beranda" @click="mobileMenuOpen = false" class="text-base font-semibold text-primary-600 py-1.5 border-b border-gray-50">Beranda</a>
                 @guest
-                    <a href="#panduan" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Panduan</a>
+                    <a href="#panduan" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-700 hover:text-primary-600 py-1.5 border-b border-gray-50">Panduan</a>
                 @endguest
-                <a href="#informasi" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Informasi</a>
-                <a href="#layanan" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Layanan</a>
-                <a href="#kontak" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Kontak</a>
-                <a href="#tautan" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-600">Tautan</a>
-                <hr class="border-gray-100">
-                @if (Route::has('login'))
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="text-base font-semibold text-gray-700">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-base font-semibold text-gray-700">Masuk</a>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="text-base font-semibold text-primary-600">Daftar Sekarang</a>
-                        @endif
-                    @endauth
-                @endif
+                <a href="#informasi" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-700 hover:text-primary-600 py-1.5 border-b border-gray-50">Informasi</a>
+                <a href="#layanan" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-700 hover:text-primary-600 py-1.5 border-b border-gray-50">Layanan</a>
+                <a href="#kontak" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-700 hover:text-primary-600 py-1.5 border-b border-gray-50">Kontak</a>
+                <a href="#tautan" @click="mobileMenuOpen = false" class="text-base font-medium text-gray-700 hover:text-primary-600 py-1.5 border-b border-gray-50">Tautan</a>
+                
+                <div class="pt-2 flex flex-col space-y-2.5">
+                    @if (Route::has('login'))
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="w-full text-center py-2.5 px-4 rounded-xl bg-gray-100 text-gray-800 font-semibold hover:bg-gray-200 transition-colors">Dashboard</a>
+                        @else
+                            <a href="{{ route('login') }}" class="w-full text-center py-2.5 px-4 rounded-xl bg-gray-100 text-gray-800 font-semibold hover:bg-gray-200 transition-colors">Masuk</a>
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="w-full text-center py-2.5 px-4 rounded-xl bg-green-600 text-white font-semibold shadow-sm hover:bg-green-700 transition-colors" style="background-color: #16a34a !important; color: #ffffff !important;">Daftar Sekarang</a>
+                            @endif
+                        @endauth
+                    @endif
+                </div>
             </div>
         </div>
     </header>

@@ -59,7 +59,12 @@ class AuthController extends Controller
         $request->session()->put('otp_code', $otp);
 
         // Send WhatsApp OTP via Fonnte
-        $message = "Halo {$validated['name']},\n\nKode OTP pendaftaran Portal Kelurahan Anda adalah: *{$otp}*\n\nJANGAN BERIKAN KODE INI KEPADA SIAPAPUN.";
+        $message = "Halo {$validated['name']},\n\n"
+            . "Kode OTP pendaftaran Portal Kelurahan Anda adalah: *{$otp}*\n\n"
+            . "⚠️ *PERHATIAN / PENTING (WAJIB DIBALAS):*\n"
+            . "Mohon SEGERA balas pesan ini terlebih dahulu dengan mengetik: *OK* atau *SIAP*\n"
+            . "Proses pendaftaran & aktivasi akun Anda hanya akan dilanjutkan setelah Anda membalas chat ini.\n\n"
+            . "JANGAN BERIKAN KODE INI KEPADA SIAPAPUN.";
         FonnteService::sendMessage($validated['phone'], $message);
 
         return redirect()->route('otp.show');
@@ -141,7 +146,12 @@ class AuthController extends Controller
         $request->session()->put('reset_otp', $otp);
 
         // Send WhatsApp OTP via Fonnte
-        $message = "Halo {$user->name},\n\nKode OTP untuk mengatur ulang kata sandi Anda adalah: *{$otp}*\n\nJANGAN BERIKAN KODE INI KEPADA SIAPAPUN. Jika Anda tidak meminta ini, abaikan pesan ini.";
+        $message = "Halo {$user->name},\n\n"
+            . "Kode OTP untuk mengatur ulang kata sandi Anda adalah: *{$otp}*\n\n"
+            . "⚠️ *PERHATIAN / PENTING (WAJIB DIBALAS):*\n"
+            . "Mohon SEGERA balas pesan ini terlebih dahulu dengan mengetik: *OK* atau *SIAP*\n"
+            . "Proses pengaturan ulang kata sandi Anda hanya akan dilanjutkan setelah Anda membalas chat ini.\n\n"
+            . "JANGAN BERIKAN KODE INI KEPADA SIAPAPUN. Jika Anda tidak merasa meminta ini, segera abaikan pesan ini.";
         FonnteService::sendMessage($user->phone, $message);
 
         return redirect()->route('password.reset.otp.show');

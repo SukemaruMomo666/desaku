@@ -106,8 +106,34 @@
                                             }
 
                                             $inputType = 'text';
+                                            $inputMode = 'text';
+                                            $isCurrency = false;
+
                                             if (str_contains($fieldKey, 'tanggal') || str_contains($fieldKey, 'tgl') || str_contains($fieldKey, 'date')) {
                                                 $inputType = 'date';
+                                            } elseif (
+                                                str_contains($fieldKey, 'penghasilan') || 
+                                                str_contains($fieldKey, 'gaji') || 
+                                                str_contains($fieldKey, 'upah') || 
+                                                str_contains($fieldKey, 'nominal') || 
+                                                str_contains($fieldKey, 'omset') || 
+                                                str_contains($fieldKey, 'omzet') || 
+                                                str_contains($fieldKey, 'biaya') || 
+                                                str_contains($fieldKey, 'harga')
+                                            ) {
+                                                $inputType = 'number';
+                                                $inputMode = 'numeric';
+                                                $isCurrency = true;
+                                            } elseif (
+                                                str_contains($fieldKey, 'jumlah') || 
+                                                str_contains($fieldKey, 'anak_ke') || 
+                                                str_contains($fieldKey, 'tanggungan') || 
+                                                str_contains($fieldKey, 'umur') || 
+                                                str_contains($fieldKey, 'usia') || 
+                                                in_array($fieldKey, ['nik', 'no_kk', 'rt', 'rw', 'telepon', 'no_hp', 'wa', 'whatsapp', 'kode_pos'])
+                                            ) {
+                                                $inputType = 'number';
+                                                $inputMode = 'numeric';
                                             }
 
                                             if ($fieldKey == 'nama') $autoFill = Auth::user()->name;
@@ -141,9 +167,41 @@
                                                 $placeholderText
                                             );
                                         @endphp
-                                        <div class="{{ in_array($fieldKey, ['alamat', 'keperluan']) ? 'sm:col-span-2' : '' }}">
+                                        <div class="{{ in_array($fieldKey, ['alamat', 'keperluan']) ? 'sm:col-span-2' : '' }}"
+                                             @if($isCurrency) x-data="{ amount: '{{ old('form_fields.'.$field, $autoFill) }}' }" @endif>
                                             <label class="block text-sm font-semibold text-gray-700 mb-2">{{ $labelText }} <span class="text-red-500">*</span></label>
-                                            <input type="{{ $inputType }}" name="form_fields[{{ $field }}]" value="{{ old('form_fields.'.$field, $autoFill) }}" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none" placeholder="Masukkan {{ $placeholderText }}...">
+                                            
+                                            @if($isCurrency)
+                                                <div class="relative rounded-xl shadow-sm">
+                                                    <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
+                                                        <span class="text-gray-500 font-bold text-sm">Rp</span>
+                                                    </div>
+                                                    <input type="number" 
+                                                           inputmode="numeric" 
+                                                           min="0"
+                                                           step="1"
+                                                           name="form_fields[{{ $field }}]" 
+                                                           x-model="amount"
+                                                           value="{{ old('form_fields.'.$field, $autoFill) }}" 
+                                                           required 
+                                                           class="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none font-semibold text-gray-800" 
+                                                           placeholder="Contoh: 2500000">
+                                                </div>
+                                                <template x-if="amount && amount > 0">
+                                                    <p class="text-xs text-primary-700 font-semibold mt-1.5 flex items-center gap-1.5">
+                                                        <svg class="w-3.5 h-3.5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                                        <span>Terbaca: <span class="text-primary-800 font-bold" x-text="'Rp ' + new Intl.NumberFormat('id-ID').format(amount)"></span></span>
+                                                    </p>
+                                                </template>
+                                            @else
+                                                <input type="{{ $inputType }}" 
+                                                       @if($inputMode === 'numeric') inputmode="numeric" min="0" @endif
+                                                       name="form_fields[{{ $field }}]" 
+                                                       value="{{ old('form_fields.'.$field, $autoFill) }}" 
+                                                       required 
+                                                       class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all outline-none" 
+                                                       placeholder="Masukkan {{ $placeholderText }}...">
+                                            @endif
                                         </div>
                                     @endforeach
                                 </div>

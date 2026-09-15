@@ -180,8 +180,18 @@
                                                     <ul class="divide-y divide-gray-100">
                                                         @foreach($req->submitted_data as $key => $value)
                                                             <li class="p-4 flex flex-col sm:flex-row sm:items-center hover:bg-gray-50/50 transition-colors gap-1 sm:gap-4">
-                                                                <span class="text-sm font-semibold text-gray-500 capitalize w-full sm:w-1/3 shrink-0">{{ str_replace('_', ' ', $key) }}</span>
-                                                                <span class="text-sm font-bold text-gray-900 flex-1">{{ $value }}</span>
+                                                                @php
+                                                                    $isCurrencyField = is_numeric($value) && (
+                                                                        str_contains(strtolower($key), 'penghasilan') || 
+                                                                        str_contains(strtolower($key), 'gaji') || 
+                                                                        str_contains(strtolower($key), 'nominal') || 
+                                                                        str_contains(strtolower($key), 'upah') || 
+                                                                        str_contains(strtolower($key), 'omset') || 
+                                                                        str_contains(strtolower($key), 'omzet') || 
+                                                                        str_contains(strtolower($key), 'biaya')
+                                                                    );
+                                                                @endphp
+                                                                <span class="text-sm font-bold text-gray-900 flex-1">{{ $isCurrencyField ? 'Rp ' . number_format((float)$value, 0, ',', '.') : $value }}</span>
                                                             </li>
                                                         @endforeach
                                                     </ul>
