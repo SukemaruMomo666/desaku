@@ -74,7 +74,7 @@
                         <p class="text-sm text-gray-500 mt-1">Isi formulir di bawah ini dengan sebenar-benarnya untuk {{ $selectedType->name }}.</p>
                     </div>
                     
-                    <form action="{{ route('citizen.request.store') }}" method="POST" enctype="multipart/form-data" class="p-6 sm:p-8 space-y-6">
+                    <form x-data="{ isSubmitting: false }" @submit="isSubmitting = true" action="{{ route('citizen.request.store') }}" method="POST" enctype="multipart/form-data" class="p-6 sm:p-8 space-y-6">
                         @csrf
                         <input type="hidden" name="letter_type_id" value="{{ $selectedType->id }}">
                         
@@ -264,9 +264,23 @@
                         @endif
 
                         <div class="pt-6">
-                            <button type="submit" class="w-full px-6 py-4 bg-primary-600 text-white font-bold rounded-xl shadow-lg shadow-primary-500/30 hover:-translate-y-0.5 hover:bg-primary-700 hover:shadow-primary-500/40 transition-all text-lg flex items-center justify-center gap-2">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-                                Kirim Pengajuan Surat
+                            <button type="submit" 
+                                    x-bind:disabled="isSubmitting"
+                                    x-bind:class="{ 'opacity-70 cursor-not-allowed': isSubmitting }"
+                                    class="w-full px-6 py-4 bg-primary-600 text-white font-bold rounded-xl shadow-lg shadow-primary-500/30 hover:-translate-y-0.5 hover:bg-primary-700 hover:shadow-primary-500/40 transition-all text-lg flex items-center justify-center gap-2">
+                                
+                                <span x-show="!isSubmitting" class="flex items-center gap-2">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                                    Kirim Pengajuan Surat
+                                </span>
+                                
+                                <span x-show="isSubmitting" class="flex items-center gap-2" style="display: none;">
+                                    <svg class="animate-spin -ml-1 mr-2 h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                    </svg>
+                                    Mengunggah Berkas...
+                                </span>
                             </button>
                         </div>
                     </form>
