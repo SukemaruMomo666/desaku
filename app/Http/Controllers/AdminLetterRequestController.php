@@ -161,10 +161,44 @@ class AdminLetterRequestController extends Controller
         $templateProcessor->setValue('rw_raw', $rw);
         $templateProcessor->setValue('alamat_lengkap', strtoupper($letterRequest->user->address . ' RT.' . $rt . ' RW.' . $rw));
 
-        // Format Janda/Duda
-        $janda_duda = $letterRequest->user->gender === 'L' ? 'Duda' : 'Janda';
-        $templateProcessor->setValue('janda_duda', $janda_duda);
-        $templateProcessor->setValue('janda_duda_upper', strtoupper($janda_duda));
+        // Logika Status Janda/Duda berdasarkan Jenis Kelamin
+        $jandaDuda = '';
+        if ($letterRequest->user->gender == 'L') {
+            $jandaDuda = 'Duda';
+        } elseif ($letterRequest->user->gender == 'P') {
+            $jandaDuda = 'Janda';
+        }
+        $templateProcessor->setValue('janda_duda', $jandaDuda);
+        $templateProcessor->setValue('janda_duda_upper', strtoupper($jandaDuda));
+
+        // Logika Status Perkawinan Khusus Surat Nikah (N1)
+        $maritalStatus = strtolower($letterRequest->user->marital_status);
+        $statusLakiLaki = '-';
+        $statusPerempuan = '-';
+
+        if ($letterRequest->user->gender == 'L') {
+            if ($maritalStatus == 'belum kawin') {
+                $statusLakiLaki = 'Jejaka';
+            } elseif (str_contains($maritalStatus, 'cerai')) {
+                $statusLakiLaki = 'Duda';
+            } elseif ($maritalStatus == 'kawin') {
+                $statusLakiLaki = 'Beristri';
+            } else {
+                $statusLakiLaki = ucwords($maritalStatus);
+            }
+        } elseif ($letterRequest->user->gender == 'P') {
+            if ($maritalStatus == 'belum kawin') {
+                $statusPerempuan = 'Perawan';
+            } elseif (str_contains($maritalStatus, 'cerai')) {
+                $statusPerempuan = 'Janda';
+            } elseif ($maritalStatus == 'kawin') {
+                $statusPerempuan = 'Bersuami';
+            } else {
+                $statusPerempuan = ucwords($maritalStatus);
+            }
+        }
+        $templateProcessor->setValue('status_laki_laki', $statusLakiLaki);
+        $templateProcessor->setValue('status_perempuan', $statusPerempuan);
         
         $templateProcessor->setValue('telepon', $letterRequest->user->phone);
         $templateProcessor->setValue('tanggal_pengajuan', $letterRequest->created_at->format('d-m-Y'));
