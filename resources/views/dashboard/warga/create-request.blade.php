@@ -3,7 +3,7 @@
 @section('header_title', 'Ajukan Surat Baru')
 
 @section('content')
-<div class="max-w-4xl mx-auto space-y-6" x-data="{ isSubmitting: false, showModal: false, agreed: false }">
+<div class="max-w-4xl mx-auto space-y-6" x-data="{ isSubmitting: false, showModal: false, agreed: false, hasScrolledToBottom: false }">
 
     <!-- Header Actions -->
     <div class="flex items-center justify-between">
@@ -338,35 +338,293 @@
                                  @click.away="showModal = false"
                                  x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" 
                                  x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" 
-                                 class="inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl w-full border border-gray-100 relative z-[101]">
-                                <div class="bg-white px-6 pt-6 pb-6 sm:p-8">
+                                 class="inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl w-full border border-gray-100 relative z-[101]">
+                                <div class="bg-white px-5 pt-5 pb-6 sm:p-8">
                                     <div class="sm:flex sm:items-start">
                                         <div class="mx-auto flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full bg-blue-50 border border-blue-100 sm:mx-0 sm:h-12 sm:w-12">
                                             <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                                         </div>
-                                        <div class="mt-4 text-center sm:mt-0 sm:ml-5 sm:text-left">
+                                        <div class="mt-4 text-center sm:mt-0 sm:ml-5 sm:text-left w-full">
                                             <h3 class="text-xl leading-6 font-bold text-gray-900" id="modal-title">
-                                                Persetujuan Penggunaan Data
+                                                Persetujuan Penggunaan Data & Pelayanan
                                             </h3>
-                                            <div class="mt-4 space-y-4 text-sm text-gray-600 max-h-64 overflow-y-auto pr-2" style="scrollbar-width: thin;">
-                                                <p class="leading-relaxed">Pemerintah Kelurahan Sukapada berkomitmen penuh dalam melindungi kerahasiaan dan keamanan data pribadi Anda sesuai dengan ketentuan perundang-undangan yang berlaku di Indonesia.</p>
-                                                <ul class="list-disc list-outside ml-4 space-y-2 leading-relaxed">
-                                                    <li><strong class="text-gray-900">Tujuan Penggunaan:</strong> Seluruh dokumen dan data pribadi yang Anda unggah hanya akan digunakan secara eksklusif untuk keperluan verifikasi dan proses administrasi pelayanan surat ini.</li>
-                                                    <li><strong class="text-gray-900">Keamanan & Kerahasiaan:</strong> Kami menerapkan standar keamanan sistem untuk melindungi data Anda. Data Anda tidak akan disebarluaskan, diperjualbelikan, atau dibagikan kepada pihak ketiga di luar kepentingan pelayanan Kelurahan.</li>
-                                                    <li><strong class="text-gray-900">Keabsahan Dokumen:</strong> Anda menjamin sepenuhnya bahwa seluruh dokumen dan data yang diserahkan adalah benar, asli, dan sah secara hukum.</li>
-                                                    <li><strong class="text-gray-900">Pelepasan Tuntutan:</strong> Segala bentuk pemalsuan data, manipulasi dokumen, maupun kebocoran yang murni diakibatkan oleh kelalaian pihak Anda sendiri, sepenuhnya berada di luar tanggung jawab kami. Dengan menyetujui ketentuan ini, Anda membebaskan Pemerintah Kelurahan Sukapada dari segala tuntutan hukum atau ganti rugi atas risiko tersebut.</li>
-                                                </ul>
+                                            
+                                            <div class="mt-4 text-sm text-gray-600 max-h-[60vh] overflow-y-auto pr-4 border border-gray-100 rounded-xl p-4 bg-gray-50 text-left" 
+                                                 style="scrollbar-width: thin;"
+                                                 x-init="$nextTick(() => { if ($el.scrollHeight <= $el.clientHeight) hasScrolledToBottom = true; })"
+                                                 @scroll="if ($el.scrollHeight - $el.scrollTop <= $el.clientHeight + 50) { hasScrolledToBottom = true; }">
+                                                 
+                                                <div class="space-y-6">
+                                                    <div class="space-y-4">
+                                                        <p class="leading-relaxed">Dengan menggunakan sistem pelayanan administrasi digital Pemerintah Kelurahan Sukapada dan mengajukan permohonan pelayanan melalui sistem tersebut, pemohon dengan ini menyatakan bahwa pemohon telah membaca, mengetahui, memahami, dan menyetujui seluruh ketentuan yang berkaitan dengan penggunaan data pribadi, penyampaian dokumen, pemeriksaan administrasi, proses verifikasi dan validasi, penyimpanan dokumen, keamanan informasi, serta pelaksanaan pelayanan administrasi sebagaimana diuraikan dalam ketentuan ini.</p>
+                                                        <p class="leading-relaxed">Ketentuan ini merupakan bagian yang tidak terpisahkan dari proses pengajuan pelayanan administrasi secara elektronik pada Pemerintah Kelurahan Sukapada dan dimaksudkan untuk memberikan penjelasan mengenai hak, kewajiban, tanggung jawab, batasan penggunaan data, serta mekanisme pemrosesan informasi yang diberikan oleh pemohon selama proses pelayanan berlangsung.</p>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">1. KETENTUAN UMUM</h4>
+                                                        <ol class="list-decimal list-outside ml-5 space-y-2 leading-relaxed">
+                                                            <li>Pemerintah Kelurahan Sukapada merupakan penyelenggara pelayanan administrasi kepada masyarakat sesuai dengan kewenangan, tugas, fungsi, dan ketentuan administrasi pemerintahan yang berlaku.</li>
+                                                            <li>Pemohon adalah setiap orang yang mengajukan permohonan pelayanan administrasi melalui sistem pelayanan Pemerintah Kelurahan Sukapada, baik untuk kepentingan dirinya sendiri maupun dalam kapasitas yang sah untuk mewakili pihak lain.</li>
+                                                            <li>Sistem pelayanan administrasi adalah sarana elektronik yang digunakan untuk menerima, mengelola, memproses, memverifikasi, mencatat, dan/atau menyampaikan informasi yang berkaitan dengan permohonan pelayanan masyarakat.</li>
+                                                            <li>Data pribadi adalah setiap data dan/atau informasi yang berkaitan dengan seseorang yang dapat digunakan untuk mengidentifikasi orang tersebut, baik secara langsung maupun tidak langsung.</li>
+                                                            <li>Dokumen pelayanan adalah seluruh dokumen, formulir, surat, identitas, foto, bukti pendukung, pernyataan, dan informasi lain yang diperlukan dalam rangka memenuhi persyaratan pelayanan.</li>
+                                                            <li>Verifikasi adalah proses pemeriksaan terhadap kesesuaian informasi dan dokumen yang disampaikan oleh pemohon dengan persyaratan pelayanan yang telah ditentukan.</li>
+                                                            <li>Validasi adalah proses pemeriksaan lebih lanjut untuk memastikan bahwa data, informasi, dan dokumen yang diberikan dapat diterima dan diproses sesuai dengan ketentuan administrasi yang berlaku.</li>
+                                                            <li>Pemrosesan data meliputi kegiatan memperoleh, menerima, mencatat, mengklasifikasikan, menyimpan, memeriksa, menggunakan, menghubungkan, memperbarui, menampilkan, dan/atau menghapus data sesuai dengan kebutuhan pelayanan dan ketentuan yang berlaku.</li>
+                                                            <li>Arsip pelayanan merupakan data dan/atau dokumen yang dihasilkan atau diterima dalam proses penyelenggaraan pelayanan administrasi dan dapat disimpan sesuai dengan ketentuan kearsipan.</li>
+                                                            <li>Dengan melanjutkan proses pengajuan, pemohon dianggap telah memahami bahwa pelayanan administrasi membutuhkan pemrosesan data dan dokumen tertentu sebagai bagian dari pelaksanaan tugas pelayanan pemerintahan.</li>
+                                                        </ol>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">2. TUJUAN PENGGUNAAN DATA DAN DOKUMEN</h4>
+                                                        <p class="leading-relaxed mb-2">Data pribadi dan dokumen yang diberikan oleh pemohon digunakan untuk tujuan yang berkaitan dengan penyelenggaraan pelayanan administrasi, antara lain:</p>
+                                                        <ol class="list-decimal list-outside ml-5 space-y-1 leading-relaxed">
+                                                            <li>Identifikasi dan verifikasi identitas pemohon.</li>
+                                                            <li>Pemeriksaan kelengkapan persyaratan administrasi.</li>
+                                                            <li>Pemeriksaan kesesuaian antara data yang diinput dengan dokumen pendukung.</li>
+                                                            <li>Verifikasi kebenaran informasi yang diberikan dalam formulir permohonan.</li>
+                                                            <li>Pemrosesan permohonan surat atau layanan administrasi yang dipilih.</li>
+                                                            <li>Pembuatan, penerbitan, pencatatan, dan pengarsipan dokumen pelayanan.</li>
+                                                            <li>Pelaksanaan administrasi internal Pemerintah Kelurahan Sukapada.</li>
+                                                            <li>Pemenuhan kewajiban administrasi pemerintahan.</li>
+                                                            <li>Pelaksanaan pemeriksaan, audit, evaluasi, dan pengawasan pelayanan apabila diperlukan.</li>
+                                                            <li>Penanganan pengaduan, keberatan, atau permasalahan yang berkaitan dengan pelayanan.</li>
+                                                            <li>Pencegahan penyalahgunaan sistem pelayanan.</li>
+                                                            <li>Pemenuhan kewajiban berdasarkan ketentuan peraturan perundang-undangan.</li>
+                                                            <li>Keperluan lain yang secara langsung berkaitan dengan penyelenggaraan pelayanan administrasi pemerintahan.</li>
+                                                        </ol>
+                                                        <p class="leading-relaxed mt-2">Data yang diberikan tidak dimaksudkan untuk digunakan sebagai sarana pemasaran, perdagangan data, atau kepentingan komersial yang tidak berkaitan dengan penyelenggaraan pelayanan administrasi.</p>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">3. JENIS DATA DAN DOKUMEN YANG DAPAT DIPROSES</h4>
+                                                        <p class="leading-relaxed mb-2">Dalam rangka pelaksanaan pelayanan, sistem dapat meminta dan/atau menerima beberapa jenis data dan dokumen yang relevan dengan kebutuhan layanan, termasuk namun tidak terbatas pada:</p>
+                                                        <ol class="list-decimal list-outside ml-5 space-y-1 leading-relaxed">
+                                                            <li>Nama lengkap.</li>
+                                                            <li>Nomor identitas kependudukan atau identitas lainnya sesuai kebutuhan pelayanan.</li>
+                                                            <li>Tempat dan tanggal lahir.</li>
+                                                            <li>Jenis kelamin.</li>
+                                                            <li>Alamat tempat tinggal.</li>
+                                                            <li>Informasi kontak.</li>
+                                                            <li>Data keluarga apabila dipersyaratkan.</li>
+                                                            <li>Data pekerjaan apabila dipersyaratkan.</li>
+                                                            <li>Data administrasi lainnya yang diperlukan.</li>
+                                                            <li>Dokumen identitas.</li>
+                                                            <li>Dokumen pendukung permohonan.</li>
+                                                            <li>Surat pernyataan.</li>
+                                                            <li>Foto atau dokumen visual lainnya apabila dipersyaratkan.</li>
+                                                            <li>Dokumen hasil pengajuan atau dokumen lain yang berkaitan dengan pelayanan.</li>
+                                                        </ol>
+                                                        <p class="leading-relaxed mt-2">Jenis data yang diminta dapat berbeda sesuai dengan jenis pelayanan yang dipilih oleh pemohon.</p>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">4. PERSETUJUAN PEMROSESAN DATA</h4>
+                                                        <ol class="list-decimal list-outside ml-5 space-y-2 leading-relaxed">
+                                                            <li>Pemohon memberikan persetujuan kepada Pemerintah Kelurahan Sukapada untuk memproses data dan dokumen yang diberikan dalam rangka penyelenggaraan pelayanan.</li>
+                                                            <li>Persetujuan diberikan secara sadar setelah pemohon memperoleh informasi mengenai tujuan dan kebutuhan pemrosesan data melalui ketentuan yang tersedia pada sistem.</li>
+                                                            <li>Pemohon memahami bahwa beberapa jenis data dan dokumen merupakan persyaratan administratif yang diperlukan agar permohonan dapat diproses.</li>
+                                                            <li>Apabila pemohon tidak memberikan data atau dokumen yang diwajibkan, proses pelayanan dapat mengalami keterlambatan, tidak dapat diverifikasi, atau tidak dapat dilanjutkan apabila persyaratan tersebut merupakan persyaratan wajib.</li>
+                                                            <li>Pemrosesan data dilakukan sebatas kebutuhan pelayanan dan sesuai dengan kewenangan serta ketentuan yang berlaku.</li>
+                                                            <li>Pemerintah Kelurahan Sukapada berupaya memastikan bahwa data yang diproses memiliki keterkaitan dengan tujuan pelayanan yang sedang diajukan.</li>
+                                                        </ol>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">5. KERAHASIAAN DATA DAN INFORMASI</h4>
+                                                        <ol class="list-decimal list-outside ml-5 space-y-2 leading-relaxed">
+                                                            <li>Pemerintah Kelurahan Sukapada berkomitmen menjaga kerahasiaan data dan dokumen pemohon sesuai dengan ketentuan peraturan perundang-undangan.</li>
+                                                            <li>Data pemohon tidak diperjualbelikan, disewakan, atau dimanfaatkan untuk kepentingan komersial yang tidak berhubungan dengan pelayanan administrasi.</li>
+                                                            <li>Akses terhadap data dibatasi berdasarkan kebutuhan pelaksanaan tugas dan kewenangan masing-masing pihak yang terlibat dalam penyelenggaraan pelayanan.</li>
+                                                            <li>Data dan dokumen hanya dapat diakses oleh pihak yang memiliki kepentingan dan kewenangan yang sah sesuai dengan tugasnya.</li>
+                                                            <li>Dalam keadaan tertentu, data dapat diproses atau diberikan kepada pihak yang berwenang apabila diwajibkan oleh ketentuan hukum, proses pemeriksaan, audit, pengawasan, penegakan hukum, atau kepentingan pemerintahan yang sah.</li>
+                                                            <li>Penggunaan dan pemberian akses terhadap data dilakukan dengan memperhatikan prinsip kehati-hatian, kebutuhan pelayanan, dan ketentuan perlindungan data yang berlaku.</li>
+                                                        </ol>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">6. KEAMANAN SISTEM ELEKTRONIK</h4>
+                                                        <ol class="list-decimal list-outside ml-5 space-y-2 leading-relaxed">
+                                                            <li>Pemerintah Kelurahan Sukapada berupaya menerapkan langkah pengamanan teknis dan administratif yang wajar untuk melindungi data yang diproses melalui sistem pelayanan.</li>
+                                                            <li>Pengamanan dapat mencakup pengendalian akses, pembatasan hak pengguna, autentikasi, pencatatan aktivitas sistem, pencadangan data, serta mekanisme pengamanan lainnya sesuai dengan kemampuan dan kebutuhan sistem.</li>
+                                                            <li>Pemohon memahami bahwa tidak terdapat sistem elektronik yang dapat menjamin keamanan secara mutlak terhadap seluruh bentuk gangguan, kesalahan teknis, serangan siber, atau keadaan di luar kendali penyelenggara.</li>
+                                                            <li>Pemerintah Kelurahan Sukapada akan melakukan langkah yang wajar dan sesuai kewenangan untuk mencegah, menangani, dan meminimalkan dampak gangguan keamanan terhadap sistem pelayanan.</li>
+                                                            <li>Pemohon wajib menjaga keamanan informasi akses miliknya dan tidak memberikan kata sandi, kode verifikasi, atau informasi autentikasi kepada pihak lain.</li>
+                                                        </ol>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">7. KEABSAHAN DAN KEBENARAN DATA</h4>
+                                                        <ol class="list-decimal list-outside ml-5 space-y-2 leading-relaxed">
+                                                            <li>Pemohon bertanggung jawab atas seluruh data dan informasi yang dimasukkan ke dalam sistem.</li>
+                                                            <li>Pemohon menyatakan bahwa informasi yang diberikan adalah benar, lengkap, akurat, dan sesuai dengan kondisi sebenarnya.</li>
+                                                            <li>Pemohon bertanggung jawab terhadap keaslian, keabsahan, dan legalitas dokumen yang diunggah.</li>
+                                                            <li>Pemohon dilarang memberikan dokumen palsu, dokumen hasil manipulasi, dokumen yang telah diubah secara tidak sah, atau dokumen milik orang lain tanpa kewenangan.</li>
+                                                            <li>Pemohon wajib melakukan pemeriksaan kembali terhadap data sebelum permohonan dikirimkan.</li>
+                                                            <li>Kesalahan data yang berasal dari kelalaian pemohon dapat menyebabkan proses pelayanan tertunda atau dokumen pelayanan yang diterbitkan tidak sesuai dengan data yang seharusnya.</li>
+                                                            <li>Apabila ditemukan indikasi pemalsuan, manipulasi, atau pemberian keterangan yang tidak benar, Pemerintah Kelurahan Sukapada dapat melakukan pemeriksaan lebih lanjut dan mengambil tindakan administratif sesuai kewenangan dan ketentuan yang berlaku.</li>
+                                                        </ol>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">8. KEWAJIBAN PEMOHON</h4>
+                                                        <p class="leading-relaxed mb-2">Pemohon berkewajiban:</p>
+                                                        <ol class="list-[lower-alpha] list-outside ml-5 space-y-1 leading-relaxed">
+                                                            <li>Mengisi seluruh formulir secara benar dan lengkap;</li>
+                                                            <li>Menggunakan data pribadi milik sendiri atau memiliki kewenangan yang sah apabila bertindak sebagai perwakilan;</li>
+                                                            <li>Mengunggah dokumen sesuai dengan persyaratan pelayanan;</li>
+                                                            <li>Memastikan dokumen dapat dibaca dengan jelas;</li>
+                                                            <li>Memastikan dokumen tidak rusak, terpotong, atau tidak sesuai;</li>
+                                                            <li>Memastikan informasi yang diberikan konsisten antara formulir dan dokumen pendukung;</li>
+                                                            <li>Menjaga kerahasiaan akun dan informasi autentikasi;</li>
+                                                            <li>Tidak memberikan akses akun kepada pihak yang tidak berwenang;</li>
+                                                            <li>Melakukan koreksi terhadap kesalahan data apabila diketahui sebelum proses pelayanan selesai;</li>
+                                                            <li>Memberikan informasi tambahan apabila diperlukan dalam proses verifikasi;</li>
+                                                            <li>Mengikuti prosedur pelayanan yang ditetapkan;</li>
+                                                            <li>Tidak menggunakan sistem untuk melakukan tindakan yang mengganggu keamanan atau operasional sistem; dan</li>
+                                                            <li>Mematuhi seluruh ketentuan administrasi yang berlaku.</li>
+                                                        </ol>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">9. VERIFIKASI DAN VALIDASI</h4>
+                                                        <ol class="list-decimal list-outside ml-5 space-y-2 leading-relaxed">
+                                                            <li>Setiap permohonan dapat melalui tahapan pemeriksaan administratif.</li>
+                                                            <li>Pemeriksaan dilakukan untuk memastikan bahwa data dan dokumen memenuhi persyaratan pelayanan.</li>
+                                                            <li>Pemerintah Kelurahan Sukapada dapat meminta klarifikasi atau dokumen tambahan apabila diperlukan.</li>
+                                                            <li>Permohonan dapat dikembalikan kepada pemohon apabila terdapat kekurangan data atau dokumen.</li>
+                                                            <li>Permohonan dapat ditunda sampai pemohon melengkapi persyaratan yang diperlukan.</li>
+                                                            <li>Permohonan dapat ditolak apabila tidak memenuhi ketentuan atau persyaratan yang berlaku.</li>
+                                                            <li>Pengajuan melalui sistem elektronik tidak secara otomatis berarti bahwa permohonan telah disetujui.</li>
+                                                            <li>Persetujuan atau penerbitan dokumen hanya dilakukan setelah proses pemeriksaan sesuai prosedur pelayanan selesai.</li>
+                                                        </ol>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">10. PENYIMPANAN DAN ARSIP DATA</h4>
+                                                        <ol class="list-decimal list-outside ml-5 space-y-2 leading-relaxed">
+                                                            <li>Data dan dokumen yang telah disampaikan dapat disimpan sebagai bagian dari administrasi pelayanan.</li>
+                                                            <li>Penyimpanan dilakukan sesuai dengan kebutuhan operasional, ketentuan kearsipan, serta ketentuan hukum yang berlaku.</li>
+                                                            <li>Data dapat tetap tercatat dalam arsip administrasi meskipun proses pelayanan telah selesai apabila terdapat kewajiban penyimpanan berdasarkan ketentuan yang berlaku.</li>
+                                                            <li>Pemohon memahami bahwa dokumen pelayanan dapat diperlukan kembali untuk keperluan administrasi, pemeriksaan, audit, pembuktian, atau pelayanan lanjutan yang sah.</li>
+                                                        </ol>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">11. PEMBATASAN TANGGUNG JAWAB PEMOHON</h4>
+                                                        <ol class="list-decimal list-outside ml-5 space-y-2 leading-relaxed">
+                                                            <li>Pemohon bertanggung jawab atas kebenaran data dan dokumen yang diberikan.</li>
+                                                            <li>Apabila pemohon dengan sengaja atau karena kelalaiannya memberikan informasi yang tidak benar, maka segala konsekuensi administratif dan/atau hukum yang timbul dapat menjadi tanggung jawab pemohon sesuai ketentuan yang berlaku.</li>
+                                                            <li>Pemerintah Kelurahan Sukapada tidak bertanggung jawab atas kerugian yang timbul semata-mata akibat data, dokumen, atau informasi yang diberikan pemohon ternyata tidak benar, tidak lengkap, palsu, atau tidak sah.</li>
+                                                            <li>Ketentuan mengenai tanggung jawab tersebut tetap tunduk pada batasan dan ketentuan tanggung jawab yang ditetapkan oleh peraturan perundang-undangan.</li>
+                                                            <li>Tidak ada ketentuan dalam persetujuan ini yang dimaksudkan untuk menghilangkan hak pemohon yang diberikan berdasarkan hukum yang berlaku.</li>
+                                                        </ol>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">12. GANGGUAN SISTEM DAN KEADAAN DI LUAR KENDALI</h4>
+                                                        <ol class="list-decimal list-outside ml-5 space-y-2 leading-relaxed">
+                                                            <li>Pelayanan elektronik dapat mengalami gangguan akibat pemeliharaan sistem, gangguan jaringan internet, gangguan pusat data, kegagalan perangkat, gangguan listrik, bencana, serangan siber, atau kondisi teknis lainnya.</li>
+                                                            <li>Dalam keadaan tersebut, proses pelayanan dapat mengalami keterlambatan.</li>
+                                                            <li>Pemerintah Kelurahan Sukapada akan melakukan upaya yang wajar untuk memulihkan pelayanan dalam waktu yang memungkinkan.</li>
+                                                            <li>Pemohon diharapkan tidak mengirimkan permohonan berulang kali apabila sistem sedang mengalami gangguan, kecuali terdapat instruksi dari petugas pelayanan.</li>
+                                                        </ol>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">13. LARANGAN PENYALAHGUNAAN SISTEM</h4>
+                                                        <p class="leading-relaxed mb-2">Pemohon dilarang menggunakan sistem pelayanan untuk:</p>
+                                                        <ol class="list-decimal list-outside ml-5 space-y-1 leading-relaxed">
+                                                            <li>Memasukkan data palsu.</li>
+                                                            <li>Mengunggah dokumen yang tidak sah.</li>
+                                                            <li>Menggunakan identitas orang lain tanpa hak.</li>
+                                                            <li>Mengakses data pengguna lain.</li>
+                                                            <li>Mencoba memperoleh akses ke bagian sistem yang tidak diperuntukkan bagi pemohon.</li>
+                                                            <li>Mengganggu kinerja sistem.</li>
+                                                            <li>Melakukan tindakan yang dapat merusak keamanan sistem.</li>
+                                                            <li>Menggunakan sistem untuk kegiatan yang bertentangan dengan hukum.</li>
+                                                            <li>Melakukan tindakan lain yang dapat menghambat penyelenggaraan pelayanan masyarakat.</li>
+                                                        </ol>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">14. PERNYATAAN PEMOHON</h4>
+                                                        <p class="leading-relaxed mb-2">Dengan melanjutkan proses pengajuan pelayanan, pemohon menyatakan bahwa:</p>
+                                                        <ol class="list-decimal list-outside ml-5 space-y-1 leading-relaxed">
+                                                            <li>Pemohon telah membaca ketentuan ini.</li>
+                                                            <li>Pemohon telah memperoleh kesempatan untuk memahami informasi yang disampaikan.</li>
+                                                            <li>Pemohon memahami tujuan penggunaan data yang diberikan.</li>
+                                                            <li>Pemohon memahami bahwa data tertentu diperlukan sebagai persyaratan pelayanan.</li>
+                                                            <li>Pemohon menyatakan bahwa data yang diberikan adalah benar.</li>
+                                                            <li>Pemohon menyatakan bahwa dokumen yang diberikan adalah sah dan dapat dipertanggungjawabkan.</li>
+                                                            <li>Pemohon memahami bahwa data dan dokumen dapat melalui proses verifikasi dan validasi.</li>
+                                                            <li>Pemohon memahami bahwa permohonan tidak otomatis disetujui hanya karena telah dikirim melalui sistem.</li>
+                                                            <li>Pemohon bersedia memberikan klarifikasi apabila diperlukan.</li>
+                                                            <li>Pemohon bersedia melengkapi dokumen apabila terdapat kekurangan.</li>
+                                                            <li>Pemohon memahami bahwa pemberian informasi palsu dapat menimbulkan konsekuensi administratif maupun hukum.</li>
+                                                            <li>Pemohon memahami ketentuan mengenai keamanan dan kerahasiaan data.</li>
+                                                            <li>Pemohon memahami bahwa sebagian data dapat disimpan sebagai arsip administrasi.</li>
+                                                            <li>Pemohon menyetujui pemrosesan data sepanjang dilakukan untuk kepentingan pelayanan dan sesuai dengan ketentuan yang berlaku.</li>
+                                                            <li>Pemohon bersedia mengikuti prosedur pelayanan Pemerintah Kelurahan Sukapada.</li>
+                                                        </ol>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">15. KETENTUAN MENGENAI PERUBAHAN DATA</h4>
+                                                        <ol class="list-decimal list-outside ml-5 space-y-2 leading-relaxed">
+                                                            <li>Apabila terdapat perubahan informasi yang relevan dengan proses pelayanan, pemohon wajib menyampaikan perubahan tersebut melalui mekanisme yang tersedia.</li>
+                                                            <li>Pemohon bertanggung jawab untuk memastikan bahwa informasi yang digunakan dalam proses pelayanan merupakan informasi yang terbaru dan benar.</li>
+                                                            <li>Pemerintah Kelurahan Sukapada dapat meminta pembaruan atau klarifikasi data apabila diperlukan untuk memastikan kesesuaian administrasi.</li>
+                                                        </ol>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">16. PENGADUAN DAN KLARIFIKASI</h4>
+                                                        <ol class="list-decimal list-outside ml-5 space-y-2 leading-relaxed">
+                                                            <li>Pemohon dapat menyampaikan pertanyaan, klarifikasi, atau pengaduan melalui saluran pelayanan resmi yang disediakan oleh Pemerintah Kelurahan Sukapada.</li>
+                                                            <li>Pengaduan akan ditangani sesuai dengan mekanisme dan prosedur pelayanan yang berlaku.</li>
+                                                            <li>Pemohon diharapkan memberikan informasi yang lengkap ketika menyampaikan pengaduan agar proses pemeriksaan dapat dilakukan secara efektif.</li>
+                                                            <li>Pengaduan yang berkaitan dengan keamanan data akan ditangani dengan memperhatikan aspek kerahasiaan dan perlindungan informasi.</li>
+                                                        </ol>
+                                                    </div>
+
+                                                    <div>
+                                                        <h4 class="font-bold text-gray-900 mb-2 text-base">17. KETENTUAN PENUTUP</h4>
+                                                        <ol class="list-decimal list-outside ml-5 space-y-2 leading-relaxed">
+                                                            <li>Ketentuan ini merupakan bagian dari proses pelayanan administrasi digital Pemerintah Kelurahan Sukapada.</li>
+                                                            <li>Dengan mencentang kotak persetujuan, pemohon menyatakan telah membaca, memahami, dan menyetujui ketentuan yang tercantum dalam dokumen ini.</li>
+                                                            <li>Apabila terdapat ketentuan dalam dokumen ini yang kemudian dinyatakan tidak berlaku berdasarkan ketentuan hukum, ketentuan lainnya tetap berlaku sepanjang tidak bertentangan dengan peraturan perundang-undangan.</li>
+                                                            <li>Pemerintah Kelurahan Sukapada dapat melakukan penyesuaian terhadap ketentuan pelayanan apabila terdapat perubahan prosedur, sistem, kebijakan administrasi, atau ketentuan peraturan perundang-undangan.</li>
+                                                            <li>Setiap perubahan ketentuan yang bersifat material akan disampaikan melalui media atau sistem pelayanan yang sesuai.</li>
+                                                            <li>Hal-hal yang belum diatur secara khusus dalam ketentuan ini akan mengikuti prosedur pelayanan dan ketentuan peraturan perundang-undangan yang berlaku.</li>
+                                                        </ol>
+                                                    </div>
+                                                    
+                                                    <div class="pt-6 border-t border-gray-200">
+                                                        <h4 class="font-bold text-gray-900 mb-4 text-base text-center">PERNYATAAN PERSETUJUAN PEMOHON</h4>
+                                                        <div class="space-y-4">
+                                                            <p class="leading-relaxed font-medium">Dengan mencentang kotak di bawah ini, saya menyatakan bahwa saya telah membaca, memahami, dan menyetujui seluruh ketentuan mengenai penggunaan data pribadi, keabsahan dokumen, proses verifikasi dan validasi, keamanan informasi, penyimpanan arsip, kewajiban pemohon, serta ketentuan pengajuan pelayanan administrasi Pemerintah Kelurahan Sukapada.</p>
+                                                            <p class="leading-relaxed font-medium">Saya menyatakan bahwa seluruh data, informasi, dan dokumen yang saya berikan adalah benar, lengkap, sah, tidak dimanipulasi, dan dapat dipertanggungjawabkan. Saya memahami bahwa Pemerintah Kelurahan Sukapada dapat melakukan pemeriksaan, verifikasi, validasi, pencatatan, penyimpanan, dan pemrosesan data yang saya berikan sepanjang diperlukan untuk penyelenggaraan pelayanan administrasi dan sesuai dengan ketentuan peraturan perundang-undangan yang berlaku.</p>
+                                                            <p class="leading-relaxed font-medium">Saya juga memahami bahwa pemberian data atau dokumen yang tidak benar, tidak lengkap, palsu, atau diperoleh tanpa hak dapat menyebabkan permohonan tidak dapat diproses serta dapat menimbulkan konsekuensi administratif dan/atau hukum sesuai dengan ketentuan yang berlaku.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="mt-8 bg-gray-50 -mx-6 -mb-6 px-6 py-5 sm:px-8 sm:py-6 border-t border-gray-100">
-                                        <label class="flex items-start gap-4 cursor-pointer group">
+                                    <div class="mt-8 bg-gray-50 -mx-5 -mb-6 px-5 py-5 sm:px-8 sm:py-6 border-t border-gray-100">
+                                        <label class="flex items-start gap-4" :class="hasScrolledToBottom ? 'cursor-pointer group' : 'cursor-not-allowed opacity-60'">
                                             <div class="flex items-center h-6 mt-0.5">
-                                                <input type="checkbox" x-model="agreed" class="w-5 h-5 text-primary-600 bg-white border-gray-300 rounded focus:ring-primary-500 focus:ring-offset-gray-50 cursor-pointer transition-colors shadow-sm">
+                                                <input type="checkbox" x-model="agreed" :disabled="!hasScrolledToBottom" class="w-5 h-5 text-primary-600 bg-white border-gray-300 rounded focus:ring-primary-500 focus:ring-offset-gray-50 transition-colors shadow-sm" :class="hasScrolledToBottom ? 'cursor-pointer' : 'cursor-not-allowed'">
                                             </div>
                                             <div class="text-sm">
-                                                <span class="font-bold text-gray-900 group-hover:text-primary-600 transition-colors">Saya telah membaca, memahami, dan menyetujui ketentuan di atas.</span>
-                                                <p class="text-gray-500 mt-1 leading-relaxed">Dengan mencentang kotak ini, saya bersedia melanjutkan proses pengajuan surat dengan data yang sebenarnya.</p>
+                                                <span class="font-bold text-gray-900 transition-colors" :class="hasScrolledToBottom ? 'group-hover:text-primary-600' : ''">Saya telah membaca, memahami, dan menyetujui ketentuan di atas.</span>
+                                                <p class="text-gray-500 mt-1 leading-relaxed" x-show="hasScrolledToBottom">Dengan mencentang kotak ini, saya bersedia melanjutkan proses pengajuan surat dengan data yang sebenarnya.</p>
+                                                <p class="text-red-500 mt-1 font-semibold leading-relaxed" x-show="!hasScrolledToBottom">
+                                                    <svg class="w-4 h-4 inline-block mr-1 -mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                                                    Silakan gulir (scroll) isi persyaratan di atas sampai ke paling bawah untuk mengaktifkan persetujuan.
+                                                </p>
                                             </div>
                                         </label>
                                         
@@ -377,9 +635,9 @@
                                                 Batal
                                             </button>
                                             <button type="button" 
-                                                    :disabled="!agreed || isSubmitting"
-                                                    :class="{ 'opacity-50 cursor-not-allowed': !agreed || isSubmitting, 'hover:bg-primary-700 shadow-lg shadow-primary-500/30 hover:-translate-y-0.5': agreed && !isSubmitting }"
-                                                    @click="if(agreed && !isSubmitting) { isSubmitting = true; showModal = false; document.getElementById('form-pengajuan').submit(); }"
+                                                    :disabled="!agreed || isSubmitting || !hasScrolledToBottom"
+                                                    :class="{ 'opacity-50 cursor-not-allowed': !agreed || isSubmitting || !hasScrolledToBottom, 'hover:bg-primary-700 shadow-lg shadow-primary-500/30 hover:-translate-y-0.5': agreed && !isSubmitting && hasScrolledToBottom }"
+                                                    @click="if(agreed && !isSubmitting && hasScrolledToBottom) { isSubmitting = true; showModal = false; document.getElementById('form-pengajuan').submit(); }"
                                                     class="w-full inline-flex justify-center items-center rounded-xl border border-transparent px-6 py-3 bg-primary-600 text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:w-auto transition-all">
                                                 Lanjutkan & Kirim
                                             </button>
