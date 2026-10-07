@@ -127,6 +127,14 @@ class AdminLetterRequestController extends Controller
                     $templateProcessor->setValue($key . '_raw', (string)$value);
                     $templateProcessor->setValue($key . '_rp', 'Rp ' . $formattedCurrency);
                 } else {
+                    if (in_array(strtolower($key), ['rt', 'rw'])) {
+                        $rawVal = str_pad((int)$value, 3, '0', STR_PAD_LEFT);
+                        $formattedVal = strtoupper($key) . ' ' . $rawVal;
+                        $templateProcessor->setValue($key, $formattedVal);
+                        $templateProcessor->setValue($key . '_raw', $rawVal);
+                        continue;
+                    }
+
                     // Jangan konversi huruf kecil agar sesuai persis dengan case-sensitive dari template Word
                     // (misal ${alamat_lengkap_sesuai_KTP} butuh key alamat_lengkap_sesuai_KTP)
                     $templateProcessor->setValue($key, strtoupper($value));
@@ -155,11 +163,11 @@ class AdminLetterRequestController extends Controller
         // Format RT/RW (misal: 005 / 001)
         $rt = str_pad($letterRequest->user->rt, 3, '0', STR_PAD_LEFT);
         $rw = str_pad($letterRequest->user->rw, 3, '0', STR_PAD_LEFT);
-        $templateProcessor->setValue('rt', 'RT.' . $rt);
-        $templateProcessor->setValue('rw', 'RW.' . $rw);
+        $templateProcessor->setValue('rt', 'RT ' . $rt);
+        $templateProcessor->setValue('rw', 'RW ' . $rw);
         $templateProcessor->setValue('rt_raw', $rt); // Jika hanya butuh angkanya saja
         $templateProcessor->setValue('rw_raw', $rw);
-        $templateProcessor->setValue('alamat_lengkap', strtoupper($letterRequest->user->address . ' RT.' . $rt . ' RW.' . $rw));
+        $templateProcessor->setValue('alamat_lengkap', strtoupper($letterRequest->user->address . ' RT ' . $rt . ' RW ' . $rw));
 
         // Logika Status Janda/Duda berdasarkan Jenis Kelamin
         $jandaDuda = '';
