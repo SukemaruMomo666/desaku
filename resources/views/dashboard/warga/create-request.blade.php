@@ -3,7 +3,7 @@
 @section('header_title', 'Ajukan Surat Baru')
 
 @section('content')
-<div class="max-w-4xl mx-auto space-y-6" x-data="{ isSubmitting: false, showModal: false, agreed: false, hasScrolledToBottom: false }">
+<div class="max-w-4xl mx-auto space-y-6" x-data="{ isSubmitting: false, showModal: false, agreed: false, hasScrolledToBottom: false, showAlert: false }">
 
     <!-- Header Actions -->
     <div class="flex items-center justify-between">
@@ -614,17 +614,32 @@
                                         </div>
                                     </div>
                                     <div class="mt-8 bg-gray-50 -mx-5 -mb-6 px-5 py-5 sm:px-8 sm:py-6 border-t border-gray-100">
-                                        <label class="flex items-start gap-4" :class="hasScrolledToBottom ? 'cursor-pointer group' : 'cursor-not-allowed opacity-60'">
+                                        
+                                        <!-- Alert Message -->
+                                        <div x-show="showAlert" 
+                                             x-transition:enter="transition ease-out duration-300"
+                                             x-transition:enter-start="opacity-0 transform -translate-y-2"
+                                             x-transition:enter-end="opacity-100 transform translate-y-0"
+                                             x-transition:leave="transition ease-in duration-200"
+                                             x-transition:leave-start="opacity-100 transform translate-y-0"
+                                             x-transition:leave-end="opacity-0 transform -translate-y-2"
+                                             class="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl flex items-start gap-3">
+                                            <svg class="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                            <div class="text-sm font-medium">
+                                                Silakan gulir (scroll) dokumen persyaratan di atas sampai ke paling bawah terlebih dahulu sebelum menyetujui.
+                                            </div>
+                                        </div>
+
+                                        <label class="flex items-start gap-4" :class="hasScrolledToBottom ? 'cursor-pointer group' : 'cursor-pointer'">
                                             <div class="flex items-center h-6 mt-0.5">
-                                                <input type="checkbox" x-model="agreed" :disabled="!hasScrolledToBottom" class="w-5 h-5 text-primary-600 bg-white border-gray-300 rounded focus:ring-primary-500 focus:ring-offset-gray-50 transition-colors shadow-sm" :class="hasScrolledToBottom ? 'cursor-pointer' : 'cursor-not-allowed'">
+                                                <input type="checkbox" 
+                                                       x-model="agreed" 
+                                                       @click="if(!hasScrolledToBottom) { $event.preventDefault(); showAlert = true; setTimeout(() => showAlert = false, 4000); }"
+                                                       class="w-5 h-5 text-primary-600 bg-white border-gray-300 rounded focus:ring-primary-500 focus:ring-offset-gray-50 transition-colors shadow-sm cursor-pointer">
                                             </div>
                                             <div class="text-sm">
                                                 <span class="font-bold text-gray-900 transition-colors" :class="hasScrolledToBottom ? 'group-hover:text-primary-600' : ''">Saya telah membaca, memahami, dan menyetujui ketentuan di atas.</span>
-                                                <p class="text-gray-500 mt-1 leading-relaxed" x-show="hasScrolledToBottom">Dengan mencentang kotak ini, saya bersedia melanjutkan proses pengajuan surat dengan data yang sebenarnya.</p>
-                                                <p class="text-red-500 mt-1 font-semibold leading-relaxed" x-show="!hasScrolledToBottom">
-                                                    <svg class="w-4 h-4 inline-block mr-1 -mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                                                    Silakan gulir (scroll) isi persyaratan di atas sampai ke paling bawah untuk mengaktifkan persetujuan.
-                                                </p>
+                                                <p class="text-gray-500 mt-1 leading-relaxed">Dengan mencentang kotak ini, saya bersedia melanjutkan proses pengajuan surat dengan data yang sebenarnya.</p>
                                             </div>
                                         </label>
                                         
