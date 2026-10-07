@@ -74,7 +74,9 @@
                         <p class="text-sm text-gray-500 mt-1">Isi formulir di bawah ini dengan sebenar-benarnya untuk {{ $selectedType->name }}.</p>
                     </div>
                     
-                    <form x-data="{ isSubmitting: false }" @submit="isSubmitting = true" action="{{ route('citizen.request.store') }}" method="POST" enctype="multipart/form-data" class="p-6 sm:p-8 space-y-6">
+                    <form x-data="{ isSubmitting: false, showModal: false, agreed: false }" 
+                          @submit.prevent="if(agreed) { isSubmitting = true; $el.submit(); } else { showModal = true; }" 
+                          action="{{ route('citizen.request.store') }}" method="POST" enctype="multipart/form-data" class="p-6 sm:p-8 space-y-6">
                         @csrf
                         <input type="hidden" name="letter_type_id" value="{{ $selectedType->id }}">
                         
@@ -294,6 +296,75 @@
                                 </div>
                             </div>
                         @endif
+
+                        <!-- Modal Persetujuan Data Pribadi -->
+                        <div x-show="showModal" style="display: none;" class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                                <!-- Background overlay -->
+                                <div x-show="showModal" 
+                                     x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" 
+                                     x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" 
+                                     class="fixed inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-sm transition-opacity" aria-hidden="true"></div>
+
+                                <!-- This element is to trick the browser into centering the modal contents. -->
+                                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+                                <!-- Modal panel -->
+                                <div x-show="showModal" 
+                                     @click.away="showModal = false"
+                                     x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" 
+                                     x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" 
+                                     class="inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl w-full border border-gray-100">
+                                    <div class="bg-white px-6 pt-6 pb-6 sm:p-8">
+                                        <div class="sm:flex sm:items-start">
+                                            <div class="mx-auto flex-shrink-0 flex items-center justify-center h-14 w-14 rounded-full bg-blue-50 border border-blue-100 sm:mx-0 sm:h-12 sm:w-12">
+                                                <svg class="h-6 w-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                            </div>
+                                            <div class="mt-4 text-center sm:mt-0 sm:ml-5 sm:text-left">
+                                                <h3 class="text-xl leading-6 font-bold text-gray-900" id="modal-title">
+                                                    Persetujuan Penggunaan Data
+                                                </h3>
+                                                <div class="mt-4 space-y-4 text-sm text-gray-600 max-h-64 overflow-y-auto pr-2" style="scrollbar-width: thin;">
+                                                    <p class="leading-relaxed">Pemerintah Kelurahan Sukapada berkomitmen penuh dalam melindungi kerahasiaan dan keamanan data pribadi Anda sesuai dengan ketentuan perundang-undangan yang berlaku di Indonesia.</p>
+                                                    <ul class="list-disc list-outside ml-4 space-y-2 leading-relaxed">
+                                                        <li><strong class="text-gray-900">Tujuan Penggunaan:</strong> Seluruh dokumen dan data pribadi yang Anda unggah hanya akan digunakan secara eksklusif untuk keperluan verifikasi dan proses administrasi pelayanan surat ini.</li>
+                                                        <li><strong class="text-gray-900">Keamanan & Kerahasiaan:</strong> Kami menerapkan standar keamanan sistem untuk melindungi data Anda. Data Anda tidak akan disebarluaskan, diperjualbelikan, atau dibagikan kepada pihak ketiga di luar kepentingan pelayanan Kelurahan.</li>
+                                                        <li><strong class="text-gray-900">Keabsahan Dokumen:</strong> Anda menjamin sepenuhnya bahwa seluruh dokumen dan data yang diserahkan adalah benar, asli, dan sah secara hukum.</li>
+                                                        <li><strong class="text-gray-900">Pelepasan Tuntutan:</strong> Segala bentuk pemalsuan data, manipulasi dokumen, maupun kebocoran yang murni diakibatkan oleh kelalaian pihak Anda sendiri, sepenuhnya berada di luar tanggung jawab kami. Dengan menyetujui ketentuan ini, Anda membebaskan Pemerintah Kelurahan Sukapada dari segala tuntutan hukum atau ganti rugi atas risiko tersebut.</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-8 bg-gray-50 -mx-6 -mb-6 px-6 py-5 sm:px-8 sm:py-6 border-t border-gray-100">
+                                            <label class="flex items-start gap-4 cursor-pointer group">
+                                                <div class="flex items-center h-6 mt-0.5">
+                                                    <input type="checkbox" x-model="agreed" class="w-5 h-5 text-primary-600 bg-white border-gray-300 rounded focus:ring-primary-500 focus:ring-offset-gray-50 cursor-pointer transition-colors shadow-sm">
+                                                </div>
+                                                <div class="text-sm">
+                                                    <span class="font-bold text-gray-900 group-hover:text-primary-600 transition-colors">Saya telah membaca, memahami, dan menyetujui ketentuan di atas.</span>
+                                                    <p class="text-gray-500 mt-1 leading-relaxed">Dengan mencentang kotak ini, saya bersedia melanjutkan proses pengajuan surat dengan data yang sebenarnya.</p>
+                                                </div>
+                                            </label>
+                                            
+                                            <div class="mt-6 flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
+                                                <button type="button" 
+                                                        @click="showModal = false"
+                                                        class="w-full inline-flex justify-center items-center rounded-xl border border-gray-300 shadow-sm px-6 py-3 bg-white text-sm font-bold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:w-auto transition-all">
+                                                    Batal
+                                                </button>
+                                                <button type="button" 
+                                                        :disabled="!agreed || isSubmitting"
+                                                        :class="{ 'opacity-50 cursor-not-allowed': !agreed || isSubmitting, 'hover:bg-primary-700 shadow-lg shadow-primary-500/30 hover:-translate-y-0.5': agreed && !isSubmitting }"
+                                                        @click="if(agreed && !isSubmitting) { isSubmitting = true; showModal = false; $el.closest('form').submit(); }"
+                                                        class="w-full inline-flex justify-center items-center rounded-xl border border-transparent px-6 py-3 bg-primary-600 text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 sm:w-auto transition-all">
+                                                    Lanjutkan & Kirim
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="pt-6">
                             <button type="submit" 
